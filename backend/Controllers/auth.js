@@ -19,12 +19,12 @@ const {
 
 /**
  * @description To register a new User
- * @route POST /api/register
+ * @route POST /api/auth/register
+ * @route POST /api/auth/admin/register
  * @access Public
  */
 
 module.exports.register = async (req, res) => {
-
     try {
         // Validate the request body
         const { error } = SignupSchema(req.body);
@@ -34,9 +34,9 @@ module.exports.register = async (req, res) => {
         var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         var email = req.body.email;
         if (!email.match(mailFormat))
-            return res.status(400).json({ msg: "Invalid Emaill" });
+            return res.status(400).json({ msg: "Invalid Email" });
 
-        // Check if customer already exists
+        // Check if user already exists
         const existingUser = await userModel.findOne({ email: email });
         if (existingUser) {
             return res.status(400).json({ msg: "Email already exists" });
@@ -46,38 +46,44 @@ module.exports.register = async (req, res) => {
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(req.body.password, salt);
 
-        // Generate the OTP
-        const otp = generateOTP.generateCode();
-
-
-
-        // Create a new customer by payload
-        const newUser = new userModel({
+        // Create a base user object
+        let userObject = {
             name: req.body.name,
             email: req.body.email,
             password: passwordHash,
             phone: req.body.phone,
             userType: req.body.userType,
-            verificationCode: otp,
-            otpLastSentTime: dayjs().valueOf(),
+        };
+
+        // Modify object based on user type
+        if (req.body.userType === 'admin') {
+            // Set isVerified to true for admin
+            userObject.isVerified = true;
+        } else {
+            // Generate and add OTP for non-admin users
+            const otp = generateOTP.generateCode();
+            userObject.verificationCode = otp;
+            userObject.otpLastSentTime = dayjs().valueOf();
+
+            // Send the OTP to the email
+            await sendEmail.sendVerificationEmail(email, otp);
+        }
+
+        // Create and save the new user
+        const newUser = new userModel(userObject);
+        const savedUser = await newUser.save();
+        res.status(200).json({
+            msg: "User registered",
+            id: savedUser._id,
+            status: true
         });
 
-        //send the OTP to the email
-
-        await sendEmail.sendVerificationEmail(email, otp);
-        const savedUser = await newUser.save();
-        res.status(200).json(
-            {
-                msg: "User registered",
-                id: savedUser._id,
-                status: true
-            }
-        );
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: error.message });
     }
 }
+
 
 /**
  * @description To verify the email of a user
@@ -196,6 +202,7 @@ module.exports.resendOTP = async (req, res) => {
 /**
  * @description To login a customer
  * @route POST /api/auth/customer/login
+ * @route POST /api/auth/admin/login
  * @access Public
  */
 
@@ -230,7 +237,9 @@ module.exports.login = async (req, res) => {
             sameSite: "none",
         })
             .status(200)
-            .json({ msg: "Logged in", status: true });
+            .json({ msg: "Logged in",
+             type: existingUser.userType,
+             status: true });
 
     } catch (error) {
         console.log(error);
