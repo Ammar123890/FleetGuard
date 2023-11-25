@@ -8,7 +8,6 @@ const truckSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer",
-        default: null,
     },
 });
 

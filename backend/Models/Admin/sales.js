@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-const purchaseSchema = new mongoose.Schema({
-    dashcam: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Dashcam",
-        default: null,
-    }],
+const salesSchema = new mongoose.Schema({
+    dashcam: {
+        type: String,
+        required: true
+    },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer",
@@ -19,10 +18,14 @@ const purchaseSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    quantity: {
+        type: Number,
+        required: true,
+    }
 },
     {
         timestamps: true,
     }
 );
 
-module.exports = mongoose.model("Purchase", purchaseSchema);
+module.exports = mongoose.model("Sales", salesSchema);
