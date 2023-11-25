@@ -1,7 +1,9 @@
 const userModel = require('../Models/user');
+const adminModel = require('../Models/Admin/admin');
+const customerModel = require('../Models/Customer/customer');
 
 
-const { SignupSchema, LoginSchema } = require('../Schemas/auth');
+const { SignupSchema, LoginSchema, CustomerSchema } = require('../Schemas/auth');
 
 const generateToken = require('../Utils/generateToken');
 const generateOTP = require('../Utils/generateOTP');
@@ -48,10 +50,8 @@ module.exports.register = async (req, res) => {
 
         // Create a base user object
         let userObject = {
-            name: req.body.name,
             email: req.body.email,
             password: passwordHash,
-            phone: req.body.phone,
             userType: req.body.userType,
         };
 
@@ -59,6 +59,7 @@ module.exports.register = async (req, res) => {
         if (req.body.userType === 'admin') {
             // Set isVerified to true for admin
             userObject.isVerified = true;
+
         } else {
             // Generate and add OTP for non-admin users
             const otp = generateOTP.generateCode();
@@ -237,12 +238,164 @@ module.exports.login = async (req, res) => {
             sameSite: "none",
         })
             .status(200)
-            .json({ msg: "Logged in",
-             type: existingUser.userType,
-             status: true });
+            .json({
+                msg: "Logged in",
+                type: existingUser.userType,
+                status: true
+            });
 
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: error.message });
     }
 }
+
+/**
+ * @description To logout a user
+ * @route GET /api/auth/logout
+ * @access Private
+ */
+
+module.exports.logout = async (req, res) => {
+    try {
+        res.cookie("token", "", {
+            httpOnly: true,
+            expires: new Date(0),
+            secure: true,
+            sameSite: "none",
+        })
+            .status(200)
+            .json({ msg: "Logged out", status: true });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ errors: error });
+    }
+}
+
+/**
+ * @description To add the admin role
+ * @route POST /api/auth/admin/addrole
+ * @access Private
+ */
+
+module.exports.addAdminRole = async (req, res) => {
+    const { role, email } = req.body;
+
+    if (!role || !email) {
+        return res.status(400).json({
+            message: "Role and email are required to add an admin role."
+        });
+    }
+
+    try {
+        // Create and save the new admin role
+        const admin = new adminModel({ role });
+        const savedAdmin = await admin.save();
+
+        // Find the user by email and update with the new admin role
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found with the provided email."
+            });
+        }
+
+        user.user = savedAdmin._id; // Set the user's role to the new admin role
+        await user.save();
+
+        res.status(200).json({
+            message: "Admin role added successfully.",
+            adminId: savedAdmin._id,
+        });
+    } catch (error) {
+        // Log the error internally
+        console.error("Failed to add admin role:", error);
+
+        // Respond with a user-friendly message
+        res.status(500).json({
+            message: "An error occurred while adding the admin role. Please try again."
+        });
+    }
+};
+
+
+/**
+ * @description To add the customer details
+ * @route POST /api/auth/customer/adddetails
+ * @access Private
+ */
+
+
+module.exports.addCustomerDetails = async (req, res) => {
+    try {
+        // Validate the request body
+        const { error } = CustomerSchema(req.body);
+        if (error)
+            return res.status(400).json({ msg: error.details[0].message });
+
+        // Create and save the new customer details
+        const customer = new customerModel(req.body);
+        const savedCustomer = await customer.save();
+
+        req.user.user = savedCustomer._id; // Set the user's details to the new customer details
+        await req.user.save();
+
+        res.status(200).json({
+            message: "Customer details added successfully.",
+            userId: req.user._id,
+        });
+    } catch (error) {
+        // Log the error internally
+        console.error("Failed to add customer details:", error);
+
+        // Respond with a user-friendly message
+        res.status(500).json({
+            message: "An error occurred while adding the customer details. Please try again."
+        });
+    }
+};
+
+/**
+ * @description To get the customer details
+ * @route GET /api/auth/customer/getdetails
+ * @access Private
+ */
+
+module.exports.getCustomerDetails = async (req, res) => {
+    try {
+        const customer = await customerModel.findById(req.user.user);
+        res.status(200).json({
+            customer,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+/**
+ * @description To edit the customer details
+ * @route PUT /api/auth/customer/editdetails
+ * @access Private
+ */
+
+module.exports.editCustomerDetails = async (req, res) => {
+    try {
+        const customer = await customerModel.findById(req.user.user);
+        if (!customer) {
+            return res.status(400).json({
+                message: "Customer not found"
+            });
+        }
+        await customerModel.updateOne({ _id: customer._id }, req.body);
+        return res.status(200).json({
+            message: "Customer details updated successfully."
+        });
+    } catch (error) {
+        console.error("Failed to edit customer details:", error);
+        return res.status(500).json({
+            message: "An error occurred while editing the customer details. Please try again."
+        });
+    }
+}
+

@@ -1,7 +1,7 @@
 const dashcamModel = require('../../Models/Admin/stock');
 
 //schema validation
-const { stock } = require('../../Schemas/dashcam');
+const { ValidateStock } = require('../../Schemas/dashcam');
 
 /** 
  * @description To add a dashcam
@@ -10,7 +10,7 @@ const { stock } = require('../../Schemas/dashcam');
 */
 
 module.exports.addDashcamModel = async (req, res) => {
-    const { error } = stock(req.body);
+    const { error } = ValidateStock(req.body);
     if (error) {
         return res.status(400).json({ errors: error });
     }
@@ -52,7 +52,7 @@ module.exports.getDashcamModels = async (req, res) => {
  */
 
 module.exports.editDashcam = async (req, res) => {
-    const { error } = stock(req.body);
+    const { error } =  ValidateStock(req.body);
     if (error) {
         return res.status(400).json({ errors: error });
     }

@@ -54,3 +54,23 @@ module.exports.purchaseDashcam = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 };
+
+/**
+ * @description To get own dashcams
+ * @route GET /api/customer/dashcam/getdashcams
+ * @access Customer
+ */
+
+module.exports.getDashcams = async (req, res) => {
+    try {
+        const dashcams = await dashcamModel.find({ assignedTo: req.user._id });
+        return res.status(200).json({
+            dashcams,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+

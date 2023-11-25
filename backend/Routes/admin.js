@@ -20,10 +20,10 @@ const {
 //paths
 router.use(adminMiddleware)
 router.post('/dashcam/add', addDashcamModel);
-router.get('/dashcam/getModels', getDashcamModels);
+router.get('/dashcam/get', getDashcamModels);
 router.put('/dashcam/edit/:id', editDashcam);
 
-router.get('/sales/getSalesData', getSalesData)
+router.get('/sales/get', getSalesData)
 
 
 module.exports = router;

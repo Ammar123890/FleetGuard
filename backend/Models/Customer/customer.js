@@ -1,30 +1,34 @@
 const mongoose = require("mongoose");
 
 const customerSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: {
+
+    profilPic: {
         type: String,
-        max: 50,
-        unique: true,
+        default: null,
+    },
+    name: {
+        type: String,
         required: true,
-        index: true
     },
-    password: {
+    companyName: {
         type: String,
-        minlength: [6, "Password must be at least 6 characters"],
-        maxlength: [1024, "Password cannot exceed 1024 characters"],
-        select: false,
+        required: true,
     },
-    phone: { type: String, required: true },
-    companyName: String,
-    companyAddress: String,
-    companyEmail: {
+    phone: {
         type: String,
-        unique: true,
-        index: true
+        required: true,
     },
-    ownedDevices: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Device",
-    }],
-});
+    location: {
+        country: String,
+        address: String,
+        city: String,
+    },
+
+}
+    ,
+    {
+        timestamps: true,
+    }
+);
+
+module.exports = mongoose.model("Customer", customerSchema);
