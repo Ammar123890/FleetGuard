@@ -33,6 +33,14 @@ const driverSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    bookings: [{
+        pickupDate: Date,
+        deliveryDate: Date
+    }],
+    availability: {
+        type: Boolean,
+        default: true,
+    },
 },
     {
         timestamps: true,

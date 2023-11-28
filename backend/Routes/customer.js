@@ -15,7 +15,8 @@ const {
 const {
    addTruck,
    getTrucks,
-   editTruck
+   editTruck,
+   getAvailableTrucks
 
 } = require('../Controllers/Customer/truck');
 
@@ -24,8 +25,18 @@ const {
 const {
     addDriver,
     getDrivers,
-    editDriver
+    editDriver,
+    getAvailableDrivers
 } = require('../Controllers/Customer/driver');
+
+//controllers for shipment
+const{
+    addShipment,
+    getShipments,
+    startShipment,
+    endShipment
+} = require('../Controllers/Customer/shipment');
+
 
 
 router.use(customerMiddleware)
@@ -40,11 +51,18 @@ router.get('/dashcam/get', getDashcams);
 router.post('/truck/add', addTruck);
 router.get('/truck/get', getTrucks);
 router.put('/truck/edit/:id', editTruck);
+router.get('/truck/available', getAvailableTrucks);
 
 //paths for drivers
 
 router.post('/driver/add', addDriver);
 router.get('/driver/get', getDrivers);
 router.put('/driver/edit/:id', editDriver);
+router.get('/driver/available', getAvailableDrivers);
+
+//paths for shipment
+router.post('/shipment/add', addShipment);
+router.get('/shipment/get', getShipments);
+router.put('/shipment/start/:id', startShipment);
 
 module.exports = router;

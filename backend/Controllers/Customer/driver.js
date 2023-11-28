@@ -82,3 +82,39 @@ module.exports.editDriver = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 }
+
+/**
+ * @description Get available drivers
+ * @route GET /api/customer/driver/available
+ * @access Customer
+ */
+
+module.exports.getAvailableDrivers = async (req, res) => {
+    const { shipmentPickDate, shipmentDeliveryDate } = req.body;
+
+    // Parse the string dates to Date objects
+    const parsedShipmentPickDate = new Date(shipmentPickDate);
+    const parsedShipmentDeliveryDate = new Date(shipmentDeliveryDate);
+
+    try {
+        // Find drivers that are not booked during the given time frame
+        const availableDrivers = await driverModel.find({
+            bookings: {
+                $not: {
+                    $elemMatch: {
+                        pickupDate: { $lt: parsedShipmentDeliveryDate },
+                        deliveryDate: { $gt: parsedShipmentPickDate }
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({ availableDrivers });
+    } catch (error) {
+        // Log the error for debugging
+        console.error('Error fetching available drivers:', error);
+        return res.status(500).json({ errors: error.message });
+    }
+};
+
+

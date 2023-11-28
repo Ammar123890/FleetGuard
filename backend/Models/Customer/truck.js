@@ -9,6 +9,17 @@ const truckSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer",
     },
+    weightCapacity: { type: Number, required: true },
+    areaCapacity: { type: Number, required: true },
+    bookings: [{
+        pickupDate: Date,
+        deliveryDate: Date
+    }],
+    availability: {
+        type: Boolean,
+        default: true,
+    }
+
 });
 
 module.exports = mongoose.model("Truck", truckSchema);
