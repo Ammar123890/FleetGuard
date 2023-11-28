@@ -20,7 +20,16 @@ const TruckSchema = Joi.object({
         'string.empty': `"registration" cannot be an empty field`,
         'any.required': `"registration" is a required field`
     }),
-    // The owner field is omitted here assuming it's set internally and not through input validation
+    weightCapacity: Joi.number().integer().min(1).required().messages({
+        'number.base': `"weightCapacity" should be a number`,
+        'number.min': `"weightCapacity" should be a positive number`,
+        'any.required': `"weightCapacity" is a required field`
+    }),
+    areaCapacity: Joi.number().integer().min(1).required().messages({
+        'number.base': `"areaRequirement" should be a number`,
+        'number.min': `"areaRequirement" should be a positive number`,
+        'any.required': `"areaRequirement" is a required field`
+    }),
 }).options({ abortEarly: false, allowUnknown: false });
 
 module.exports.ValidateTruck = (payload) => {

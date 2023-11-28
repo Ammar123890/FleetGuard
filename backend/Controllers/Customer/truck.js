@@ -90,3 +90,51 @@ module.exports.editTruck = async (req, res) => {
 };
 
 
+
+/**
+ * @description Get all available trucks
+ * @route GET /api/customer/truck/available
+ * @access Customer
+ */
+
+module.exports.getAvailableTrucks = async (req, res) => {
+    const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate } = req.body;
+
+    // Parse the string dates to Date objects
+    const parsedShipmentPickDate = new Date(shipmentPickDate);
+    const parsedShipmentDeliveryDate = new Date(shipmentDeliveryDate);
+
+    try {
+        // Find trucks that have the required capacity and are not booked during the given time frame
+        const availableTrucks = await truckModel.find({
+            weightCapacity: { $gte: shipmentWeight },
+            areaCapacity: { $gte: shipmentArea },
+            bookings: {
+                $not: {
+                    $elemMatch: {
+                        pickupDate: { $lt: parsedShipmentDeliveryDate },
+                        deliveryDate: { $gt: parsedShipmentPickDate }
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({ availableTrucks });
+    } catch (error) {
+        // Log the error for debugging
+        console.error('Error fetching available trucks:', error);
+        return res.status(500).json({ errors: error.message });
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+

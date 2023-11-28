@@ -231,18 +231,28 @@ module.exports.login = async (req, res) => {
         // Sign the token
         const token = generateToken(existingUser._id);
 
+
+
+        res.status(200).json({
+            msg: "Logged in",
+            type: existingUser.userType,
+            status: true,
+            token: token
+        });
+
         // Send the token in cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-        })
-            .status(200)
-            .json({
-                msg: "Logged in",
-                type: existingUser.userType,
-                status: true
-            });
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //  //   secure: true,
+        //     sameSite: "none",
+            
+        // })
+        //     .status(200)
+        //     .json({
+        //         msg: "Logged in",
+        //         type: existingUser.userType,
+        //         status: true
+        //     });
 
     } catch (error) {
         console.log(error);

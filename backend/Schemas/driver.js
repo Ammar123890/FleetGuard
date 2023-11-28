@@ -6,8 +6,8 @@ const DriverSchema = Joi.object({
         'string.empty': `"name" cannot be an empty field`,
         'any.required': `"name" is a required field`
     }),
-    phone: Joi.string().trim().pattern(new RegExp('^[0-9]{10,15}$')).required().messages({
-        'string.pattern.base': `"phone" should have between 10 and 15 digits`,
+    phone: Joi.string().trim().pattern(new RegExp('^[0-9]{7,12}$')).required().messages({
+        'string.pattern.base': `"phone" should have between 7 and 12 digits`,
         'string.empty': `"phone" cannot be an empty field`,
         'any.required': `"phone" is a required field`
     }),
