@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://192.168.0.101:5173', // Replace with your frontend URL
+  origin: 'http://localhost:5174', // Replace with your frontend URL
   credentials: true, // To allow sending of cookies
 };
 app.use(cors(corsOptions));

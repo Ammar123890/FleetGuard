@@ -37,13 +37,38 @@ module.exports.getDashcamModels = async (req, res) => {
     try {
         const dashcams = await dashcamModel.find();
         return res.status(200).json({
-            dashcams,
+            data: dashcams,
             status: true,
         });
     } catch (error) {
         return res.status(500).json({ errors: error });
     }
 }
+
+module.exports.getDashcamModelById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the provided ID is valid
+        if (!id) {
+            return res.status(400).json({ error: 'Invalid ID parameter' });
+        }
+
+        const dashcam = await dashcamModel.findById(id);
+
+        // Check if the dashcam with the given ID exists
+        if (!dashcam) {
+            return res.status(404).json({ error: 'Dashcam not found' });
+        }
+
+        return res.status(200).json({
+            data: dashcam,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
 
 /**
  * @description To edit a dashcam
