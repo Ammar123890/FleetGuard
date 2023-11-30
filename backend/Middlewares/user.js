@@ -50,7 +50,6 @@ module.exports.customerMiddleware = async (req, res, next) => {
                 token = req.headers.authorization.split(" ")[1];
                 const decoded = jwt.verify(token.trim(), process.env.SECRET);
                 req.user = await userModel.findById(decoded.id).select("-password");
-                console.log(req.user.userType);
                 if (req.user.userType !== 'customer') {
                     return res.status(403).json({ message: 'Access denied' });
                 }

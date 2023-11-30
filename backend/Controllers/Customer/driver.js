@@ -117,4 +117,28 @@ module.exports.getAvailableDrivers = async (req, res) => {
     }
 };
 
+/**
+ * @description Get driver by id in params
+ * @route GET /api/customer/driver/get/:id
+ * @access Customer
+ */
+
+module.exports.getDriver = async (req, res) => {
+    try {
+        const driver = await driverModel.findById(req.params.id);
+        if (!driver) {
+            return res.status(400).json({ msg: "Driver not found" });
+        }
+        if(driver.owner.toString() != req.user.user.toString()){
+            return res.status(400).json({ msg: "Driver not found" });
+        }
+        return res.status(200).json({
+            driver,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
 

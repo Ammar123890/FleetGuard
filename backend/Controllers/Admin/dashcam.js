@@ -76,4 +76,29 @@ module.exports.editDashcam = async (req, res) => {
 
 }
 
+/**
+ * @description To get dashcam by id in params
+ * @route GET /api/customer/dashcam/get/:id
+ * @access Customer
+ **/
+
+module.exports.getDashcam = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // Check if the provided ID is valid
+        if (!id) {
+            return res.status(400).json({ error: 'Invalid ID parameter' });
+        }
+
+        const dashcam = await dashcamModel.findById(req.params.id);
+        return res.status(200).json({
+            data: dashcam,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+
 

@@ -8,6 +8,8 @@ const {
     addDashcamModel,
     getDashcamModels,
     editDashcam,
+    getDashcam
+    
 
 } = require('../Controllers/Admin/dashcam');
 
@@ -15,14 +17,15 @@ const {
 
     getSalesData
 
-} =require( '../Controllers/Admin/sales')
+} =require( '../Controllers/Admin/sales');
+const { get } = require('mongoose');
 
 //paths
 router.use(adminMiddleware)
 router.post('/dashcam/add', addDashcamModel);
 router.get('/dashcam/get', getDashcamModels);
 router.put('/dashcam/edit/:id', editDashcam);
-
+router.get('/dashcam/get/:id', getDashcam );
 router.get('/sales/get', getSalesData)
 
 

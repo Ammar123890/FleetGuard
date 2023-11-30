@@ -65,6 +65,31 @@ module.exports.getShipments = async (req, res) => {
 }
 
 /**
+ * @description Get a shipment by ID 
+ * @route GET /api/customer/shipment/get/:id
+ * @access Customer
+*/
+
+module.exports.getShipment = async (req, res) => {
+    try {
+        const shipment = await shipmentModel.findById(req.params.id);
+        if (!shipment) {
+            return res.status(404).json({ msg: "Shipment not found" });
+        }
+
+        if (shipment.owner.toString() != req.user.user.toString()) {
+            return res.status(401).json({ msg: "Unauthorized" });
+        }
+        return res.status(200).json({
+            shipment,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+/**
  * @description Start a shipment
  * @route PUT /api/customer/shipment/start/:id
  * @access Customer
@@ -123,7 +148,7 @@ module.exports.endShipment = async (req, res) => {
             return res.status(404).json({ msg: "Shipment not found" });
         }
 
-        shipment.status = "Delivered";
+        shipment.shipmentStatus = "delivered";
         shipment.deliveryDate = Date.now();
         await shipment.save();
 

@@ -65,12 +65,16 @@ module.exports.getDashcams = async (req, res) => {
     try {
         const dashcams = await dashcamModel.find({ assignedTo: req.user._id });
         return res.status(200).json({
-            dashcams,
+            data: dashcams,
             status: true,
         });
     } catch (error) {
         return res.status(500).json({ errors: error });
     }
 }
+
+
+
+
 
 

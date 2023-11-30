@@ -16,7 +16,8 @@ const {
    addTruck,
    getTrucks,
    editTruck,
-   getAvailableTrucks
+   getAvailableTrucks,
+   getTruck
 
 } = require('../Controllers/Customer/truck');
 
@@ -26,7 +27,8 @@ const {
     addDriver,
     getDrivers,
     editDriver,
-    getAvailableDrivers
+    getAvailableDrivers,
+    getDriver
 } = require('../Controllers/Customer/driver');
 
 //controllers for shipment
@@ -34,7 +36,9 @@ const{
     addShipment,
     getShipments,
     startShipment,
-    endShipment
+    endShipment,
+    getShipment
+
 } = require('../Controllers/Customer/shipment');
 
 
@@ -52,6 +56,7 @@ router.post('/truck/add', addTruck);
 router.get('/truck/get', getTrucks);
 router.put('/truck/edit/:id', editTruck);
 router.get('/truck/available', getAvailableTrucks);
+router.get('/truck/get/:id', getTruck);
 
 //paths for drivers
 
@@ -59,10 +64,13 @@ router.post('/driver/add', addDriver);
 router.get('/driver/get', getDrivers);
 router.put('/driver/edit/:id', editDriver);
 router.get('/driver/available', getAvailableDrivers);
+router.get('/driver/get/:id', getDriver);
 
 //paths for shipment
 router.post('/shipment/add', addShipment);
 router.get('/shipment/get', getShipments);
 router.put('/shipment/start/:id', startShipment);
+router.put('/shipment/end/:id', endShipment);
+router.get('/shipment/get/:id', getShipment);
 
 module.exports = router;

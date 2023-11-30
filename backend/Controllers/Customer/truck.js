@@ -127,7 +127,31 @@ module.exports.getAvailableTrucks = async (req, res) => {
     }
 };
 
+/**
+ * @description Get truck by id in params
+ * @route GET /api/customer/truck/get/:id
+ * @access Customer
+ */
 
+module.exports.getTruck = async (req, res) => {
+    try {
+        const truck = await truckModel.findById(req.params.id);
+        if (!truck) {
+            return res.status(400).json({ msg: "Truck not found" });
+        }
+
+        if (truck.owner.toString() != req.user.user.toString()) {
+            return res.status(400).json({ msg: "Truck not owned by user" });
+        }
+
+        return res.status(200).json({
+            truck,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
 
 
 
