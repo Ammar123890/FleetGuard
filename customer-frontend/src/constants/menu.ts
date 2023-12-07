@@ -83,6 +83,28 @@ const MENU_ITEMS: MenuItemTypes[] = [
 		],
 	},
 	{
+		key: 'shipments',
+		label: 'Shipments',
+		isTitle: false,
+		icon: '  ri-road-map-line',
+		children: [
+			{
+				key: 'add-shipment',
+				label: 'Add new Shipment',
+				url: '/customer/shipments/add-shipment',
+				parentKey: 'shipments',
+			},
+			{
+				key: 'add-shipment',
+				label: 'Add new Shipment2',
+				url: '/customer/shipments/add-shipment2',
+				parentKey: 'shipments',
+			},
+		
+		
+		],
+	},
+	{
 		key: 'device',
 		label: 'Device Management',
 		isTitle: false,

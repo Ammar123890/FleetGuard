@@ -4,6 +4,7 @@ import { FormInput } from '@/components';
 import { FieldValues, useForm } from 'react-hook-form';
 import { customerApi } from '@/common';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 interface Driver {
   _id: string;
@@ -27,7 +28,7 @@ const EditDrivers = () => {
 
   const redirectUrl = useMemo(
     () =>
-      location.state && location.state.from ? location.state.from.pathname : '/customer/driver/get',
+      location.state && location.state.from ? location.state.from.pathname : '/customer/drivers/view',
     [location.state]
   );
 
@@ -35,15 +36,21 @@ const EditDrivers = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
+        console.log('token, ' , token)
+        console.log('id ', id)
         const res = await customerApi.getDriverById(id, {
           Authorization: `Bearer ${token}`,
         });
-
+        console.log('driver, ', res)
         if (!res.status) {
           throw new Error('Failed to fetch driver data');
         }
 
-        const driverData = res.data;
+        const driverData = res.driver;
+        if (driverData?.licenseExpiry) {
+          driverData.licenseExpiry = format(new Date(driverData.licenseExpiry), 'yyyy-MM-dd');
+        }
+        console.log('driverData, ', driverData)
         setDriver(driverData);
         reset(driverData); // Populate the form with existing data
       } catch (error) {

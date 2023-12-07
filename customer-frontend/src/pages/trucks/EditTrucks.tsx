@@ -26,7 +26,7 @@ const EditTrucks = () => {
 
   const redirectUrl = useMemo(
     () =>
-      location.state && location.state.from ? location.state.from.pathname : '/admin/truck/get',
+      location.state && location.state.from ? location.state.from.pathname : '/admin/trucks/view',
     [location.state]
   );
 
@@ -42,7 +42,7 @@ const EditTrucks = () => {
           throw new Error('Failed to fetch truck data');
         }
 
-        const truckData = res.data;
+        const truckData = res.truck;
         setTruck(truckData);
         reset(truckData); // Populate the form with existing data
       } catch (error) {
@@ -54,13 +54,13 @@ const EditTrucks = () => {
   }, [id, reset]);
 
   const onSubmit = async (data: FieldValues) => {
-    const { truckNumber, make, year, registration } = data as Truck;
+    const { truckNumber, make, year, registration, weightCapacity, areaCapacity } = data as Truck;
     console.log('Form Data:', { truckNumber, make, year, registration });
     setLoading(true);
 
     try {
       const token = localStorage.getItem('token');
-      const res = await customerApi.editTruck(id, truckNumber, make, year, registration, {
+      const res = await customerApi.editTruck(id,  truckNumber, make, year, registration, weightCapacity, areaCapacity, {
         Authorization: `Bearer ${token}`,
       });
 

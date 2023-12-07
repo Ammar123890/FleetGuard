@@ -30,6 +30,7 @@ function HttpClient() {
 		return response.data
 	}, _errorHandler)
 
+	
 	return {
 		get: (url: string, config = {}) => _httpClient.get(url, config),
 		post: (url: string, data: any, config = {}) =>

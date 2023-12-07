@@ -35,6 +35,13 @@ const GetTrucksOwned = React.lazy(() => import('../pages/trucks/GetTrucksOwned')
 const AddDrivers = React.lazy(() => import('../pages/drivers/AddDrivers'))
 const GetDrivers = React.lazy(() => import('../pages/drivers/GetDrivers'))
 const EditDrivers = React.lazy(() => import('../pages/drivers/EditDrivers'))
+const ShipmentInput = React.lazy(() => import('../pages/shipments/ShipmentInput'))
+const AddShipments = React.lazy(() => import('../pages/shipments/AddShipments'))
+const AddLocation = React.lazy(() => import('../pages/shipments/AddLocation'))
+const SelectDriver = React.lazy(() => import('../pages/shipments/SelectDriver'))
+const SelectTruck = React.lazy(() => import('../pages/shipments/SelectTruck'))
+const GoogleMapsForm = React.lazy(() => import('../pages/shipments/GoogleMapsForm'))
+const ShipmentForm = React.lazy(() => import('../pages/shipments/ShipmentForm'))
 
 // // base ui
 const Accordions = React.lazy(() => import('../pages/ui/Accordions'))
@@ -172,7 +179,7 @@ const customPagesRoutes = {
 			element: <AddTrucks />
 		},
 		{
-			path: '/customer/trucks/edit-trucks/:id',
+			path: '/customer/truck/edit/:id',
 			name: 'Edit truck',
 			element: <EditTrucks />
 		},
@@ -187,7 +194,7 @@ const customPagesRoutes = {
 			element: <AddDrivers />
 		},
 		{
-			path: '/customer/drivers/edit-drivers',
+			path: '/customer/driver/edit/:id',
 			name: 'Edit Driver',
 			element: <EditDrivers />
 		},
@@ -195,6 +202,41 @@ const customPagesRoutes = {
 			path: '/customer/drivers/view',
 			name: 'All drivers',
 			element: <GetDrivers />
+		},
+		{
+			path: '/customer/shipments/add-shipment',
+			name: 'Get shipments',
+			element: <ShipmentInput />
+		},
+		{
+			path: '/customer/shipments/add-shipment2',
+			name: 'Get shipments2',
+			element: <AddShipments />
+		},
+		{
+			path: '/customer/shipments/map',
+			name: 'map',
+			element: <GoogleMapsForm />
+		},
+		{
+			path: '/customer/shipments/shipment-location',
+			name: 'Add shipment location',
+			element: <AddLocation />
+		},
+		{
+			path: '/customer/shipments/shipment-form',
+			name: 'Get shipments detail',
+			element: <ShipmentForm />
+		},
+		{
+			path: '/customer/shipments/find-truck',
+			name: 'Find driver',
+			element: <SelectTruck/>
+		},
+		{
+			path: '/customer/shipments/find-driver',
+			name: 'Find driver',
+			element: <SelectDriver/>
 		},
 		{
 			path: '/pages/profile',
