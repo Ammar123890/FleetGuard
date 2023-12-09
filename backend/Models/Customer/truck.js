@@ -18,8 +18,12 @@ const truckSchema = new mongoose.Schema({
     availability: {
         type: Boolean,
         default: true,
-    }
-
+    },
+    assignedDashcam: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Dashcam",
+        default: null,
+    },
 });
 
 module.exports = mongoose.model("Truck", truckSchema);

@@ -90,7 +90,7 @@ module.exports.editDriver = async (req, res) => {
  */
 
 module.exports.getAvailableDrivers = async (req, res) => {
-    const { shipmentPickDate, shipmentDeliveryDate } = req.body;
+    const { shipmentPickDate, shipmentDeliveryDate } = req.query;
 
     // Parse the string dates to Date objects
     const parsedShipmentPickDate = new Date(shipmentPickDate);

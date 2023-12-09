@@ -41,6 +41,10 @@ const driverSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    scores: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'DriverScore'
+    }]
 },
     {
         timestamps: true,

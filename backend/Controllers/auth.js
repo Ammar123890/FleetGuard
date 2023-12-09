@@ -125,14 +125,23 @@ module.exports.verifyOTP = async (req, res) => {
         await userModel.updateOne({ _id: user._id }, { verificationCode: null, otpLastSentTime: null, isVerified: true });
 
         // Generate Token
+        
         const token = generateToken(user._id);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-        })
-            .status(200)
-            .json({ msg: "Account verified", status: true });
+        res.status(200).json({
+            msg: "Account verified",
+            status: true,
+            token: token
+        });
+
+
+
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: "none",
+        // })
+        //     .status(200)
+        //     .json({ msg: "Account verified", status: true });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errors: error });

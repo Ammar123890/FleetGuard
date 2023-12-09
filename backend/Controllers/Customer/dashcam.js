@@ -73,6 +73,35 @@ module.exports.getDashcams = async (req, res) => {
     }
 }
 
+/**
+ * @description To get dashcam by id in params
+ * @route GET /api/customer/dashcam/get/:id
+ * @access Customer
+ **/
+
+module.exports.getDashcam = async (req, res) => {
+    try {
+        const dashcam = await dashcamModel.findById(req.params.id);
+        if (!dashcam) {
+            return res.status(404).json({ msg: "Dashcam not found" });
+        }
+
+        if (dashcam.assignedTo.toString() != req.user._id.toString()) {
+            return res.status(401).json({ msg: "Unauthorized" });
+        }
+        return res.status(200).json({
+            dashcam,
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+
+
+
+
 
 
 

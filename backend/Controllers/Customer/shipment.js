@@ -2,6 +2,7 @@ const shipmentModel = require('../../Models/Customer/shipment');
 const truckModel = require('../../Models/Customer/truck');
 const driverModel = require('../../Models/Customer/driver');
 const { ValidateShipment } = require('../../Schemas/shipment');
+const scoreModel = require('../../Models/Customer/score');
 
 
 
@@ -103,28 +104,35 @@ module.exports.startShipment = async (req, res) => {
         }
 
         //check if the driver and the truck are available (available boolean is true)
-        try{
+        try {
             const truck = await truckModel.findById(shipment.truck);
             const driver = await driverModel.findById(shipment.driver);
-            if(!truck.availability || !driver.availability){
+            if (!truck.availability || !driver.availability) {
                 return res.status(400).json({ msg: "Truck or driver not available" });
-            }else{
+            } else {
                 truck.availability = false;
                 driver.availability = false;
                 await truck.save();
                 await driver.save();
             }
         }
-        catch(error){
+        catch (error) {
             return res.status(400).json({ msg: "Truck or driver not available" });
         }
 
 
         shipment.status = "In Transit";
         shipment.pickupDate = Date.now();
-
-
         await shipment.save();
+
+        // Initialize driver score for the shipment
+        const initialScore = new scoreModel({
+            shipment: shipment._id,
+            driver: shipment.driver,
+            score: 100, // Initial score
+            violations: [] // No violations at the start
+        });
+        await initialScore.save();
 
         return res.status(200).json({
             msg: "Shipment started",
@@ -157,7 +165,7 @@ module.exports.endShipment = async (req, res) => {
 
         await truckModel.findByIdAndUpdate(truck, {
             $pull: { bookings: { pickupDate: shipmentPickDate, deliveryDate: shipmentDeliveryDate } },
-            availability: true 
+            availability: true
         });
 
         await driverModel.findByIdAndUpdate(driver, {
@@ -172,5 +180,69 @@ module.exports.endShipment = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 }
+
+
+/**
+ * @description Update the score of a shipment for a driver
+ * @route PUT /api/customer/shipment/score
+ * @access Customer
+ */
+
+module.exports.updateScore = async (req, res) => {
+    const { shipmentId, driverId, violations, timestamp } = req.body; // Expect an array of violations
+    try {
+        const driverScore = await scoreModel.findOne({ shipment: shipmentId, driver: driverId });
+        if (!driverScore) {
+            return res.status(404).json({ msg: "Driver score not found" });
+        }
+
+        violations.forEach(violationType => {
+            const violation = driverScore.violations.find(v => v.type === violationType);
+            if (violation) {
+                violation.count++;
+                violation.timestamps.push(new Date(timestamp));
+                if (violation.count % 50 === 0) {
+                    violation.weight += 0.1; // Increase weight after every 50th specific violation
+                }
+            } else {
+                driverScore.violations.push({ 
+                    type: violationType, 
+                    count: 1, 
+                    weight: 1,
+                    timestamps: [new Date(timestamp)]
+                });
+            }
+
+            const violationDeduction = violation ? violation.weight * (0.01 * percentageData[violationType]) : 0;
+            driverScore.score = Math.max(driverScore.score - violationDeduction, 0); // Ensure score doesn't go below 0
+        });
+
+        await driverScore.save();
+        return res.status(200).json(driverScore);
+    }
+    catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+};
+
+
+const percentageData = {
+    "isSpeedLimitCompliance": 28,
+    "isFatigueDetection": 20,
+    "isSeatbeltCompliance": 10,
+    "SAFE_DRIVING": 0,
+    "TEXTING_LEFT": 26,
+    "TEXTING_RIGHT": 26,
+    "TALKING_PHONE_LEFT": 26,
+    "TALKING_PHONE_RIGHT": 26,
+    "OPERATING_RADIO": 1,
+    "DRINKING": 2,
+    "REACHING_BEHIND": 7,
+    "HAIR_AND_MAKEUP": 1,
+    "TALKING_TO_PASSENGER": 15,
+}
+
+
+
 
 

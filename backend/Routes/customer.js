@@ -17,7 +17,8 @@ const {
    getTrucks,
    editTruck,
    getAvailableTrucks,
-   getTruck
+   getTruck,
+   assignDashcam
 
 } = require('../Controllers/Customer/truck');
 
@@ -57,6 +58,7 @@ router.get('/truck/get', getTrucks);
 router.put('/truck/edit/:id', editTruck);
 router.get('/truck/available', getAvailableTrucks);
 router.get('/truck/get/:id', getTruck);
+router.put('/truck/assigndashcam/:dashcam_id/:truck_id', assignDashcam);
 
 //paths for drivers
 
