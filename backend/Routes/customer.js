@@ -18,7 +18,8 @@ const {
    editTruck,
    getAvailableTrucks,
    getTruck,
-   assignDashcam
+   assignDashcam,
+   deleteTruck
 
 } = require('../Controllers/Customer/truck');
 
@@ -34,7 +35,8 @@ const {
     getDrivers,
     editDriver,
     getAvailableDrivers,
-    getDriver
+    getDriver,
+    deleteDriver
 } = require('../Controllers/Customer/driver');
 
 //controllers for shipment
@@ -66,6 +68,7 @@ router.put('/truck/edit/:id', editTruck);
 router.get('/truck/available', getAvailableTrucks);
 router.get('/truck/get/:id', getTruck);
 router.put('/truck/assigndashcam/:dashcam_id/:truck_id', assignDashcam);
+router.delete('/truck/delete/:id', deleteTruck);
 
 //paths for drivers
 
@@ -74,6 +77,7 @@ router.get('/driver/get', getDrivers);
 router.put('/driver/edit/:id', editDriver);
 router.get('/driver/available', getAvailableDrivers);
 router.get('/driver/get/:id', getDriver);
+router.delete('/driver/delete/:id', deleteDriver);
 
 //paths for shipment
 router.post('/shipment/add', addShipment);

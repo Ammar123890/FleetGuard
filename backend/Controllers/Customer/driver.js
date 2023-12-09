@@ -1,4 +1,5 @@
 const driverModel = require('../../Models/Customer/driver');
+const shipmentModel = require('../../Models/Customer/shipment');
 const { ValidateDriver} = require('../../Schemas/driver');
 
 /**
@@ -140,5 +141,39 @@ module.exports.getDriver = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 }
+
+/**
+ * @description Delete a driver
+ * @route DELETE /api/customer/driver/delete/:id
+ * @access Customer
+ */
+
+module.exports.deleteDriver = async (req, res) => {
+    try {
+        const driver = await driverModel.findById(req.params.id);
+        if (!driver) {
+            return res.status(400).json({
+                errors: { msg: "Driver not found", status: false },
+            });
+        }
+
+        //check if the driver is in shipment where status is in transit
+        const shipment = await shipmentModel.findOne({ driver: req.params.id, shipmentStatus: "in transit" });
+        if (shipment) {
+            return res.status(400).json({
+                errors: { msg: "Driver is in transit", status: false },
+            });
+        }
+
+        await driverModel.deleteOne({ _id: req.params.id });
+        return res.status(200).json({
+            msg: "Driver deleted",
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
 
 

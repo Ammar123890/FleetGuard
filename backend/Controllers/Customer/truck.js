@@ -1,6 +1,8 @@
 const truckModel = require('../../Models/Customer/truck');
-const { ValidateTruck } = require('../../Schemas/truck');
 const dashcamModel = require('../../Models/Customer/dashcam');
+const shipmentModel = require('../../Models/Customer/shipment');
+const { ValidateTruck } = require('../../Schemas/truck');
+
 
 /**
  * @description Add a new truck 
@@ -153,6 +155,41 @@ module.exports.getTruck = async (req, res) => {
 }
 
 /**
+ * @description Delete a truck
+ * @route DELETE /api/customer/truck/delete/:id
+ * @access Customer
+ */
+
+module.exports.deleteTruck = async (req, res) => {
+    try {
+        const truck = await truckModel.findById(req.params.id);
+        if (!truck) {
+            return res.status(400).json({
+                errors: { msg: "Truck not found", status: false },
+            });
+        }
+
+        if (truck.owner.toString() != req.user.user.toString()) {
+            return res.status(400).json({ msg: "Truck not owned by user" });
+        }
+
+        // Check if the truck is in shipment where shipment status is in transit 
+        const shipment = await shipmentModel.findOne({ truck: req.params.id, shipmentStatus: "in transit" });
+        if (shipment) {
+            return res.status(400).json({ msg: "Truck is in shipment" });
+        }
+
+        await truckModel.deleteOne({ _id: req.params.id });
+        return res.status(200).json({
+            msg: "Truck deleted",
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
+
+/**
  * @description To assign a dashcam to a Truck 
  * @route PUT /api/customer/truck/assigndashcam/:dashcam_id/:truck_id
  * @access Customer
@@ -171,6 +208,9 @@ module.exports.assignDashcam = async (req, res) => {
         // Check if the dashcam is already assigned to a different truck
         const isDashcamAssigned = await truckModel.findOne({ assignedDashcam: dashcam_id });
         if (isDashcamAssigned) return res.status(400).json({ msg: "Dashcam is already assigned to a truck" });
+
+        // Check if the truck already has a dashcam assigned
+        if (truck.assignedDashcam) return res.status(400).json({ msg: "Truck already has a dashcam assigned" });
 
         // Assign dashcam to truck
         truck.assignedDashcam = dashcam._id;

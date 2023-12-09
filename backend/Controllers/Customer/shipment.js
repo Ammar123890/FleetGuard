@@ -106,7 +106,11 @@ module.exports.startShipment = async (req, res) => {
         //check if the driver and the truck are available (available boolean is true)
         try {
             const truck = await truckModel.findById(shipment.truck);
+            if (!truck) return res.status(400).json({ msg: "Truck not found" })
             const driver = await driverModel.findById(shipment.driver);
+            if (!driver) return res.status(400).json({ msg: "Driver not found" })
+
+
             if (!truck.availability || !driver.availability) {
                 return res.status(400).json({ msg: "Truck or driver not available" });
             } else {
@@ -205,9 +209,9 @@ module.exports.updateScore = async (req, res) => {
                     violation.weight += 0.1; // Increase weight after every 50th specific violation
                 }
             } else {
-                driverScore.violations.push({ 
-                    type: violationType, 
-                    count: 1, 
+                driverScore.violations.push({
+                    type: violationType,
+                    count: 1,
                     weight: 1,
                     timestamps: [new Date(timestamp)]
                 });
