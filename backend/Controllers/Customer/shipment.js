@@ -121,7 +121,7 @@ module.exports.startShipment = async (req, res) => {
         }
 
 
-        shipment.status = "In Transit";
+        shipment.shipmentStatus = "in transit";
         shipment.pickupDate = Date.now();
         await shipment.save();
 

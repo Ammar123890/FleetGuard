@@ -22,6 +22,11 @@ const {
 
 } = require('../Controllers/Customer/truck');
 
+const {
+    getDashcamModels,
+    getDashcam
+} = require('../Controllers/Admin/dashcam');
+
 //controllers for driver
 
 const {
@@ -41,6 +46,7 @@ const{
     getShipment
 
 } = require('../Controllers/Customer/shipment');
+const { get } = require('mongoose');
 
 
 
@@ -50,7 +56,8 @@ router.use(customerMiddleware)
 
 router.post('/dashcam/purchase', purchaseDashcam);
 router.get('/dashcam/get', getDashcams);
-
+router.get('/dashcam/list/get', getDashcamModels);
+router.get('/dashcam/get/:id',getDashcam);
 //paths for trucks
 
 router.post('/truck/add', addTruck);
