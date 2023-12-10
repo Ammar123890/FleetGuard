@@ -125,14 +125,14 @@ module.exports.verifyOTP = async (req, res) => {
         await userModel.updateOne({ _id: user._id }, { verificationCode: null, otpLastSentTime: null, isVerified: true });
 
         // Generate Token
+        
         const token = generateToken(user._id);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-        })
-            .status(200)
-            .json({ msg: "Account verified", status: true });
+        res.status(200).json({
+            msg: "Account verified",
+            status: true,
+            token: token
+        });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errors: error });
@@ -266,21 +266,6 @@ module.exports.login = async (req, res) => {
  * @access Private
  */
 
-module.exports.logout = async (req, res) => {
-    try {
-        res.cookie("token", "", {
-            httpOnly: true,
-            expires: new Date(0),
-            secure: true,
-            sameSite: "none",
-        })
-            .status(200)
-            .json({ msg: "Logged out", status: true });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ errors: error });
-    }
-}
 
 /**
  * @description To add the admin role

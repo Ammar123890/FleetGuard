@@ -1,5 +1,6 @@
 const dashcamModel = require('../../Models/Admin/stock');
 
+
 //schema validation
 const { ValidateStock } = require('../../Schemas/dashcam');
 
@@ -13,6 +14,12 @@ module.exports.addDashcamModel = async (req, res) => {
     const { error } = ValidateStock(req.body);
     if (error) {
         return res.status(400).json({ errors: error });
+    }
+
+    //check if the model already exists
+    const model = await dashcamModel.findOne({ model: req.body.model });
+    if (model) {
+        return res.status(400).json({ msg: "Model already exists" });
     }
 
     try {
@@ -30,6 +37,7 @@ module.exports.addDashcamModel = async (req, res) => {
 /**
  * @description To get all dashcams
  * @route GET /api/admin/dashcam/getModels
+ * @route GET /api/customer/dashcam/getModels
  * @access Admin
  */
 
@@ -47,7 +55,7 @@ module.exports.getDashcamModels = async (req, res) => {
 
 /**
  * @description To edit a dashcam
- * @route PUT /api/dashcam/edit/:id
+ * @route PUT /api/admin/dashcam/edit/:id
  * @access Admin
  */
 
@@ -79,6 +87,7 @@ module.exports.editDashcam = async (req, res) => {
 /**
  * @description To get dashcam by id in params
  * @route GET /api/customer/dashcam/get/:id
+ * @route GET /api/admin/dashcam/get/:id
  * @access Customer
  **/
 
@@ -100,5 +109,30 @@ module.exports.getDashcam = async (req, res) => {
     }
 }
 
+
+/**
+ * @description To delete a dashcam
+ * @route DELETE /api/admin/dashcam/delete/:id
+ * @access Admin
+ */
+
+module.exports.deleteDashcam = async (req, res) => {
+    try {
+        const dashcam = await dashcamModel.findById(req.params.id);
+        if (!dashcam) {
+            return res.status(400).json({
+                errors: { msg: "Dashcam not found", status: false },
+            });
+        }
+        
+        await dashcamModel.deleteOne({ _id: req.params.id });
+        return res.status(200).json({
+            msg: "Dashcam deleted",
+            status: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ errors: error });
+    }
+}
 
 

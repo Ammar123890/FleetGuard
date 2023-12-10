@@ -8,7 +8,8 @@ const {
     addDashcamModel,
     getDashcamModels,
     editDashcam,
-    getDashcam
+    getDashcam,
+    deleteDashcam
     
 
 } = require('../Controllers/Admin/dashcam');
@@ -27,6 +28,7 @@ router.get('/dashcam/get', getDashcamModels);
 router.put('/dashcam/edit/:id', editDashcam);
 router.get('/dashcam/get/:id', getDashcam );
 router.get('/sales/get', getSalesData)
+router.delete('/dashcam/delete/:id', deleteDashcam)
 
 
 module.exports = router;

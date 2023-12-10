@@ -17,9 +17,16 @@ const {
    getTrucks,
    editTruck,
    getAvailableTrucks,
-   getTruck
+   getTruck,
+   assignDashcam,
+   deleteTruck
 
 } = require('../Controllers/Customer/truck');
+
+const {
+    getDashcamModels,
+    getDashcam
+} = require('../Controllers/Admin/dashcam');
 
 //controllers for driver
 
@@ -28,7 +35,8 @@ const {
     getDrivers,
     editDriver,
     getAvailableDrivers,
-    getDriver
+    getDriver,
+    deleteDriver
 } = require('../Controllers/Customer/driver');
 
 //controllers for shipment
@@ -40,6 +48,7 @@ const{
     getShipment
 
 } = require('../Controllers/Customer/shipment');
+const { get } = require('mongoose');
 
 
 
@@ -49,7 +58,8 @@ router.use(customerMiddleware)
 
 router.post('/dashcam/purchase', purchaseDashcam);
 router.get('/dashcam/get', getDashcams);
-
+router.get('/dashcam/list/get', getDashcamModels);
+router.get('/dashcam/get/:id',getDashcam);
 //paths for trucks
 
 router.post('/truck/add', addTruck);
@@ -57,6 +67,8 @@ router.get('/truck/get', getTrucks);
 router.put('/truck/edit/:id', editTruck);
 router.get('/truck/available', getAvailableTrucks);
 router.get('/truck/get/:id', getTruck);
+router.put('/truck/assigndashcam/:dashcam_id/:truck_id', assignDashcam);
+router.delete('/truck/delete/:id', deleteTruck);
 
 //paths for drivers
 
@@ -65,6 +77,7 @@ router.get('/driver/get', getDrivers);
 router.put('/driver/edit/:id', editDriver);
 router.get('/driver/available', getAvailableDrivers);
 router.get('/driver/get/:id', getDriver);
+router.delete('/driver/delete/:id', deleteDriver);
 
 //paths for shipment
 router.post('/shipment/add', addShipment);
