@@ -28,6 +28,10 @@ const {
     getDashcam
 } = require('../Controllers/Admin/dashcam');
 
+const {
+    getStatistics
+}= require('../Controllers/Customer/statistic');
+
 //controllers for driver
 
 const {
@@ -85,5 +89,8 @@ router.get('/shipment/get', getShipments);
 router.put('/shipment/start/:id', startShipment);
 router.put('/shipment/end/:id', endShipment);
 router.get('/shipment/get/:id', getShipment);
+
+//paths for statistics
+router.get('/statistics/get', getStatistics);
 
 module.exports = router;

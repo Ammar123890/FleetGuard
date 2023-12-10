@@ -133,7 +133,7 @@ module.exports.getStatistics = async (req, res) => {
             if (previous === 0) {
                 return current !== 0 ? 100 : 0;
             }
-            return ((current - previous) / previous) * 100;
+            return ((current-previous) /  current) * 100;
         };
 
         // Extracting statistics
