@@ -16,9 +16,10 @@ const {
 
 const {
 
-    getSalesData
+    getSalesData,
+    getStatistics
 
-} =require( '../Controllers/Admin/sales');
+} =require( '../Controllers/Admin/statistics');
 const { get } = require('mongoose');
 
 //paths
@@ -28,6 +29,7 @@ router.get('/dashcam/get', getDashcamModels);
 router.put('/dashcam/edit/:id', editDashcam);
 router.get('/dashcam/get/:id', getDashcam );
 router.get('/sales/get', getSalesData)
+router.get('/statistics/get', getStatistics)
 router.delete('/dashcam/delete/:id', deleteDashcam)
 
 

@@ -34,7 +34,7 @@ app.use(cors(corsOptions));
 app.use("/api", apiRouter);
 
 // Connect Server
-const PORT = process.env.PORT || 5000;
+const PORT = 3000;
 app.listen(PORT, () => {
  console.log(`Your app is running on PORT ${PORT}`);
 });

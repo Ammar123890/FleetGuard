@@ -1,7 +1,7 @@
 const dashcamModel = require("../../Models/Customer/dashcam");
 const dashcamStock = require("../../Models/Admin/stock");
 const { generateSerialNumber } = require("../../Utils/generateSerial");
-const { recordSale } = require("../../Controllers/Admin/sales");
+const { recordSale } = require("../../Controllers/Admin/statistics");
 
 
 
