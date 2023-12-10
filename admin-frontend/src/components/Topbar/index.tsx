@@ -6,7 +6,7 @@ import SearchDropDown from './SearchDropDown'
 
 export {
 	// MessageDropdown,
-	NotificationDropdown,
+	// NotificationDropdown,
 	ProfileDropdown,
 	SearchDropDown,
 	// LanguageDropdown,

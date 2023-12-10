@@ -12,7 +12,7 @@ import { PageBreadcrumb } from '@/components'
 
 const Logout = () => {
 	const { removeSession } = useAuthContext()
-
+	localStorage.removeItem('token');
 	useEffect(() => {
 		removeSession()
 	}, [removeSession])

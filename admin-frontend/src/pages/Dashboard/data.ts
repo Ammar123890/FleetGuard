@@ -15,37 +15,37 @@ interface ProjectData {
 	dueDate: string
 	status: string
 	variant: string
-}
-export const statistics: Statistic[] = [
-	{
-		title: 'Daily Visits',
-		stats: '8,652',
-		change: '2.97%',
-		icon: 'ri-eye-line',
-		variant: 'text-bg-pink',
-	},
-	{
-		title: 'Revenue',
-		stats: '$9,254.62',
-		change: '18.25%',
-		icon: 'ri-wallet-2-line',
-		variant: 'text-bg-purple',
-	},
-	{
-		title: 'Orders',
-		stats: '753',
-		change: '-5.75%',
-		icon: 'ri-shopping-basket-line',
-		variant: 'text-bg-info',
-	},
-	{
-		title: 'Users',
-		stats: '63,154',
-		change: '8.21%',
-		icon: 'ri-group-2-line',
-		variant: 'text-bg-primary',
-	},
-]
+ }
+// export const statistics: Statistic[] = [
+// 	{
+// 		title: 'Daily Visits',
+// 		stats: '8,652',
+// 		change: '2.97%',
+// 		icon: 'ri-eye-line',
+// 		variant: 'text-bg-pink',
+// 	},
+// 	{
+// 		title: 'Revenue',
+// 		stats: '$9,254.62',
+// 		change: '18.25%',
+// 		icon: 'ri-wallet-2-line',
+// 		variant: 'text-bg-purple',
+// 	},
+// 	{
+// 		title: 'Orders',
+// 		stats: '753',
+// 		change: '-5.75%',
+// 		icon: 'ri-shopping-basket-line',
+// 		variant: 'text-bg-info',
+// 	},
+// 	{
+// 		title: 'Users',
+// 		stats: '63,154',
+// 		change: '8.21%',
+// 		icon: 'ri-group-2-line',
+// 		variant: 'text-bg-primary',
+// 	},
+// ]
 
 export const chatMessages = [
 	{

@@ -32,7 +32,7 @@ const MENU_ITEMS: MenuItemTypes[] = [
 	},
 	{
 		key: 'trucks',
-		label: 'Trucks Management',
+		label: 'Trucks',
 		isTitle: false,
 		icon: 'ri-truck-line',
 		children: [
@@ -42,23 +42,29 @@ const MENU_ITEMS: MenuItemTypes[] = [
 				url: '/customer/trucks/add-trucks',
 				parentKey: 'trucks',
 			},
-			{
-				key: 'edit-trucks',
-				label: 'Edit trucks',
-				url: '/customer/trucks/edit-trucks/:id',
-				parentKey: 'trucks',
-			},
+			// {
+			// 	key: 'edit-trucks',
+			// 	label: 'Edit trucks',
+			// 	url: '/customer/trucks/edit-trucks/:id',
+			// 	parentKey: 'trucks',
+			// },
 			{
 				key: 'get-trucks',
 				label: 'View all Trucks',
 				url: '/customer/trucks/view',
 				parentKey: 'trucks',
 			},
+			{
+				key: 'assign-trucks',
+				label: 'Assign Dashcam',
+				url: '/customer/dashcam/assign-truck',
+				parentKey: 'trucks',
+			},
 		],
 	},
 	{
 		key: 'drivers',
-		label: 'Drivers Management',
+		label: 'Drivers',
 		isTitle: false,
 		icon: ' ri-user-line',
 		children: [
@@ -68,12 +74,12 @@ const MENU_ITEMS: MenuItemTypes[] = [
 				url: '/customer/drivers/add-drivers',
 				parentKey: 'tdrivers',
 			},
-			{
-				key: 'edit-drivers',
-				label: 'Edit drivers',
-				url: '/customer/drivers/edit-drivers',
-				parentKey: 'drivers',
-			},
+			// {
+			// 	key: 'edit-drivers',
+			// 	label: 'Edit drivers',
+			// 	url: '/customer/drivers/edit-drivers',
+			// 	parentKey: 'drivers',
+			// },
 			{
 				key: 'get-drivers',
 				label: 'View all drivers',
@@ -94,10 +100,16 @@ const MENU_ITEMS: MenuItemTypes[] = [
 				url: '/customer/shipments/add-shipment',
 				parentKey: 'shipments',
 			},
+			// {
+			// 	key: 'add-shipment',
+			// 	label: 'Add new Shipment2',
+			// 	url: '/customer/shipments/add-shipment2',
+			// 	parentKey: 'shipments',
+			// },
 			{
-				key: 'add-shipment',
-				label: 'Add new Shipment2',
-				url: '/customer/shipments/add-shipment2',
+				key: 'get-shipments',
+				label: 'View Shipments',
+				url: '/customer/shipments/get-shipments',
 				parentKey: 'shipments',
 			},
 		
@@ -105,31 +117,59 @@ const MENU_ITEMS: MenuItemTypes[] = [
 		],
 	},
 	{
-		key: 'device',
-		label: 'Device Management',
+		key: 'dashcam',
+		label: 'Dashcam',
 		isTitle: false,
-		icon: 'ri-pages-line',
+		icon: '   ri-webcam-line',
 		children: [
 			{
-				key: 'add-device',
-				label: 'Add new device',
-				url: '/admin/dashcam/add',
-				parentKey: 'device',
+				key: 'purchase',
+				label: 'Purchase Dashcam',
+				url: '/customer/dashcam/view',
+				parentKey: 'dashcam',
 			},
 			{
-				key: 'view-device',
-				label: 'View devices',
-				url: '/admin/dashcam/get',
-				parentKey: 'device',
+				key: 'get-owned',
+				label: 'Owned Dashcams',
+				url: '/customer/dashcam/get-owned',
+				parentKey: 'dashcam',
 			},
-			{
-				key: 'edit-device',
-				label: 'Update devices',
-				url: '/admin/dashcam/edit/:id',
-				parentKey: 'device',
-			},
+			// {
+			// 	key: 'add-shipment',
+			// 	label: 'Add new Shipment2',
+			// 	url: '/customer/shipments/add-shipment2',
+			// 	parentKey: 'shipments',
+			// },
+		
+		
 		],
 	},
+	// {
+	// 	key: 'device',
+	// 	label: 'Device Management',
+	// 	isTitle: false,
+	// 	icon: 'ri-pages-line',
+	// 	children: [
+	// 		{
+	// 			key: 'add-device',
+	// 			label: 'Add new device',
+	// 			url: '/admin/dashcam/add',
+	// 			parentKey: 'device',
+	// 		},
+	// 		{
+	// 			key: 'view-device',
+	// 			label: 'View devices',
+	// 			url: '/admin/dashcam/get',
+	// 			parentKey: 'device',
+	// 		},
+	// 		{
+	// 			key: 'edit-device',
+	// 			label: 'Update devices',
+	// 			url: '/admin/dashcam/edit/:id',
+	// 			parentKey: 'device',
+	// 		},
+	// 	],
+	// },
 	// {
 	// 	key: 'pages',
 	// 	label: 'Pages',

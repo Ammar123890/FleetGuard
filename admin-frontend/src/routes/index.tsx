@@ -26,6 +26,7 @@ const StarterPages = React.lazy(() => import('../pages/other/Starter'))
 const ContactListPages = React.lazy(() => import('../pages/other/ContactList'))
 const TimelinePages = React.lazy(() => import('../pages/other/Timeline'))
 
+
 // // base ui
 const Accordions = React.lazy(() => import('../pages/ui/Accordions'))
 const Alerts = React.lazy(() => import('../pages/ui/Alerts'))
@@ -97,6 +98,8 @@ const VectorMaps = React.lazy(() => import('../pages/ui/maps/VectorMaps'))
 const AddDevice = React.lazy(() => import('../pages/device/AddDevice'))
 const ViewDevice = React.lazy(() => import('../pages/device/ViewDevice'))
 const UpdateDevice = React.lazy(() => import('../pages/device/UpdateDevice'))
+const GetSales = React.lazy(() => import('../pages/device/GetSales'))
+
 // // error
 const Error404 = React.lazy(() => import('../pages/error/Error404'))
 const Error404Alt = React.lazy(() => import('../pages/error/Error404Alt'))
@@ -157,6 +160,11 @@ const customPagesRoutes = {
 			path: '/admin/dashcam/edit/:id',
 			name: 'Update Devices',
 			element: <UpdateDevice />
+		},
+		{
+			path: '/admin/dashcam/get-sales',
+			name: 'Get Sales',
+			element: <GetSales />
 		},
 		{
 			path: '/pages/profile',

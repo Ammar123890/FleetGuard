@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Col, Row, Button, ListGroup } from 'react-bootstrap';
+import { Card, Col, Row, Button, ListGroup , ProgressBar} from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import GoogleMapsForm from './GoogleMapsForm';
 
@@ -28,17 +28,24 @@ const AddLocation = () => {
   return (
 
     <Card>
-     
+     <Card.Header>
+     <h4 className="header-title mb-0"> Shipment Location</h4>
+     <ProgressBar style={{ height: 5, marginBottom: '30px', marginTop: '30px' }} now={65} animated className="progress" />
+        </Card.Header>
       <Row>
+      
         <Col>
+        
           <Card.Header>
-            <h4 className="header-title mb-0"> Enter Shipment Destination:</h4>
+            Enter Shipment Destination:
+            
           </Card.Header>
+          
           <GoogleMapsForm onLocationSelected={(location) => setCoordinatesDest(location)} />
         </Col>
         <Col>
           <Card.Header>
-            <h4 className="header-title mb-0">Enter Shipment Origin:</h4>
+          Enter Shipment Origin:
           </Card.Header>
           <GoogleMapsForm onLocationSelected={(location) => setCoordinatesOrigin(location)} />
         </Col>
@@ -71,11 +78,14 @@ const AddLocation = () => {
 
       <Row className="mt-4">
         <Col>
-        <li className="next list-inline-item float-end">
+        
+          <Card.Footer style={{marginBottom: '30px' }}>
+          <li className="next list-inline-item float-end">
           <Button variant="primary" onClick={handleNextPage}>
             Complete Shipment Details<i className="ri-arrow-right-line ms-1" />
           </Button>
           </li>
+          </Card.Footer>
         </Col>
       </Row>
     </Card>

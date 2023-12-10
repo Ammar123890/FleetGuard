@@ -82,9 +82,9 @@ const Login = () => {
 						placeholder="Enter your password"
 						containerClass="mb-3"
 					>
-						<Link to="/auth/forgot-password" className="text-muted float-end">
+						{/* <Link to="/auth/forgot-password" className="text-muted float-end">
 							<small>Forgot your password?</small>
-						</Link>
+						</Link> */}
 					</FormInput>
 					<FormInput
 						label="Remember me"

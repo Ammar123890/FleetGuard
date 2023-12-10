@@ -1,18 +1,20 @@
 // Import necessary components and hooks
-import React, { useState, useEffect } from 'react';
-import { Button, Card, Col, Row, Alert } from 'react-bootstrap';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { Button, Card, Col, Row, Alert, ProgressBar } from 'react-bootstrap';
+import { FieldValues, useForm} from 'react-hook-form';
 import { customerApi } from '@/common'; // Replace with the actual path to your customer API service
 import { FormInput } from '@/components';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-interface Shipment {
-  shipmentWeight: number;
-  shipmentArea: number;
-  shipmentPickDate: string;
-  shipmentDeliveryDate: string;
-}
+// interface Shipment {
+//   shipmentWeight: number;
+//   shipmentArea: number;
+//   shipmentPickDate: string;
+//   shipmentDeliveryDate: string;
+// }
 
 interface ShipmentDetails {
   shipmentType: string;
@@ -30,16 +32,16 @@ interface ShipmentDetails {
 }
 
 const ShipmentForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
   const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, selectedTruckId, selectedDriverId, coordinatesDest, coordinatesOrigin } = location.state || {};
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { handleSubmit, register, control, formState: { errors } } = useForm();
+  const { handleSubmit, register, control, reset, formState: { errors } } = useForm();
   console.log('coordinatesDest: ', coordinatesDest)
   console.log('coordinates origin: ', coordinatesOrigin)
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
+  const [progressBarValue, setProgressBarValue] = useState<number>(85);
   const onSubmit = async (data: FieldValues) => {
     const { shipmentDescription, shipmentCost, shipmentType, paymentMethods, sender, receiver } = data as ShipmentDetails;
     console.log(shipmentType)
@@ -114,10 +116,13 @@ const requestBody = {
 
   if (res) {
     console.log(res.status)
-    // reset();
+    reset();
     setSuccessMessage('Shipment added successfully!');
+    setProgressBarValue(100);
+    toast.success('Shipment added successfully!');
   } else {
     setErrorMessage('Failed to add shipment. Please try again.');
+    toast.error('Failed to add shipment. Please try again.');
   }
 
   console.log('API Response:', res);
@@ -125,6 +130,7 @@ const requestBody = {
   // Handle errors
   console.error('API Error:', error);
   setErrorMessage('Failed to add shipment. Please try again.');
+  toast.error('Failed to add shipment. Please try again.');
 } finally {
   setLoading(false);
 }
@@ -133,7 +139,8 @@ const requestBody = {
   return (
     <Card>
       <Card.Header>
-        <h4 className="header-title">Get Available Trucks</h4>
+        <h4 className="header-title">Shipment Details</h4>
+        <ProgressBar style={{ height: 5, marginBottom: '30px', marginTop: '30px' }} now={progressBarValue} animated className="progress" />
       </Card.Header>
       <Card.Body>
         {/* Display error message if available */}
@@ -142,7 +149,14 @@ const requestBody = {
             {errorMessage}
           </Alert>
         )}
+         {successMessage && (
+          <Alert variant="success" onClose={() => setSuccessMessage(null)} dismissible>
+            {successMessage}
+          </Alert>
+        )}
 
+
+<ToastContainer />
         <Row>
           <Col sm={12}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -179,17 +193,22 @@ const requestBody = {
                 errors={errors}
                 control={control}
               />
-
-              <FormInput
-                label="Payment Method"
-                type="text"
-                name="paymentMethods"
-                containerClass="mb-3"
-                register={register}
-                key="paymentMethods"
-                errors={errors}
-                control={control}
-              />
+           
+<FormInput
+								name="paymentMethods"
+								label="Payment Method"
+								type="select"
+								containerClass="mb-3"
+								className="form-select"
+								register={register}
+								key="select"
+								errors={errors}
+								control={control}
+							>
+								<option defaultValue="selected">cash</option>
+								<option>card</option>
+					
+							</FormInput>
 
               <FormInput
                 label="Sender Name"

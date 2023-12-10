@@ -91,7 +91,16 @@ const AddDevice = () => {
 							<option>V2.2</option>
 							<option>V2.3</option>
 						</FormInput>
-						
+						<FormInput
+								label="Model"
+								type="string"
+								name="model"
+								containerClass="mb-3"
+								register={register}
+								key="model"
+								errors={errors}
+								control={control}
+							/>
 							<FormInput
 								label="Package Per Month"
 								type="number"

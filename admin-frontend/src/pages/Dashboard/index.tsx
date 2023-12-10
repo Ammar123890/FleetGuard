@@ -10,14 +10,15 @@ import Projects from './Projects'
 import { PageBreadcrumb } from '@/components'
 
 // data
-import { chatMessages, statistics } from './data'
+// import { chatMessages, statistics } from './data'
 
 const Dashboard = () => {
 	return (
 		<>
-			<PageBreadcrumb title="Welcome!" subName="Dashboards" />
+			<PageBreadcrumb title="" subName="Dashboards" />
 			<Row>
-				{(statistics || []).map((item, idx) => {
+				<Statistics/>
+				{/* {(statistics || []).map((item, idx) => {
 					return (
 						<Col xxl={3} sm={6} key={idx}>
 							<Statistics
@@ -29,32 +30,31 @@ const Dashboard = () => {
 							/>
 						</Col>
 					)
-				})}
+				})} */}
 			</Row>
 			<Row>
+				
 				<Col lg={8}>
 					<SalesChart />
 				</Col>
-				<Col lg={4}>
-					<YearlySelesChart />
-				</Col>
+				
 			</Row>
 			<Row>
 				<Col lg={8}>
-					<WeeklySelesChart />
+					{/* <WeeklySelesChart /> */}
 				</Col>
 				<Col lg={4}>
-					<YearlySelesChart />
+					{/* <YearlySelesChart /> */}
 				</Col>
 			</Row>
 
 			<Row>
 				<Col xl={4}>
-					<ChatList messages={chatMessages} />
+					{/* <ChatList messages={chatMessages} /> */}
 				</Col>
 
 				<Col xl={8}>
-					<Projects />
+					{/* <Projects /> */}
 				</Col>
 			</Row>
 		</>

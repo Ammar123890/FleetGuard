@@ -27,6 +27,7 @@ export default function useLogin() {
 		try {
 			console.log('dd')
 			const res: any = await authApi.login({ email, password });
+			// localStorage.setItem('email', res.email);
 			console.log('Response:', res.status);
 			console.log('hello')
 			if (res.status) {
@@ -34,6 +35,7 @@ export default function useLogin() {
 
 				// Store the token in localStorage
 				localStorage.setItem('token', token);
+				
 			  saveSession({ type: res.type, /* other user data */ });
 			
 			  navigate(redirectUrl);

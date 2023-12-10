@@ -32,12 +32,20 @@ export default function useLogin() {
 			console.log('hello')
 			if (res.status) {
 				const token = res.token;
-
+				console.log(res.type)
 				// Store the token in localStorage
+				
+			 
+			if(res.type !== 'admin'){
+				console.error('Login error: User is not admin');
+				setError('User is not an admin! ');
+			}
+			else{
 				localStorage.setItem('token', token);
-			  saveSession({ type: res.type, /* other user data */ });
-			
-			  navigate(redirectUrl);
+				saveSession({ type: res.type, /* other user data */ });
+				navigate(redirectUrl);
+			}
+			 
 
 			} else {
 			  // Handle login failure

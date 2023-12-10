@@ -3,10 +3,13 @@ import { Route, RouteProps } from 'react-router-dom'
 
 // components
 import PrivateRoute from './PrivateRoute'
+// import View from '@/pages/dashcam/View'
+// import AddDetails from '@/pages/auth/user/AddDetails'
 
 // lazy load all the views
 
 // auth
+const AddDetails = React.lazy(() => import('../pages/auth/user/AddDetails'))
 const Login = React.lazy(() => import('../pages/auth/Login'))
 const Register = React.lazy(() => import('../pages/auth/Register'))
 const Logout = React.lazy(() => import('../pages/auth/Logout'))
@@ -42,6 +45,12 @@ const SelectDriver = React.lazy(() => import('../pages/shipments/SelectDriver'))
 const SelectTruck = React.lazy(() => import('../pages/shipments/SelectTruck'))
 const GoogleMapsForm = React.lazy(() => import('../pages/shipments/GoogleMapsForm'))
 const ShipmentForm = React.lazy(() => import('../pages/shipments/ShipmentForm'))
+const GetShipments = React.lazy(() => import('../pages/shipments/GetShipments'))
+const ViewShipment = React.lazy(() => import('../pages/shipments/ViewShipment'))
+const Purchase = React.lazy(() => import('../pages/dashcam/Purchase'))
+const GetDashcam = React.lazy(() => import('../pages/dashcam/GetDashcam'))
+const ViewAll = React.lazy(() => import('../pages/dashcam/ViewAll'))
+const AssignTruck = React.lazy(() => import('../pages/dashcam/AssignTruck'))
 
 // // base ui
 const Accordions = React.lazy(() => import('../pages/ui/Accordions'))
@@ -229,6 +238,16 @@ const customPagesRoutes = {
 			element: <ShipmentForm />
 		},
 		{
+			path: '/customer/shipments/get-shipments',
+			name: 'Get shipments',
+			element: <GetShipments />
+		},
+		{
+			path: '/customer/shipment/get/:id',
+			name: 'Get shipment by id',
+			element: <ViewShipment/>
+		},
+		{
 			path: '/customer/shipments/find-truck',
 			name: 'Find driver',
 			element: <SelectTruck/>
@@ -237,6 +256,26 @@ const customPagesRoutes = {
 			path: '/customer/shipments/find-driver',
 			name: 'Find driver',
 			element: <SelectDriver/>
+		},
+		{
+			path: '/customer/dashcam/purchase/:id',
+			name: 'Purchase Dashcam',
+			element: <Purchase/>
+		},
+		{
+			path: '/customer/dashcam/view',
+			name: 'PView all Dashcam',
+			element: <ViewAll/>
+		},
+		{
+			path: '/customer/dashcam/get-owned',
+			name: 'View Dashcam',
+			element: <GetDashcam/>
+		},
+		{
+			path: '/customer/dashcam/assign-truck',
+			name: 'Assign Truck',
+			element: <AssignTruck/>
 		},
 		{
 			path: '/pages/profile',
@@ -660,6 +699,11 @@ const authRoutes: RoutesProps[] = [
 		name: 'OTP Verification',
 		element: <VerifyOTP />,
 		route: Route,
+	},
+	{
+		path: '/auth/add-details',
+		name: 'Add customer details',
+		element: <AddDetails/>
 	},
 ]
 

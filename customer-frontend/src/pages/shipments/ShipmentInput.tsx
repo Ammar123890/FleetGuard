@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Row, Alert } from 'react-bootstrap';
+import { Button, Card, Col, Row, Alert, ProgressBar } from 'react-bootstrap';
 import { FieldValues, useForm } from 'react-hook-form';
 import { FormInput } from '@/components';
 import { useNavigate } from 'react-router-dom';
@@ -43,14 +43,20 @@ const ShipmentInput = () => {
     <Card>
       <Card.Header>
         <h4 className="header-title">Enter Shipment Details</h4>
+        
+        
       </Card.Header>
       <Card.Body>
+				
+      
         {/* Display error message if available */}
         {errorMessage && (
           <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
             {errorMessage}
           </Alert>
         )}
+
+<ProgressBar style={{ height: 5, marginBottom: '30px' }} now={5} animated className="progress" />
 
         <Row>
 

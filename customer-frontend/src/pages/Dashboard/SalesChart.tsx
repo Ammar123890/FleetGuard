@@ -101,7 +101,7 @@ export const AreaApexOpt: ApexOptions = {
 const SalesChart = () => {
 	return (
 		<>
-			<PageBreadcrumb title="Apex Charts" subName="chats" />
+			{/* <PageBreadcrumb title="Apex Charts" subName="chats" /> */}
 			<Row>
 				<Col xl={12}>
 					<Card>

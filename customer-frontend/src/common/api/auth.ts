@@ -20,6 +20,9 @@ function AuthService() {
 		resendOTP: (values: any) => {
 			return HttpClient.post('/auth/resend', values)
 		},
+		addCustomerDetails: (values: any,  header: Record<string, string>) => {
+			return HttpClient.post('/auth/customer/adddetails', values,  {headers: header })
+		},
 	}
 }
 

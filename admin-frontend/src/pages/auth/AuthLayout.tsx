@@ -94,7 +94,7 @@ const AuthLayout = ({
 
 												{children}
 
-												{hasThirdPartyLogin && (
+												{/* {hasThirdPartyLogin && (
 													<div className="text-center mt-4">
 														<p className="text-muted fs-16">Sign in with</p>
 														<div className="d-flex gap-2 justify-content-center mt-3">
@@ -112,7 +112,7 @@ const AuthLayout = ({
 															</Link>
 														</div>
 													</div>
-												)}
+												)} */}
 											</div>
 										</div>
 									</Col>
@@ -125,7 +125,7 @@ const AuthLayout = ({
 			</div>
 			<footer className="footer footer-alt fw-medium">
 				<span className="text-dark">
-					{new Date().getFullYear()} © Velonic - Theme by Techzaa
+					{new Date().getFullYear()} © Fleetguard
 				</span>
 			</footer>
 		</div>

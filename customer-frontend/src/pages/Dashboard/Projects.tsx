@@ -1,48 +1,71 @@
-import { Table } from 'react-bootstrap'
-
-// components
-import { CustomCardPortlet } from '@/components'
-
-// data
-import { projects } from './data'
+import { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
+import { CustomCardPortlet } from '@/components';
+import { customerApi } from '@/common';
 
 const Projects = () => {
-	return (
-		<CustomCardPortlet cardTitle="Projects" titleClass="header-title">
-			<Table hover responsive className="table-nowrap mb-0">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Project Name</th>
-						<th>Start Date</th>
-						<th>Due Date</th>
-						<th>Status</th>
-						<th>Assign</th>
-					</tr>
-				</thead>
-				<tbody>
-					{(projects || []).map((project, idx) => {
-						return (
-							<tr key={idx}>
-								<td>{project.id}</td>
-								<td>{project.projectName}</td>
-								<td>01/01/2015</td>
-								<td>{project.dueDate}</td>
-								<td>
-									<span
-										className={`badge bg-${project.variant}-subtle text-${project.variant}`}
-									>
-										{project.status}
-									</span>
-								</td>
-								<td>Techzaa Studio</td>
-							</tr>
-						)
-					})}
-				</tbody>
-			</Table>
-		</CustomCardPortlet>
-	)
-}
+  const [inTransitShipments, setInTransitShipments] = useState([]);
 
-export default Projects
+  useEffect(() => {
+    const fetchInTransitShipments = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await customerApi.getShipments({
+          Authorization: `Bearer ${token}`,
+        });
+
+        if (!res.status) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const inTransitShipmentsData = res.shipments.filter(
+          (shipment: { shipmentStatus: string; }) => shipment.shipmentStatus === 'in transit'
+        );
+
+        setInTransitShipments(inTransitShipmentsData);
+      } catch (error) {
+        console.error('Error fetching in-transit shipments:', error);
+      }
+    };
+
+    fetchInTransitShipments();
+  }, []);
+
+  const getLastTwoWords = (location: string) => {
+    const words = location.split(' ');
+    return words.slice(-3).join(' ');
+  };
+
+  return (
+    <CustomCardPortlet cardTitle="Ongoing Deliveries" titleClass="header-title">
+      <Table hover responsive className="table-nowrap mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Shipment Type</th>
+            {/* Include other shipment details you want to display */}
+            <th>Origin</th>
+            <th>Destination</th>
+			<th>Delivery Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {inTransitShipments.map((shipment, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{idx + 1}</td>
+                <td>{shipment.shipmentType}</td>
+                {/* Include other shipment details you want to display */}
+                <td>{getLastTwoWords(shipment.shipmentOrigin.location)}</td>
+                <td>{getLastTwoWords(shipment.shipmentDestination.location)}</td>
+				<td>{shipment.shipmentDeliveryDate}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </CustomCardPortlet>
+  );
+};
+
+export default Projects;

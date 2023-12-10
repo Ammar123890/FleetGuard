@@ -17,7 +17,7 @@ import avatar5 from '@/assets/images/users/avatar-5.jpg'
 import {
 	// LanguageDropdown,
 	// MessageDropdown,
-	NotificationDropdown,
+	// NotificationDropdown,
 	ProfileDropdown,
 	SearchDropDown,
 } from '@/components'
@@ -137,26 +137,26 @@ const Notifications: NotificationItem[] = [
 	},
 ]
 const profileMenus: ProfileOption[] = [
-	{
-		label: 'My Account',
-		icon: 'ri-account-circle-line',
-		redirectTo: '/pages/profile',
-	},
-	{
-		label: 'Settings',
-		icon: 'ri-settings-4-line',
-		redirectTo: '/pages/profile',
-	},
-	{
-		label: 'Support',
-		icon: 'ri-customer-service-2-line',
-		redirectTo: '/pages/faq',
-	},
-	{
-		label: 'Lock Screen',
-		icon: 'ri-lock-password-line',
-		redirectTo: '/auth/lock-screen',
-	},
+	// {
+	// 	label: 'My Account',
+	// 	icon: 'ri-account-circle-line',
+	// 	redirectTo: '/pages/profile',
+	// },
+	// {
+	// 	label: 'Settings',
+	// 	icon: 'ri-settings-4-line',
+	// 	redirectTo: '/pages/profile',
+	// },
+	// {
+	// 	label: 'Support',
+	// 	icon: 'ri-customer-service-2-line',
+	// 	redirectTo: '/pages/faq',
+	// },
+	// {
+	// 	label: 'Lock Screen',
+	// 	icon: 'ri-lock-password-line',
+	// 	redirectTo: '/auth/lock-screen',
+	// },
 	{
 		label: 'Logout',
 		icon: 'ri-logout-box-line',
@@ -285,7 +285,7 @@ const Topbar = ({ toggleMenu, navOpen }: TopbarProps) => {
 							</div>
 						</button>
 						{/* Topbar Search Form */}
-						<div className="app-search d-none d-lg-block">
+						{/* <div className="app-search d-none d-lg-block">
 							<form>
 								<div className="input-group">
 									<input
@@ -296,26 +296,26 @@ const Topbar = ({ toggleMenu, navOpen }: TopbarProps) => {
 									<span className="ri-search-line search-icon text-muted" />
 								</div>
 							</form>
-						</div>
+						</div> */}
 					</div>
 					<ul className="topbar-menu d-flex align-items-center gap-3">
-						<li className="dropdown d-lg-none">
+						{/* <li className="dropdown d-lg-none">
 							<SearchDropDown />
-						</li>
+						</li> */}
 						{/* <li className="dropdown">
 							<LanguageDropdown />
 						</li> */}
 						{/* <li className="dropdown notification-list">
 							<MessageDropdown messages={Messages} />
 						</li> */}
-						<li className="dropdown notification-list">
+						{/* <li className="dropdown notification-list">
 							<NotificationDropdown notifications={Notifications} />
-						</li>
-						<li className="d-none d-sm-inline-block">
+						</li> */}
+						{/* <li className="d-none d-sm-inline-block">
 							<button className="nav-link" onClick={handleRightSideBar}>
 								<i className="ri-settings-3-line fs-22" />
 							</button>
-						</li>
+						</li> */}
 						<li className="d-none d-sm-inline-block">
 							<div
 								className="nav-link"
@@ -329,7 +329,7 @@ const Topbar = ({ toggleMenu, navOpen }: TopbarProps) => {
 							<ProfileDropdown
 								menuItems={profileMenus}
 								userImage={profilePic}
-								username="Thomson"
+								// username="Thomson"
 							/>
 						</li>
 					</ul>

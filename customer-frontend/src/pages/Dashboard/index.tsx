@@ -16,8 +16,9 @@ const Dashboard = () => {
 	return (
 		<>
 			<PageBreadcrumb title="Customer Panel" subName="Dashboards" />
-		 	{/* <Row>
-			{(statistics || []).map((item, idx) => {
+		 	<Row>
+				<Statistics/>
+			{/* {(statistics || []).map((item, idx) => {
 					return (
 						<Col xxl={3} sm={6} key={idx}>
 							<Statistics
@@ -29,34 +30,34 @@ const Dashboard = () => {
 							/>
 						</Col>
 					)
-				})}
+				})} */}
 			</Row>
-			<Row>
+			{/* <Row>
 				<Col lg={8}>
 					<SalesChart />
 				</Col>
 				<Col lg={4}>
 					<YearlySelesChart />
 				</Col>
-			</Row>
-			<Row>
+			</Row> */}
+			{/* <Row>
 				<Col lg={8}>
 					<WeeklySelesChart />
 				</Col>
 				<Col lg={4}>
 					<YearlySelesChart />
 				</Col>
-			</Row>
+			</Row> */}
 
 			<Row>
-				<Col xl={4}>
+				{/* <Col xl={4}>
 					<ChatList messages={chatMessages} />
-				</Col>
+				</Col> */}
 
 				<Col xl={8}>
 					<Projects />
 				</Col>
-			</Row> */}
+			</Row>
 		</>
 	)
 }

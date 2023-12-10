@@ -6,12 +6,12 @@ import { useToggle } from '@/hooks'
 type ProfileDropdownProps = {
 	menuItems: Array<ProfileOption>
 	userImage: string
-	username: string
+	// username: string
 }
 const ProfileDropdown = ({
 	menuItems,
 	userImage,
-	username,
+	// username,
 }: ProfileDropdownProps) => {
 	const [isOpen, toggleDropdown] = useToggle()
 	return (
@@ -33,7 +33,7 @@ const ProfileDropdown = ({
 				</span>
 				<span className="d-lg-block d-none">
 					<h5 className="my-0 fw-normal">
-						{username}{' '}
+						{/* {username}{' '} */}
 						<i className="ri-arrow-down-s-line d-none d-sm-inline-block align-middle" />
 					</h5>
 				</span>
@@ -44,7 +44,7 @@ const ProfileDropdown = ({
 			>
 				<div onClick={toggleDropdown}>
 					<div className=" dropdown-header noti-title">
-						<h6 className="text-overflow m-0">Welcome !</h6>
+						{/* <h6 className="text-overflow m-0">Welcome !</h6> */}
 					</div>
 					{/* item*/}
 

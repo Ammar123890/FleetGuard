@@ -3,6 +3,12 @@ import { HttpClient } from '../helpers'
 function customerApi() {
 	
 	return {
+
+		getCustomerDetails: (headers: Record<string, string>) => {
+			return HttpClient.get('auth/customer/getdetails', { headers})
+		},
+		//Trucks
+
 		addTruck: (truckNumber: string, make: string, year: string, registration: string, weightCapacity: number, areaCapacity: number, headers: Record<string, string>) => {
             const values = { truckNumber, make, year, registration, weightCapacity, areaCapacity};  
             return HttpClient.post('/customer/truck/add', values, { headers});
@@ -17,6 +23,11 @@ function customerApi() {
 			const values = {truckNumber, make, year, registration, weightCapacity, areaCapacity};
 			return HttpClient.put(`/customer/truck/edit/${id}`, values, { headers})
         },
+		deleteTruck: (value: string, headers: Record<string, string>) => {
+			return HttpClient.delete(`/customer/truck/delete/${value}`, { headers });
+		},
+		//Driver
+
         addDriver: (name: string, phone: string, licenseNumber: string, licenseExpiry: string, age: number, address: string, experience: number, headers: Record<string, string>) => {
             const values = { name, phone, licenseNumber, licenseExpiry, age, address, experience,};  
             return HttpClient.post('/customer/driver/add', values, { headers});
@@ -31,15 +42,20 @@ function customerApi() {
 			const values = {name, phone, licenseNumber, licenseExpiry, age, address, experience};
 			return HttpClient.put(`/customer/driver/edit/${id}`, values, { headers})
         },
-		getAvailableShipments: (shipmentWeight: number, shipmentArea: number, shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
-			const url = `/customer/truck/available?shipmentWeight=${shipmentWeight}&shipmentArea=${shipmentArea}&shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
+		getAvailableDrivers: (shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
+			const url = `/customer/driver/available?shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
 			
 			console.log(url, headers);
 			
 			return HttpClient.get(url, { headers });
 		},
-		getAvailableDrivers: (shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
-			const url = `/customer/driver/available?shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
+		deleteDriver: (value: string, headers: Record<string, string>) => {
+			return HttpClient.delete(`/customer/driver/delete/${value}`, { headers });
+		},
+		//Shipments
+
+		getAvailableShipments: (shipmentWeight: number, shipmentArea: number, shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
+			const url = `/customer/truck/available?shipmentWeight=${shipmentWeight}&shipmentArea=${shipmentArea}&shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
 			
 			console.log(url, headers);
 			
@@ -50,31 +66,42 @@ function customerApi() {
 			console.log('headers', headers)
             return HttpClient.post('/customer/shipment/add', value, { headers});
         },
-
-		
-		// addDevice: (model: string, pricePerMonth: number, price: number, quantity: number, description: string, headers: Record<string, string>) => {
-		// 	const values = { model, pricePerMonth, price, quantity, description };
-		// 	console.log('header of add device', headers)
-		// 	return HttpClient.post('/admin/dashcam/add', values, { headers});
-		//   },
-		//   viewDevice: ( headers: Record<string, string>) => {
-		// 	return HttpClient.get('/admin/dashcam/get', { headers});
-		//   },
-		//   getDeviceById: (value: string, header: Record<string, string>) => {
-		// 	console.log('header: ', header)
-		// 	console.log('value',)
-		// 	return HttpClient.get(`/admin/dashcam/get/${value}`,  {
-		// 		headers: header  // Correct way to include headers in the request
-		// 	  });;
-		//   },
-		//   editDevice: (value: string, model: string, pricePerMonth: number, price: number, quantity: number, description: string,  header: Record<string, string>) => {
-		// 	console.log('header: ', header)
-		// 	console.log('value',)
-		// 	const values = { model, pricePerMonth, price, quantity, description };
-		// 	return HttpClient.put(`/admin/dashcam/edit/${value}`, values, {
-		// 		headers: header 
-		// 	  });
-		//   },
+		getShipments: ( headers: Record<string, string>) => {
+			console.log('token: ', headers)
+			return HttpClient.get('/customer/shipment/get', { headers})
+        },
+		getShipmentById: (value: string, header: Record<string, string>) => {
+			return HttpClient.get(`/customer/shipment/get/${value}`,  {headers: header });
+		},
+		startShipment: (value: string, headers: Record<string, string>) => {
+			console.log('token: ', headers)
+			return HttpClient.put(`/customer/shipment/start/${value}`,  {headers});
+		},
+		endShipment: (value: string, headers: Record<string, string>) => {
+			console.log('token: ', headers)
+			return HttpClient.put(`/customer/shipment/end/${value}`,  {headers});
+		},
+		//Device
+		viewDevice: ( headers: Record<string, string>) => {
+			return HttpClient.get('/customer/dashcam/list/get', { headers});
+		  },
+		  getDashcams: ( headers: Record<string, string>) => {
+			return HttpClient.get('/customer/dashcam/get', { headers});
+		  },
+		  viewDeviceById: (value: string, headers: Record<string, string>) => {
+			console.log('gg', value)
+			return HttpClient.get(`/customer/dashcam/get/${value}`, { headers});
+		  },
+		  purchaseDashcam: (value: any, headers: Record<string, string>) => {
+			console.log('valuesss: ', value)
+			console.log('headers', headers)
+            return HttpClient.post('/customer/dashcam/purchase', value, { headers});
+        },
+		  assignDashcamToTruck: (dashcamId: string, truckId: string, headers: Record<string, string>) => {
+			console.log(truckId, dashcamId)
+			return HttpClient.put(`/customer/truck/assigndashcam/${dashcamId}/${truckId}`,  {headers});
+		},
+	
 	}
 }
 

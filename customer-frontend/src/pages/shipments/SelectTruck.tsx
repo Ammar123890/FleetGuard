@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, ListGroup, Badge } from 'react-bootstrap';
+import { Button, Card, ListGroup, Badge, ProgressBar } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { customerApi } from '@/common';
 
@@ -11,6 +11,7 @@ interface Truck {
   registration: string;
   weightCapacity: number;
   areaCapacity: number;
+  availability: boolean;
 }
 
 const SelectTruck = () => {
@@ -68,50 +69,58 @@ const SelectTruck = () => {
 
   return (
     <Card>
-      <Card.Header>
-        <h4 className="header-title">Select Truck</h4>
-      </Card.Header>
-      <Card.Body>
-        {selectedTruck && (
-          <div className="mb-4">
-            <h5>Selected Truck:</h5>
-            <ListGroup>
-              <ListGroup.Item>
-                <strong>{selectedTruck.truckNumber}</strong> - {selectedTruck.make} - {selectedTruck.year}
+    <Card.Header>
+      <h4 className="header-title">Select Truck</h4>
+    </Card.Header>
+    <Card.Body>
+      <ProgressBar style={{ height: 5, marginBottom: '30px' }} now={25} animated className="progress" />
+
+      {selectedTruck && (
+        <div className="mb-4">
+          <h5>Selected Truck:</h5>
+          <ListGroup>
+            <ListGroup.Item>
+              <strong>{selectedTruck.truckNumber}</strong> - {selectedTruck.make} - {selectedTruck.year}
+              <Badge bg={selectedTruck.availability ? 'success' : 'danger'} className="ms-2">
+                {selectedTruck.availability ? 'Available' : 'Not Available'}
+              </Badge>
+            </ListGroup.Item>
+          </ListGroup>
+        </div>
+      )}
+
+      {availableTrucks.length > 0 && (
+        <div className="mb-4">
+          <h5>Available Trucks:</h5>
+          <ListGroup>
+            {availableTrucks.map((truck, idx) => (
+              <ListGroup.Item
+                key={idx}
+                action
+                onClick={() => handleSelectTruck(truck)}
+                active={selectedTruck?._id === truck._id}
+              >
+                <strong>{truck.truckNumber}</strong> - {truck.make} - {truck.year}
+                <Badge bg={truck.availability ? 'success' : 'danger'} className="ms-2">
+                  {truck.availability ? 'Available' : 'Not Available'}
+                </Badge>
               </ListGroup.Item>
-            </ListGroup>
-          </div>
-        )}
+            ))}
+          </ListGroup>
+        </div>
+      )}
 
-        {availableTrucks.length > 0 && (
-          <div className="mb-4">
-            <h5>Available Trucks:</h5>
-            <ListGroup>
-              {availableTrucks.map((truck, idx) => (
-                <ListGroup.Item
-                  key={idx}
-                  action
-                  onClick={() => handleSelectTruck(truck)}
-                  active={selectedTruck?._id === truck._id}
-                >
-                  <strong>{truck.truckNumber}</strong> - {truck.make} - {truck.year}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </div>
-        )}
+      {errorMessage && (
+        <div className="mb-4">
+          <Badge bg="danger">{errorMessage}</Badge>
+        </div>
+      )}
 
-        {errorMessage && (
-          <div className="mb-4">
-            <Badge bg="danger">{errorMessage}</Badge>
-          </div>
-        )}
-
-        <Button variant="primary" onClick={handleNextPage} disabled={!selectedTruck}>
-          Get Available Drivers <i className="ri-arrow-right-line ms-1" />
-        </Button>
-      </Card.Body>
-    </Card>
+      <Button variant="primary" onClick={handleNextPage} disabled={!selectedTruck}>
+        Get Available Drivers <i className="ri-arrow-right-line ms-1" />
+      </Button>
+    </Card.Body>
+  </Card>
   );
 };
 

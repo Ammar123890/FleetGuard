@@ -26,7 +26,7 @@ const EditTrucks = () => {
 
   const redirectUrl = useMemo(
     () =>
-      location.state && location.state.from ? location.state.from.pathname : '/admin/trucks/view',
+      location.state && location.state.from ? location.state.from.pathname : '/customer/trucks/view',
     [location.state]
   );
 
