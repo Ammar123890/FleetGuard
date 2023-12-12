@@ -1,15 +1,15 @@
-// models/DriverScore.js
 const mongoose = require('mongoose');
 
 const violationSchema = new mongoose.Schema({
     type: String,
-    count: Number,
-    weight: Number,
-    timestamp: [Date]
-
+    timestamp: Date,
+    image: String,
+    acceleration: Number,
+    latitude: Number,
+    longitude: Number,  
 });
 
-const score = new mongoose.Schema({
+const scoreSchema = new mongoose.Schema({
     shipment: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'shipment',
@@ -24,7 +24,9 @@ const score = new mongoose.Schema({
         type: Number,
         default: 100
     },
-    violations: [violationSchema]
-});
+    violations: [violationSchema],
+    totalViolations: { type: Number, default: 0 },
+    totalWeight: { type: Number, default: 1 },
+}, { timestamps: true });
 
-module.exports = mongoose.model('Score', score);
+module.exports = mongoose.model('Score', scoreSchema);

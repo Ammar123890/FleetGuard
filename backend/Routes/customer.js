@@ -49,12 +49,16 @@ const{
     getShipments,
     startShipment,
     endShipment,
-    getShipment
+    getShipment,
+    updateScore
 
 } = require('../Controllers/Customer/shipment');
 const { get } = require('mongoose');
 
 
+
+//update score
+router.put('/shipment/updateScore', updateScore);
 
 router.use(customerMiddleware)
 

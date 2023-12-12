@@ -19,8 +19,8 @@ connect();
 // Utils
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ limit: "1mb", extended: true }));
 app.use(cookieParser());
 
 // Configure CORS
@@ -38,3 +38,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
  console.log(`Your app is running on PORT ${PORT}`);
 });
+

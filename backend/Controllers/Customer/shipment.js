@@ -3,6 +3,7 @@ const truckModel = require('../../Models/Customer/truck');
 const driverModel = require('../../Models/Customer/driver');
 const { ValidateShipment } = require('../../Schemas/shipment');
 const scoreModel = require('../../Models/Customer/score');
+const mongoose = require('mongoose');
 
 
 
@@ -134,7 +135,9 @@ module.exports.startShipment = async (req, res) => {
             shipment: shipment._id,
             driver: shipment.driver,
             score: 100, // Initial score
-            violations: [] // No violations at the start
+            violations: [], // No violations at the start
+            totalViolations: 0,
+            totalWeight: 1, // Initial weight
         });
         await initialScore.save();
 
@@ -193,39 +196,74 @@ module.exports.endShipment = async (req, res) => {
  */
 
 module.exports.updateScore = async (req, res) => {
-    const { shipmentId, driverId, violations, timestamp } = req.body; // Expect an array of violations
+    const {
+        timestamp,
+        shipmentId,
+        image,
+        acceleration,
+        latitude,
+        longitude,
+        ...violations
+    } = req.body; // Destructure the new data format
+
+    // Validate the required fields
+    if (!timestamp || !shipmentId) {
+        return res.status(400).json({ msg: "Missing required fields" });
+    }
+
     try {
-        const driverScore = await scoreModel.findOne({ shipment: shipmentId, driver: driverId });
+        const driverScore = await scoreModel.findOne({
+            shipment: new mongoose.Types.ObjectId(shipmentId),
+
+        });
+
         if (!driverScore) {
             return res.status(404).json({ msg: "Driver score not found" });
         }
 
-        violations.forEach(violationType => {
-            const violation = driverScore.violations.find(v => v.type === violationType);
-            if (violation) {
-                violation.count++;
-                violation.timestamps.push(new Date(timestamp));
-                if (violation.count % 50 === 0) {
-                    violation.weight += 0.1; // Increase weight after every 50th specific violation
-                }
-            } else {
+        let hasViolations = false;
+
+
+        Object.keys(violations).forEach(violationType => {
+            if (violations[violationType]) {
+                hasViolations = true;
                 driverScore.violations.push({
                     type: violationType,
-                    count: 1,
-                    weight: 1,
-                    timestamps: [new Date(timestamp)]
+                    timestamp,
+                    image,
+                    acceleration,
+                    latitude,
+                    longitude
                 });
-            }
 
-            const violationDeduction = violation ? violation.weight * (0.01 * percentageData[violationType]) : 0;
-            driverScore.score = Math.max(driverScore.score - violationDeduction, 0); // Ensure score doesn't go below 0
+
+                //Update the total count of violations
+                driverScore.totalViolations += 1;
+                //Update the total weight of violations after every 50 violations
+                if (driverScore.totalViolations % 50 === 0) {
+                    driverScore.totalWeight += 0.1;
+                }
+
+                const violationDeduction = driverScore.totalWeight * (0.01 * percentageData[violationType]);
+                driverScore.score = Math.max(driverScore.score - violationDeduction, 0);
+            }
         });
+
+        if (!hasViolations) {
+            return res.status(400).json({ msg: "No violations reported" });
+        }
 
         await driverScore.save();
         return res.status(200).json(driverScore);
-    }
-    catch (error) {
-        return res.status(500).json({ errors: error });
+    } catch (error) {
+        console.error(error); // Log the error for debugging purposes
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).json({ msg: "Validation error", errors: error.errors });
+        } else if (error instanceof mongoose.Error.CastError) {
+            return res.status(400).json({ msg: "Invalid ObjectId format", errors: error.message });
+        } else {
+            return res.status(500).json({ msg: "An error occurred", errors: error.message });
+        }
     }
 };
 
@@ -234,17 +272,14 @@ const percentageData = {
     "isSpeedLimitCompliance": 28,
     "isFatigueDetection": 20,
     "isSeatbeltCompliance": 10,
-    "SAFE_DRIVING": 0,
-    "TEXTING_LEFT": 26,
-    "TEXTING_RIGHT": 26,
-    "TALKING_PHONE_LEFT": 26,
-    "TALKING_PHONE_RIGHT": 26,
-    "OPERATING_RADIO": 1,
-    "DRINKING": 2,
-    "REACHING_BEHIND": 7,
-    "HAIR_AND_MAKEUP": 1,
-    "TALKING_TO_PASSENGER": 15,
-}
+    "calling": 26,
+    "texting": 26,
+    "radio": 1,
+    "hair": 1,
+    "talkingPassenger": 15,
+    "reachingBehind": 7,
+    "mealtimeMotion": 2,
+};
 
 
 
