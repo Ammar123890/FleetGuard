@@ -144,6 +144,41 @@ const MENU_ITEMS: MenuItemTypes[] = [
 		
 		],
 	},
+	{
+		key: 'scoreboard',
+		label: 'Driver Scoreboard',
+		isTitle: false,
+		icon: 'ri-line-chart-line',
+		url: '/customer/scoreboard/deliveries',
+		// children: [
+		// 	{
+		// 		key: 'ongoing-deliveries',
+		// 		label: 'View Ongoing Deliveries',
+		// 		url: '/customer/scoreboard/deliveries',
+		// 		parentKey: 'scoreboard',
+		// 	},
+		// 	{
+		// 		key: 'safety-compliance',
+		// 		label: 'Safety Compliance',
+		// 		url: '/customer/scoreboard/safety/:id',
+		// 		parentKey: 'scoreboard',
+		// 	},
+		// 	{
+		// 		key: 'scoring',
+		// 		label: 'Scoring',
+		// 		url: '/customer/scoreboard/scoring/:id',
+		// 		parentKey: 'scoreboard',
+		// 	},
+		// 	{
+		// 		key: 'speed',
+		// 		label: 'Speed Monitoring',
+		// 		url: '/customer/scoreboard/speed/:id',
+		// 		parentKey: 'scoreboard',
+		// 	},
+		
+		
+		// ],
+	},
 	// {
 	// 	key: 'device',
 	// 	label: 'Device Management',

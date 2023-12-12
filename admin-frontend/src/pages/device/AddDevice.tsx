@@ -72,7 +72,7 @@ const AddDevice = () => {
 					<Col sm={12}>
 
 						<form onSubmit={handleSubmit(onSubmit)}>
-						<FormInput
+						{/* <FormInput
 								name="model"
 								label="Model"
 								type="select"
@@ -90,7 +90,7 @@ const AddDevice = () => {
 							<option>V2.1</option>
 							<option>V2.2</option>
 							<option>V2.3</option>
-						</FormInput>
+						</FormInput> */}
 						<FormInput
 								label="Model"
 								type="string"

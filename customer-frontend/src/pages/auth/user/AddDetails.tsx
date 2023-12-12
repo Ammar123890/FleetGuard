@@ -55,12 +55,12 @@ const AddDetails = () => {
         setErrorMessage(null);
 
         // Navigate to another page after successful submission
-        navigate('/dashboard'); // Change the route as needed
+         // Change the route as needed
       } else {
         setErrorMessage('Failed to add details. Please try again.');
         setSuccessMessage(null);
       }
-
+      navigate('/dashboard');
       console.log('API Response:', response);
     } catch (error) {
       console.error('Error adding details:', error);

@@ -51,6 +51,12 @@ const Purchase = React.lazy(() => import('../pages/dashcam/Purchase'))
 const GetDashcam = React.lazy(() => import('../pages/dashcam/GetDashcam'))
 const ViewAll = React.lazy(() => import('../pages/dashcam/ViewAll'))
 const AssignTruck = React.lazy(() => import('../pages/dashcam/AssignTruck'))
+const PaymentForm = React.lazy(() => import('../pages/dashcam/PaymentForm'))
+const OngoingDeliveries = React.lazy(() => import('../pages/DriverScoreboard/OngoingDeliveries'))
+const SafetyCompliance = React.lazy(() => import('../pages/DriverScoreboard/SafetyCompliance'))
+const Scoring = React.lazy(() => import('../pages/DriverScoreboard/Scoring'))
+const SpeedMonitoring = React.lazy(() => import('../pages/DriverScoreboard/SpeedMonitoring'))
+
 
 // // base ui
 const Accordions = React.lazy(() => import('../pages/ui/Accordions'))
@@ -263,6 +269,11 @@ const customPagesRoutes = {
 			element: <Purchase/>
 		},
 		{
+			path: '/customer/dashcam/paymentForm',
+			name: 'Payment Form',
+			element: <PaymentForm/>
+		},
+		{
 			path: '/customer/dashcam/view',
 			name: 'PView all Dashcam',
 			element: <ViewAll/>
@@ -276,6 +287,26 @@ const customPagesRoutes = {
 			path: '/customer/dashcam/assign-truck',
 			name: 'Assign Truck',
 			element: <AssignTruck/>
+		},
+		{
+			path: '/customer/scoreboard/deliveries',
+			name: 'Ongoing Deliveries',
+			element: <OngoingDeliveries/>
+		},
+		{
+			path: '/customer/scoreboard/safety/:id',
+			name: 'Safety Compliance',
+			element: <SafetyCompliance/>
+		},
+		{
+			path: '/customer/scoreboard/scoring/:id',
+			name: 'Scoring',
+			element: <Scoring/>
+		},
+		{
+			path: '/customer/scoreboard/speed/:id',
+			name: 'Speed Monitoring',
+			element: <SpeedMonitoring/>
 		},
 		{
 			path: '/pages/profile',

@@ -13,7 +13,7 @@ const CustomCardPortlet = (props: PortletProps) => {
 	const children = props['children'] || null
 	const cardTitle = props['cardTitle'] || 'Card title'
 
-	const [collapse, setCollapse] = useState<boolean>(true)
+	const [collapse, setCollapse] = useState<boolean>(false) // Set to false for closed by default
 	const [loading, setLoading] = useState<boolean>(false)
 	const [hidden, setHidden] = useState<boolean>(false)
 

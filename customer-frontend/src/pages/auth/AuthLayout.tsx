@@ -94,7 +94,7 @@ const AuthLayout = ({
 
 												{children}
 
-												{hasThirdPartyLogin && (
+												{/* {hasThirdPartyLogin && (
 													<div className="text-center mt-4">
 														<p className="text-muted fs-16">Sign in with</p>
 														<div className="d-flex gap-2 justify-content-center mt-3">
@@ -112,7 +112,7 @@ const AuthLayout = ({
 															</Link>
 														</div>
 													</div>
-												)}
+												)} */}
 											</div>
 										</div>
 									</Col>

@@ -101,7 +101,18 @@ function customerApi() {
 			console.log(truckId, dashcamId)
 			return HttpClient.put(`/customer/truck/assigndashcam/${dashcamId}/${truckId}`,  {headers});
 		},
-	
+		getScoresByShipmentId: (value: any, headers: Record<string, string>) => {
+			return HttpClient.get(`/customer/dashcam/purchase/${value}`,  { headers});
+		},
+		getViolationDetails: (value: string, safetyFactor: string, headers: Record<string, string>) => {
+			return HttpClient.get(`/customer/shipment/violation/get/${value}/${safetyFactor}`,  { headers});
+		},
+		getDriverScore: (value: string, headers: Record<string, string>) => {
+			return HttpClient.get(`/customer/shipment/score/get/${value}`, { headers});
+		},
+		getViolationCount: (headers: Record<string, string>) => {
+			return HttpClient.get('/customer/driver/count', { headers});
+		}
 	}
 }
 
