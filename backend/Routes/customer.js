@@ -50,7 +50,9 @@ const{
     startShipment,
     endShipment,
     getShipment,
-    updateScore
+    updateScore,
+    getShipmentScore,
+    getViolationDetails
 
 } = require('../Controllers/Customer/shipment');
 const { get } = require('mongoose');
@@ -93,6 +95,8 @@ router.get('/shipment/get', getShipments);
 router.put('/shipment/start/:id', startShipment);
 router.put('/shipment/end/:id', endShipment);
 router.get('/shipment/get/:id', getShipment);
+router.get('/shipment/score/get/:id', getShipmentScore);
+router.get('/shipment/violation/get/:id/:type', getViolationDetails);
 
 //paths for statistics
 router.get('/statistics/get', getStatistics);

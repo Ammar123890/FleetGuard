@@ -192,7 +192,7 @@ module.exports.endShipment = async (req, res) => {
 /**
  * @description Update the score of a shipment for a driver
  * @route PUT /api/customer/shipment/score
- * @access Customer
+ * @access Customer 
  */
 
 module.exports.updateScore = async (req, res) => {
@@ -244,7 +244,7 @@ module.exports.updateScore = async (req, res) => {
                     driverScore.totalWeight += 0.1;
                 }
 
-                const violationDeduction = driverScore.totalWeight * (0.01 * percentageData[violationType]);
+                const violationDeduction = driverScore.totalWeight * (0.03 * percentageData[violationType]);
                 driverScore.score = Math.max(driverScore.score - violationDeduction, 0);
             }
         });
@@ -281,6 +281,121 @@ const percentageData = {
     "mealtimeMotion": 2,
 };
 
+
+/**
+ * @description Get the score of a shipment for a driver. This shoes the score of the driver.
+ * @description Also get the driver name and phone number and them calculate the total count of each violation type
+ * @route GET /api/customer/shipment/score/get/:id
+ * @access Customer
+ */
+
+module.exports.getShipmentScore = async (req, res) => {
+    try {
+        const shipment = await shipmentModel.findById(req.params.id);
+        if (!shipment) {
+            return res.status(404).json({ msg: "Shipment not found" });
+        }
+
+        const driverScore = await scoreModel.findOne({
+            shipment: new mongoose.Types.ObjectId(req.params.id),
+        }).populate('driver', 'name phone');
+
+        if (!driverScore) {
+            return res.status(404).json({ msg: "Driver score not found" });
+        }
+
+
+        const { violations } = driverScore;
+
+        const violationsCount = {
+            isSpeedLimitCompliance: 0,
+            isFatigueDetection: 0,
+            isSeatbeltCompliance: 0,
+            calling: 0,
+            texting: 0,
+            radio: 0,
+            hair: 0,
+            talkingPassenger: 0,
+            reachingBehind: 0,
+            mealtimeMotion: 0,
+        };
+
+        violations.forEach(violation => {
+            violationsCount[violation.type] += 1;
+        });
+
+        //find the driver name and phone number by the driver id
+
+
+        const driverId = driverScore.driver  // driver id
+        // now check from the driver model
+        const driver = await driverModel.findById(driverId);
+        if (!driver) {
+            return res.status(404).json({ msg: "Driver not found" });
+        }
+
+
+        const totalScore = driverScore.score;
+        return res.status(200).json({
+            totalScore,
+            violationsCount,
+            driverName: driver.name,
+            driverPhone: driver.phone,
+            status: true,
+        });
+    } catch (error) {
+        console.error(error); // Log the error for debugging purposes
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).json({ msg: "Validation error", errors: error.errors });
+        } else if (error instanceof mongoose.Error.CastError) {
+            return res.status(400).json({ msg: "Invalid ObjectId format", errors: error.message });
+        } else {
+            return res.status(500).json({ msg: "An error occurred", errors: error.message });
+        }
+    }
+};
+
+
+/**
+ * @description Get the details of the specific violation type. It get the violation type and return the all the violations of that type.
+ * @description Details then it returns are the timestamp, image, latitude, longitude
+ * @route GET /api/customer/violation/get/:id/:type
+ * @access Customer
+ */
+
+module.exports.getViolationDetails = async (req, res) => {
+    try {
+        const shipment = await shipmentModel.findById(req.params.id);
+        if (!shipment) {
+            return res.status(404).json({ msg: "Shipment not found" });
+        }
+
+        const driverScore = await scoreModel.findOne({
+            shipment: new mongoose.Types.ObjectId(req.params.id),
+        });
+
+        if (!driverScore) {
+            return res.status(404).json({ msg: "Driver score not found" });
+        }
+
+        const { violations } = driverScore;
+
+        const violationDetails = violations.filter(violation => violation.type === req.params.type);
+
+        return res.status(200).json({
+            violationDetails,
+        });
+    } catch (error) {
+        console.error(error); // Log the error for debugging purposes
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).json({ msg: "Validation error", errors: error.errors });
+        } else if (error instanceof mongoose.Error.CastError) {
+            return res.status(400).json({ msg: "Invalid ObjectId format", errors: error.message });
+        } else {
+            return res.status(500).json({ msg: "An error occurred", errors: error.message });
+        }
+    }
+}
 
 
 
