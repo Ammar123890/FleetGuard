@@ -15,11 +15,8 @@ import hair1 from '@/assets/images/users/hair1.jpg';
 import hair2 from '@/assets/images/users/hair2.jpg';
 import texting1 from '@/assets/images/users/texting1.jpg';
 import texting2 from '@/assets/images/users/texting2.jpg';
-import meal1 from '@/assets/images/users/meal1.jpg';
-import meal2 from '@/assets/images/users/meal2.jpg';
-import radio1 from '@/assets/images/users/radio1.jpg';
-import radio2 from '@/assets/images/users/radio2.jpg';
-import talking1 from '@/assets/images/users/talking1.jpg';
+
+
 
 const noteStyle = {
   backgroundColor: '#d4edda',
@@ -70,7 +67,7 @@ export const basicRadialBarChart: ApexOptions = {
   series: [70],
   labels: ['CRICKET'],
 };
-
+import talking1 from '@/assets/images/users/talking1.jpg';
 const SafetyCompliance = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +106,8 @@ const SafetyCompliance = () => {
     mealtimeMotion: 'Mealtime Motion',
   };
 
-
+  import radio1 from '@/assets/images/users/radio1.jpg';
+  import radio2 from '@/assets/images/users/radio2.jpg';
   const handleShowDetails = async (safetyFactor) => {
 
     console.log('f', safetyFactor)
