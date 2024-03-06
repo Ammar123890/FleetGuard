@@ -51,6 +51,7 @@ const{
     endShipment,
     getShipment,
     updateScore,
+    getWeather,
     getShipmentScore,
     getViolationDetails
 
@@ -96,6 +97,7 @@ router.put('/shipment/start/:id', startShipment);
 router.put('/shipment/end/:id', endShipment);
 router.get('/shipment/get/:id', getShipment);
 router.get('/shipment/score/get/:id', getShipmentScore);
+router.get('/shipment/weather/get/:lg/:lt', getWeather);
 router.get('/shipment/violation/get/:id/:type', getViolationDetails);
 
 //paths for statistics

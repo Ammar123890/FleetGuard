@@ -20,7 +20,7 @@ const {
     getStatistics
 
 } =require( '../Controllers/Admin/statistics');
-const { get } = require('mongoose');
+
 
 //paths
 router.use(adminMiddleware)
@@ -31,6 +31,7 @@ router.get('/dashcam/get/:id', getDashcam );
 router.get('/sales/get', getSalesData)
 router.get('/statistics/get', getStatistics)
 router.delete('/dashcam/delete/:id', deleteDashcam)
+
 
 
 module.exports = router;

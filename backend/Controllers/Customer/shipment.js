@@ -397,6 +397,24 @@ module.exports.getViolationDetails = async (req, res) => {
     }
 }
 
+/**
+ * @description Get the weather of the shipment location using the open weather API
+ * @route GET /api/customer/shipment/weather/get/:lg/:lt
+ * @access Customer
+ */
+
+module.exports.getWeather = async (req, res) => {
+    const apiKey = process.env.OPEN_WEATHER_API_KEY;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.params.lt}&lon=${req.params.lg}&appid=${apiKey}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(500).json({ errors: error.message });
+    }
+}
+
 
 
 
