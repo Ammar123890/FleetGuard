@@ -360,7 +360,7 @@ module.exports.getCustomerDetails = async (req, res) => {
     try {
         const customer = await customerModel.findById(req.user.user);
         res.status(200).json({
-            customer,
+            data: customer,
             status: true,
         });
     } catch (error) {

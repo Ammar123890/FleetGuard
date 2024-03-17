@@ -50,7 +50,7 @@ module.exports.getTrucks = async (req, res) => {
     try {
         const trucks = await truckModel.find({ owner: req.user.user });
         return res.status(200).json({
-            trucks,
+            data: trucks,
             status: true,
         });
     } catch (error) {
@@ -82,7 +82,7 @@ module.exports.editTruck = async (req, res) => {
 
         return res.status(200).json({
             msg: "Truck updated successfully",
-            truck,
+            data: truck,
             status: true
         });
 
@@ -120,7 +120,7 @@ module.exports.getAvailableTrucks = async (req, res) => {
             }
         });
 
-        return res.status(200).json({ availableTrucks });
+        return res.status(200).json({ data: availableTrucks });
     } catch (error) {
         // Log the error for debugging
         console.error('Error fetching available trucks:', error);
@@ -146,7 +146,7 @@ module.exports.getTruck = async (req, res) => {
         }
 
         return res.status(200).json({
-            truck,
+            data: truck,
             status: true,
         });
     } catch (error) {

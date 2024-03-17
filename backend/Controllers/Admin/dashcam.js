@@ -45,7 +45,7 @@ module.exports.getDashcamModels = async (req, res) => {
     try {
         const dashcams = await dashcamModel.find();
         return res.status(200).json({
-            dashcams,
+            data: dashcams,
             status: true,
         });
     } catch (error) {

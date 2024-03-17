@@ -75,7 +75,9 @@ module.exports.getSalesData = async (req, res) => {
             return res.status(400).json({ message: "Year is required for querying sales data." });
         }
 
-        res.status(200).json(salesData);
+        res.status(200).json({
+            data: salesData
+         });
     } catch (error) {
         console.error("Error fetching sales data:", error);
         res.status(500).json({ message: "Error fetching sales data." });
@@ -155,7 +157,9 @@ module.exports.getStatistics = async (req, res) => {
             }
         };
 
-        res.status(200).json(response);
+        res.status(200).json({
+            data: response
+        });
     } catch (error) {
         console.error("Error fetching statistics:", error);
         res.status(500).json({ message: "Error fetching statistics." });

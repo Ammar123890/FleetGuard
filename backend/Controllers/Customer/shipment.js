@@ -414,7 +414,7 @@ module.exports.getWeather = async (req, res) => {
         return res.status(500).json({ errors: error.message });
     }
 }
-
+    
 
 
 

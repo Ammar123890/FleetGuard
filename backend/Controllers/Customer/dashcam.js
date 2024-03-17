@@ -48,7 +48,7 @@ module.exports.purchaseDashcam = async (req, res) => {
 
         return res.status(200).json({
             msg: "Dashcam purchase successful",
-            dashcams: newDashcams.map(d => ({ serialNumber: d.serialNumber }))
+            data: newDashcams.map(d => ({ serialNumber: d.serialNumber }))
         });
     } catch (error) {
         return res.status(500).json({ errors: error });
@@ -90,7 +90,7 @@ module.exports.getDashcam = async (req, res) => {
             return res.status(401).json({ msg: "Unauthorized" });
         }
         return res.status(200).json({
-            dashcam,
+            data: dashcam,
             status: true,
         });
     } catch (error) {

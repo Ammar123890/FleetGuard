@@ -48,7 +48,7 @@ module.exports.getDrivers = async (req, res) => {
     try {
         const drivers = await driverModel.find({owner:req.user.user});
         return res.status(200).json({
-            drivers,
+            data: drivers,
             status: true,
         });
     } catch (error) {
@@ -110,7 +110,7 @@ module.exports.getAvailableDrivers = async (req, res) => {
             }
         });
 
-        return res.status(200).json({ availableDrivers });
+        return res.status(200).json({ data: availableDrivers });
     } catch (error) {
         // Log the error for debugging
         console.error('Error fetching available drivers:', error);
@@ -134,7 +134,7 @@ module.exports.getDriver = async (req, res) => {
             return res.status(400).json({ msg: "Driver not found" });
         }
         return res.status(200).json({
-            driver,
+            data: driver,
             status: true,
         });
     } catch (error) {

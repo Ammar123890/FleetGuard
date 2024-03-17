@@ -27,7 +27,7 @@ module.exports.getStatistics = async (req, res) => {
             totalRevenue: totalRevenue.length > 0 ? totalRevenue[0].total : 0
         };
 
-        res.status(200).json(response);
+        res.status(200).json({data: response});
     } catch (error) {
         console.error("Error fetching statistics:", error);
         res.status(500).json({ message: "Error fetching statistics." });
