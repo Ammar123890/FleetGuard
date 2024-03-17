@@ -3,8 +3,40 @@ import { Table } from 'react-bootstrap';
 import { CustomCardPortlet } from '@/components';
 import { customerApi } from '@/common';
 
+
+interface Shipment {
+  _id: string;
+  driver: string;
+  truck: string;
+  shipmentType: string;
+  shipmentWeight: number;
+  shipmentArea: number;
+  shipmentDescription: string;
+  shipmentStatus: string;
+  shipmentPickDate: string;
+  shipmentDeliveryDate: string;
+  shipmentCost: number;
+  paymentMethod: string;
+  shipmentDestination: {
+      location: string;
+      coordinates: [number, number];
+  };
+  shipmentOrigin: {
+      location: string;
+      coordinates: [number, number];
+  };
+  sender: {
+      name: string;
+      phone: string;
+  };
+  receiver: {
+      name: string;
+      phone: string;
+  };
+}
+
 const Projects = () => {
-  const [inTransitShipments, setInTransitShipments] = useState([]);
+  const [inTransitShipments, setInTransitShipments] = useState<Shipment[]>([]);
 
   useEffect(() => {
     const fetchInTransitShipments = async () => {
@@ -18,7 +50,7 @@ const Projects = () => {
           throw new Error('Failed to fetch data');
         }
 
-        const inTransitShipmentsData = res.shipments.filter(
+        const inTransitShipmentsData = res.data.filter(
           (shipment: { shipmentStatus: string; }) => shipment.shipmentStatus === 'in transit'
         );
 

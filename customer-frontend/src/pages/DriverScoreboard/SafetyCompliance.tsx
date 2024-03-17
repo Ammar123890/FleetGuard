@@ -1,5 +1,5 @@
 import { ApexOptions } from 'apexcharts';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { Table, Button, Modal, Card, Alert } from 'react-bootstrap';
 import ReactApexChart from 'react-apexcharts';
 import { CustomCardPortlet } from '@/components';
@@ -15,7 +15,10 @@ import hair1 from '@/assets/images/users/hair1.jpg';
 import hair2 from '@/assets/images/users/hair2.jpg';
 import texting1 from '@/assets/images/users/texting1.jpg';
 import texting2 from '@/assets/images/users/texting2.jpg';
-
+import meal1 from '@/assets/images/users/meal1.jpg';
+import meal2 from '@/assets/images/users/meal2.jpg';
+import radio1 from '@/assets/images/users/radio1.jpg';
+import radio2 from '@/assets/images/users/radio2.jpg';
 
 
 const noteStyle = {
@@ -27,9 +30,9 @@ const noteStyle = {
   borderRadius: '4px',
 };
 
-const driverInfoStyle = {
-  marginBottom: '20px',
-};
+// const driverInfoStyle = {
+//   marginBottom: '20px',
+// };
 
 export const basicRadialBarChart: ApexOptions = {
   chart: {
@@ -106,9 +109,8 @@ const SafetyCompliance = () => {
     mealtimeMotion: 'Mealtime Motion',
   };
 
-  import radio1 from '@/assets/images/users/radio1.jpg';
-  import radio2 from '@/assets/images/users/radio2.jpg';
-  const handleShowDetails = async (safetyFactor) => {
+
+  const handleShowDetails = async (safetyFactor: SetStateAction<string>) => {
 
     console.log('f', safetyFactor)
     setSelectedSafetyFactor(safetyFactor);
@@ -116,7 +118,7 @@ const SafetyCompliance = () => {
   
     try {
       const token = localStorage.getItem('token');
-      const response = await customerApi.getViolationDetails(id, safetyFactor, {
+      const response = await customerApi.getViolationDetails(id!, safetyFactor, {
         Authorization: `Bearer ${token}`,
       });
       setViolations(response.violationDetails);
@@ -131,7 +133,7 @@ const SafetyCompliance = () => {
     const fetchShipmentDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await customerApi.getShipmentById(id, {
+        const response = await customerApi.getShipmentById(id!, {
           Authorization: `Bearer ${token}`,
         });
   
@@ -139,7 +141,7 @@ const SafetyCompliance = () => {
           throw new Error('Failed to fetch shipment details');
         }
   
-        const data = response.shipment;
+        const data = response.data;
         setShipmentDetails({
           driverId: data.driver,
           truckId: data.truck,
@@ -148,7 +150,7 @@ const SafetyCompliance = () => {
           shipmentOrigin: data.shipmentOrigin,
         });
         setLoading(false);
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error fetching shipment details:', error);
         setError(error.message || 'Failed to fetch shipment details');
         setLoading(false);
@@ -158,7 +160,7 @@ const SafetyCompliance = () => {
     const fetchDriverScore = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await customerApi.getDriverScore(id, {
+        const response = await customerApi.getDriverScore(id!, {
           Authorization: `Bearer ${token}`,
         });
         if (!response.status) {
@@ -166,10 +168,10 @@ const SafetyCompliance = () => {
         }
         setDriverScore(response.totalScore);
         setViolationCounts(response.violationsCount);
-        setViolationDetails(response)
+        setViolationDetails(response);
         setDriverName(response.driverName);
         setDriverPhone(response.driverPhone)
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching driver score:', error);
         setError(error.message || 'Failed to fetch driver score');
       }

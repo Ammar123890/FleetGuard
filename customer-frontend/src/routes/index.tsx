@@ -47,6 +47,10 @@ const GoogleMapsForm = React.lazy(() => import('../pages/shipments/GoogleMapsFor
 const ShipmentForm = React.lazy(() => import('../pages/shipments/ShipmentForm'))
 const GetShipments = React.lazy(() => import('../pages/shipments/GetShipments'))
 const ViewShipment = React.lazy(() => import('../pages/shipments/ViewShipment'))
+const LiveTracking = React.lazy(() => import('../pages/shipments/LiveTracking'))
+const Weather = React.lazy(() => import('../pages/shipments/Weather'))
+const RoadConditions = React.lazy(() => import('../pages/shipments/RoadConditions'))
+
 const Purchase = React.lazy(() => import('../pages/dashcam/Purchase'))
 const GetDashcam = React.lazy(() => import('../pages/dashcam/GetDashcam'))
 const ViewAll = React.lazy(() => import('../pages/dashcam/ViewAll'))
@@ -54,8 +58,8 @@ const AssignTruck = React.lazy(() => import('../pages/dashcam/AssignTruck'))
 const PaymentForm = React.lazy(() => import('../pages/dashcam/PaymentForm'))
 const OngoingDeliveries = React.lazy(() => import('../pages/DriverScoreboard/OngoingDeliveries'))
 const SafetyCompliance = React.lazy(() => import('../pages/DriverScoreboard/SafetyCompliance'))
-const Scoring = React.lazy(() => import('../pages/DriverScoreboard/Scoring'))
-const SpeedMonitoring = React.lazy(() => import('../pages/DriverScoreboard/SpeedMonitoring'))
+const AccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/AccidentPrediction'))
+const DeliveriesForAccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/DeliveriesForAccidentPrediction'))
 
 
 // // base ui
@@ -264,6 +268,21 @@ const customPagesRoutes = {
 			element: <SelectDriver/>
 		},
 		{
+			path: '/customer/shipments/live-tracking',
+			name: 'Live Tracking',
+			element: <LiveTracking/>
+		},
+		{
+			path: '/customer/shipments/weather/:lt/:lg',
+			name: 'Weather',
+			element: <Weather/>
+		},
+		{
+			path: '/customer/shipments/roadConditions/:lt/:lg',
+			name: 'Road Conditions',
+			element: <RoadConditions/>
+		},
+		{
 			path: '/customer/dashcam/purchase/:id',
 			name: 'Purchase Dashcam',
 			element: <Purchase/>
@@ -299,15 +318,20 @@ const customPagesRoutes = {
 			element: <SafetyCompliance/>
 		},
 		{
-			path: '/customer/scoreboard/scoring/:id',
-			name: 'Scoring',
-			element: <Scoring/>
+			path: '/customer/accidentPrediction',
+			name: 'Ongoing deliveries',
+			element: <DeliveriesForAccidentPrediction/>
 		},
 		{
-			path: '/customer/scoreboard/speed/:id',
-			name: 'Speed Monitoring',
-			element: <SpeedMonitoring/>
+			path: '/customer/accidentPrediction/:id',
+			name: 'Accident Prediction',
+			element: <AccidentPrediction/>
 		},
+		// {
+		// 	path: '/customer/scoreboard/speed/:id',
+		// 	name: 'Speed Monitoring',
+		// 	element: <SpeedMonitoring/>
+		// },
 		{
 			path: '/pages/profile',
 			name: 'Profile',

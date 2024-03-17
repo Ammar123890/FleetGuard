@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Table } from 'react-bootstrap';
 import { customerApi } from '@/common';
 import { PageBreadcrumb } from '@/components';

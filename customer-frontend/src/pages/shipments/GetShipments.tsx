@@ -85,7 +85,7 @@ const ShipmentRows = () => {
           throw new Error('Failed to fetch data');
         }
 
-        const data: Shipment[] = res.shipments;
+        const data: Shipment[] = res.data;
         setShipments(data);
       } catch (error) {
         console.error('Error fetching data:', error);

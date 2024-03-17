@@ -1,5 +1,5 @@
-import React from 'react'
-import { Card, Col, Row, Table, ProgressBar } from 'react-bootstrap'
+
+import { Card, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { profileApi } from '@/common';

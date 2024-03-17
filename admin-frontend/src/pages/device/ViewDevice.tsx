@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Row, Table, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { profileApi } from '@/common';
 import { PageBreadcrumb } from '@/components';
-import StripedRows from './StripedRows';
+// import StripedRows from './StripedRows';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,7 +31,7 @@ const ViewDevice = () => {
           throw new Error('Failed to fetch data');
         }
 
-        const data: Device[] = res.dashcams;
+        const data: Device[] = res.dashcams;//dashcams ki jaga data kia hai
         setDevices(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -59,7 +59,7 @@ const ViewDevice = () => {
         toast.success(`${deletedDeviceId} has been deleted successfully!`);
       } else {
         // Handle error
-        console.error('Failed to delete device:', res.error);
+        console.error('Failed to delete device:');
         toast.error('Failed to delete device. Please try again.');
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, Button, Row, Col, Modal, Form, Alert } from 'react-bootstrap';
 import { customerApi } from '@/common';
@@ -26,7 +26,7 @@ const Purchase = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await customerApi.viewDeviceById(id, {
+        const res = await customerApi.viewDeviceById(id!, {
           Authorization: `Bearer ${token}`,
         });
 
@@ -58,7 +58,7 @@ const Purchase = () => {
       }
 
       // Assuming you want to update the device information after purchase
-      const res_updated = await customerApi.viewDeviceById(id, {
+      const res_updated = await customerApi.viewDeviceById(id!, {
         Authorization: `Bearer ${token}`,
       });
 

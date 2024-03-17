@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row, Table, Modal, Button } from 'react-bootstrap';
+import {  Col, Row, Table, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { customerApi } from '@/common';
 import { PageBreadcrumb } from '@/components';
@@ -25,12 +25,7 @@ interface StripedRowsProps {
 const StripedRows: React.FC<StripedRowsProps> = ({ drivers, onDelete }) => {
   const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
 
-  const handleDelete = () => {
-    // Open the modal to confirm deletion
-    if (selectedDriver) {
-      setSelectedDriver(selectedDriver);
-    }
-  };
+ 
 
   const handleConfirmDelete = () => {
     // Call the API to delete the selected driver
@@ -42,7 +37,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ drivers, onDelete }) => {
       }
 
       customerApi
-        .deleteDriver(selectedDriver._id, {
+        .deleteDriver(selectedDriver._id.toString(), {
           Authorization: `Bearer ${token}`,
         })
         .then((res) => {
@@ -52,7 +47,8 @@ const StripedRows: React.FC<StripedRowsProps> = ({ drivers, onDelete }) => {
             toast.success(`${selectedDriver.name} has been deleted successfully!`);
           } else {
             // Handle error
-            console.error('Failed to delete driver:', res.error);
+            
+            console.error('Failed to delete driver:', res.data.error);
             toast.error('Failed to delete driver. Please try again.');
           }
         })
@@ -156,7 +152,8 @@ const GetDrivers = () => {
           throw new Error('Failed to fetch data');
         }
 
-        const data: Driver[] = res.drivers;
+        const data: Driver[] = res.data;
+        
         setDrivers(data);
       } catch (error) {
         console.error('Error fetching data:', error);

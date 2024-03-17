@@ -1,5 +1,5 @@
-import React from 'react'
-import { Card, Col, Row, Table, ProgressBar } from 'react-bootstrap'
+
+import { Card, Row, Table} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { customerApi } from '@/common';
@@ -33,7 +33,8 @@ const StripedRows = () => {
               throw new Error('Failed to fetch data');
             }
             console.log(res)
-            const data: Device[] = res.dashcams; 
+            const data: Device[] = res.dashcams; //dashcam ki jaga data kia tha
+            console.log(data);
             // console.log(data)
             // console.log(data[0]._id)
           setDevices(data);
@@ -66,7 +67,7 @@ const StripedRows = () => {
 								</tr>
 							</thead>
                             <tbody>
-              {devices.map((dashcam, idx) => (
+              {devices!.map((dashcam, idx) => (
                 <tr key={idx}>
                     <td>{idx + 1}</td>
                     {/* <td>{dashcam._id}</td> */}

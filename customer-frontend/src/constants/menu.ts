@@ -179,6 +179,13 @@ const MENU_ITEMS: MenuItemTypes[] = [
 		
 		// ],
 	},
+	{
+		key: 'accident',
+		label: 'Accident Prediction',
+		isTitle: false,
+		icon: 'bi bi-bell-fill',
+		url: '/customer/accidentPrediction',
+	},
 	// {
 	// 	key: 'device',
 	// 	label: 'Device Management',

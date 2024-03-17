@@ -7,6 +7,10 @@ require("dotenv").config();
 const app = express();
 const apiRouter = require("./Routes");
 const connect = require("./Config/database");
+const http = require("http");
+const server = http.createServer(app);
+const socketIO = require("./socket");
+const io = socketIO(server);
 
 // Initialize session middleware
 app.use(
@@ -19,9 +23,10 @@ connect();
 // Utils
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ limit: "1mb", extended: true }));
 app.use(cookieParser());
+
 
 // Configure CORS
 const corsOptions = {
@@ -35,6 +40,6 @@ app.use("/api", apiRouter);
 
 // Connect Server
 const PORT = 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
  console.log(`Your app is running on PORT ${PORT}`);
 });

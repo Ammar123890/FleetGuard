@@ -2,7 +2,7 @@ import { authApi, useAuthContext } from '@/common'
 import { useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import type { User } from '@/types'
-import React from 'react';
+// import React from 'react';
 
 export default function useRegister() {
 	const [loading, setLoading] = useState(false)

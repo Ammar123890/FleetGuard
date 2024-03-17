@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import  { useEffect, useState, useMemo } from 'react';
 import { Button, Card, Col, Row, Alert } from 'react-bootstrap';
 import { FormInput } from '@/components';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -34,15 +34,14 @@ const EditTrucks = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await customerApi.getTruckById(id, {
+        const res = await customerApi.getTruckById(id!, {
           Authorization: `Bearer ${token}`,
         });
 
         if (!res.status) {
           throw new Error('Failed to fetch truck data');
         }
-
-        const truckData = res.truck;
+        const truckData = res.data;
         setTruck(truckData);
         reset(truckData); // Populate the form with existing data
       } catch (error) {
@@ -60,7 +59,7 @@ const EditTrucks = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await customerApi.editTruck(id,  truckNumber, make, year, registration, weightCapacity, areaCapacity, {
+      const res = await customerApi.editTruck(id!,  truckNumber, make, year, registration, weightCapacity, areaCapacity, {
         Authorization: `Bearer ${token}`,
       });
 

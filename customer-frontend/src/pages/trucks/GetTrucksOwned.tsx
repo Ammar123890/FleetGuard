@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row, Table, Modal, Button } from 'react-bootstrap';
+import { Col, Row, Table, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { customerApi } from '@/common';
 import { PageBreadcrumb } from '@/components';
@@ -24,12 +24,6 @@ interface StripedRowsProps {
 const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
   const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
 
-  const handleDelete = () => {
-    // Open the modal to confirm deletion
-    if (selectedTruck) {
-      setSelectedTruck(selectedTruck);
-    }
-  };
 
   const handleConfirmDelete = () => {
     // Call the API to delete the selected truck
@@ -41,7 +35,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
       }
 
       customerApi
-        .deleteTruck(selectedTruck._id, {
+        .deleteTruck(selectedTruck._id.toString(), {
           Authorization: `Bearer ${token}`,
         })
         .then((res) => {
@@ -51,7 +45,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
             toast.success(`${selectedTruck.truckNumber} has been deleted successfully!`);
           } else {
             // Handle error
-            console.error('Failed to delete truck:', res.error);
+            console.error('Failed to delete truck:', res.data.error);
             toast.error('Failed to delete truck. Please try again.');
           }
         })
@@ -151,7 +145,7 @@ const GetTrucksOwned = () => {
           throw new Error('Failed to fetch data');
         }
 
-        const data: Truck[] = res.trucks;
+        const data: Truck[] = res.data;
         setTrucks(data);
       } catch (error) {
         console.error('Error fetching data:', error);

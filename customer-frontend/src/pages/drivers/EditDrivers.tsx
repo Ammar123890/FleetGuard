@@ -38,7 +38,7 @@ const EditDrivers = () => {
         const token = localStorage.getItem('token');
         console.log('token, ' , token)
         console.log('id ', id)
-        const res = await customerApi.getDriverById(id, {
+        const res = await customerApi.getDriverById(id!, {
           Authorization: `Bearer ${token}`,
         });
         console.log('driver, ', res)
@@ -46,7 +46,7 @@ const EditDrivers = () => {
           throw new Error('Failed to fetch driver data');
         }
 
-        const driverData = res.driver;
+        const driverData  = res.data;
         if (driverData?.licenseExpiry) {
           driverData.licenseExpiry = format(new Date(driverData.licenseExpiry), 'yyyy-MM-dd');
         }
@@ -68,7 +68,7 @@ const EditDrivers = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await customerApi.editDriver(id, name, phone, licenseNumber, licenseExpiry, age, address, experience, {
+      const res = await customerApi.editDriver(id!, name, phone, licenseNumber, licenseExpiry, age, address, experience, {
         Authorization: `Bearer ${token}`,
       });
 

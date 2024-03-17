@@ -1,10 +1,10 @@
 import { Col, Row } from 'react-bootstrap'
 import Statistics from './Statistics'
-import WeeklySelesChart from './WeeklySelesChart'
-import YearlySelesChart from './YearlySelesChart'
+// import WeeklySelesChart from './WeeklySelesChart'
+// import YearlySelesChart from './YearlySelesChart'
 import SalesChart from './SalesChart'
-import ChatList from './ChatList'
-import Projects from './Projects'
+// import ChatList from './ChatList'
+// import Projects from './Projects'
 
 // componets
 import { PageBreadcrumb } from '@/components'

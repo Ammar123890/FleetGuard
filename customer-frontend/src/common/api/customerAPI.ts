@@ -81,6 +81,10 @@ function customerApi() {
 			console.log('token: ', headers)
 			return HttpClient.put(`/customer/shipment/end/${value}`,  {headers});
 		},
+		getWeather: (lg: string, lt: string, headers: Record<string, string>) => {
+			console.log('token: ', headers)
+			return HttpClient.get(`customer/shipment/weather/get/${lg}/${lt}`, { headers})
+        },
 		//Device
 		viewDevice: ( headers: Record<string, string>) => {
 			return HttpClient.get('/customer/dashcam/list/get', { headers});

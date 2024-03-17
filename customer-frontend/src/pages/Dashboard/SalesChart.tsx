@@ -1,6 +1,6 @@
 import { Card, Col, Row } from 'react-bootstrap'
 import ReactApexChart from 'react-apexcharts'
-import { PageBreadcrumb } from '@/components'
+// import { PageBreadcrumb } from '@/components'
 // import { AreaApexOpt } from '../charts/ApexCharts/data'
 import { ApexOptions } from 'apexcharts'
 

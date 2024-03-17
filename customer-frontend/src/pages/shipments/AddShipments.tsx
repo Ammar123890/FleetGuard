@@ -1,8 +1,8 @@
 //add shipment 2
-import { useState } from 'react'
-import { Button, Card, Col, Form, ProgressBar, Row } from 'react-bootstrap'
+// import { useState } from 'react'
+import {  Card, Col, ProgressBar, Row } from 'react-bootstrap'
 import { Wizard, Steps, Step } from 'react-albus'
-import React from 'react';
+// import React from 'react';
 import Step1 from './ShipmentInput';
 import Step2 from './SelectTruck';
 import Step3 from './SelectDriver';
@@ -13,7 +13,7 @@ import Step5 from './ShipmentForm'
 
 // component
 import { PageBreadcrumb } from '@/components'
-import GetAvailableShipments from './ShipmentInput'
+// import GetAvailableShipments from './ShipmentInput'
 
 
 const ProgressBarWizard = () => {

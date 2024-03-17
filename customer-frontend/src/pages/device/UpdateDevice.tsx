@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Button, Card, Col, Row, Alert } from 'react-bootstrap';
 import { FormInput } from '@/components';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -32,8 +32,8 @@ const UpdateDevice = () => {
         const token = localStorage.getItem('token');
         console.log(token)
         console.log('s', id)
-        const i = '656300755b7623e85cc47f22'
-        const res = await profileApi.getDeviceById(id, {
+        // const i = '656300755b7623e85cc47f22'
+        const res = await profileApi.getDeviceById(id!, {
           Authorization: `Bearer ${token}`,
         });
 
@@ -61,7 +61,7 @@ const UpdateDevice = () => {
     try {
       const token = localStorage.getItem('token');
       console.log('values: ', id, ' ', model, ' ', pricePerMonth, ' ', price, quantity, description,)
-      const res = await profileApi.editDevice(id, model, pricePerMonth, price, quantity, description, {
+      const res = await profileApi.editDevice(id!, model, pricePerMonth, price, quantity, description, {
         Authorization: `Bearer ${token}`,
       });
 

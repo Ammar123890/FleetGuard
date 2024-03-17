@@ -62,15 +62,15 @@ interface ShipmentInTransitProps {
           </Badge>
         </td> */}
         <td>
-          <Link to={`/customer/scoreboard/safety/${shipment._id}`} className="btn btn-primary">
-            View Scoreboard
+          <Link to={`/customer/accidentPrediction/${shipment._id}`} className="btn btn-primary">
+            View probability
           </Link>
         </td>
       </tr>
     );
   };
   
-  const OngoingDeliveries = () => {
+  const DeliveriesForAccidentPrediction = () => {
     const [shipments, setShipments] = useState<Shipment[]>([]);
   
     useEffect(() => {
@@ -126,5 +126,5 @@ interface ShipmentInTransitProps {
     );
   };
   
-  export default OngoingDeliveries;
+  export default DeliveriesForAccidentPrediction;
   

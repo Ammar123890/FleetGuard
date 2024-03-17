@@ -4,7 +4,7 @@ import { Button, Card, Col, Row, Alert, ProgressBar } from 'react-bootstrap';
 import { FieldValues, useForm} from 'react-hook-form';
 import { customerApi } from '@/common'; // Replace with the actual path to your customer API service
 import { FormInput } from '@/components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

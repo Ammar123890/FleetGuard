@@ -26,10 +26,10 @@ import { useViewport } from '@/hooks'
 /**
  * for subtraction minutes
  */
-function subtractHours(date: Date, minutes: number) {
-	date.setMinutes(date.getMinutes() - minutes)
-	return date
-}
+// function subtractHours(date: Date, minutes: number) {
+// 	date.setMinutes(date.getMinutes() - minutes)
+// 	return date
+// }
 export interface MessageItem {
 	id: number
 	name: string
@@ -235,9 +235,9 @@ const Topbar = ({ toggleMenu, navOpen }: TopbarProps) => {
 		}
 	}
 
-	const handleRightSideBar = () => {
-		updateSettings({ rightSidebar: ThemeSettings.rightSidebar.show })
-	}
+	// const handleRightSideBar = () => {
+	// 	updateSettings({ rightSidebar: ThemeSettings.rightSidebar.show })
+	// }
 	return (
 		<>
 			<div className="navbar-custom">

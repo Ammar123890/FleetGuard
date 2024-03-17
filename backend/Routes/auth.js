@@ -19,6 +19,7 @@ router.post('/login', login);
 router.post('/verify', verifyOTP);
 router.post('/resend', resendOTP);
 
+
 router.post('/admin/register', adminMiddleware, register);
 router.post('/admin/addrole', adminMiddleware, addAdminRole);
 

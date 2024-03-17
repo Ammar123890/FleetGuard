@@ -6,7 +6,7 @@ import logo from '@/assets/images/logo.png'
 import logoDark from '@/assets/images/logo-dark.png'
 
 import { Card, Col, Container, Image, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 interface AccountLayoutProps {
 	pageImage?: string

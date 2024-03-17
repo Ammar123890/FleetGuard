@@ -4,6 +4,9 @@ import { customerApi } from '@/common';
 import { PageBreadcrumb } from '@/components';
 
 interface Truck {
+  trucks: any;
+  _id : any;
+  owner : any;
   availability: any;
   truckNumber: string;
   make: string;
@@ -11,6 +14,7 @@ interface Truck {
   registration: string;
   weightCapacity: number;
   areaCapacity: number;
+  assignedDashcam: any;
 }
 
 interface Dashcam {
@@ -41,7 +45,7 @@ const AssignTruck = () => {
           throw new Error('Failed to fetch trucks');
         }
 
-        const data: Truck[] = res.trucks;
+        const data: Truck[] = res.data;
         setTrucks(data);
       } catch (error) {
         console.error('Error fetching trucks:', error);
@@ -94,7 +98,7 @@ const AssignTruck = () => {
         
       }
 
-      setTrucks(updatedTrucks.trucks);
+      setTrucks(updatedTrucks.data);//changed trucks to data
       setShowModal(false);
       setSelectedTruck(null);
     } catch (error) {
@@ -133,9 +137,9 @@ const AssignTruck = () => {
 
             <dt className="col-sm-4">Availability:</dt>
             <dd className="col-sm-8">
-              <Badge variant={truck.availability ? 'success' : 'danger'}>
-                {truck.availability ? 'Available' : 'Not Available'}
-              </Badge>
+            <Badge color={truck.availability ? 'success' : 'danger'}>
+  {truck.availability ? 'Available' : 'Not Available'}
+</Badge>
             </dd>
 
             <dt className="col-sm-4">Assigned Dashcam:</dt>

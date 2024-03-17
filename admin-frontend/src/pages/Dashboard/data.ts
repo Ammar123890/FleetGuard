@@ -1,13 +1,13 @@
 import profilePic from '@/assets/images/users/avatar-1.jpg'
 import profilePic2 from '@/assets/images/users/avatar-5.jpg'
 
-interface Statistic {
-	title: string
-	stats: string
-	change: string
-	icon: string
-	variant: string
-}
+// interface Statistic {
+// 	title: string
+// 	stats: string
+// 	change: string
+// 	icon: string
+// 	variant: string
+// }
 
 interface ProjectData {
 	id: number

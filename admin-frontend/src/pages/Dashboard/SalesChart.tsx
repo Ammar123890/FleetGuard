@@ -6,7 +6,7 @@ import ReactApexChart from 'react-apexcharts';
 
 const SalesChart = () => {
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState({ year: 2023, month: 12 });
+  const [selectedFilter, setSelectedFilter] = useState({ year: 2024, month: 3 });
 
   const fetchData = async () => {
     try {

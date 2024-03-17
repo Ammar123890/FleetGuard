@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Table, Form, Row, Col } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { profileApi } from '@/common';
 import { PageBreadcrumb } from '@/components';
 
@@ -15,7 +15,7 @@ interface Sale {
 const SalesPage: React.FC = () => {
   const [salesData, setSalesData] = useState<Sale[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ year: '2023', month: '12' });
+  const [filters, setFilters] = useState({ year: '2024', month: '3' });
   // const location = useLocation();
 
   useEffect(() => {

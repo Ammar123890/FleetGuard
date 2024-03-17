@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Card, Col, Row, Button, ListGroup , ProgressBar} from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import GoogleMapsForm from './GoogleMapsForm';
@@ -41,13 +41,13 @@ const AddLocation = () => {
             
           </Card.Header>
           
-          <GoogleMapsForm onLocationSelected={(location) => setCoordinatesDest(location)} />
+          <GoogleMapsForm onLocationSelected={(location: SetStateAction<{ lat: number; lng: number; } | null>) => setCoordinatesDest(location)} />
         </Col>
         <Col>
           <Card.Header>
           Enter Shipment Origin:
           </Card.Header>
-          <GoogleMapsForm onLocationSelected={(location) => setCoordinatesOrigin(location)} />
+          <GoogleMapsForm onLocationSelected={(location: SetStateAction<{ lat: number; lng: number; } | null>) => setCoordinatesOrigin(location)} />
         </Col>
       </Row>
 
