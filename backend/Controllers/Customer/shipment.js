@@ -58,7 +58,7 @@ module.exports.getShipments = async (req, res) => {
     try {
         const shipments = await shipmentModel.find({ owner: req.user.user });
         return res.status(200).json({
-            shipments,
+            data: shipments,
             status: true,
         });
     } catch (error) {
@@ -83,7 +83,7 @@ module.exports.getShipment = async (req, res) => {
             return res.status(401).json({ msg: "Unauthorized" });
         }
         return res.status(200).json({
-            shipment,
+            data: shipment,
             status: true,
         });
     } catch (error) {
@@ -336,11 +336,13 @@ module.exports.getShipmentScore = async (req, res) => {
 
 
         const totalScore = driverScore.score;
-        return res.status(200).json({
-            totalScore,
+        const dataTS = { totalScore,
             violationsCount,
             driverName: driver.name,
-            driverPhone: driver.phone,
+            driverPhone: driver.phone}
+
+        return res.status(200).json({
+           data : dataTS,
             status: true,
         });
     } catch (error) {
@@ -383,7 +385,7 @@ module.exports.getViolationDetails = async (req, res) => {
         const violationDetails = violations.filter(violation => violation.type === req.params.type);
 
         return res.status(200).json({
-            violationDetails,
+            data: violationDetails,
         });
     } catch (error) {
         console.error(error); // Log the error for debugging purposes
@@ -408,8 +410,8 @@ module.exports.getWeather = async (req, res) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.params.lt}&lon=${req.params.lg}&appid=${apiKey}`;
     try {
         const response = await fetch(url);
-        const data = await response.json();
-        return res.status(200).json(data);
+        const data_w = await response.json();
+        return res.status(200).json({data: data_w});
     } catch (error) {
         return res.status(500).json({ errors: error.message });
     }

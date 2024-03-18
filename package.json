@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-bootstrap-table-next": "^4.0.3",
+    "react-bootstrap-table2-editor": "^1.4.0",
+    "react-bootstrap-table2-paginator": "^2.1.2",
+    "socket.io-client": "^4.7.4"
+  }
+}
