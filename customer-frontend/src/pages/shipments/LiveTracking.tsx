@@ -38,6 +38,7 @@ const LiveTracking: React.FC = () => {
     }
   }, [location]);
 
+  
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -46,6 +47,7 @@ const LiveTracking: React.FC = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
           });
+          console.log('position ', position.coords.latitude)
         },
         (error) => {
           setError(error.message);

@@ -144,7 +144,6 @@ const SafetyCompliance = () => {
       console.log('id', id)
       console.log(safetyFactor)
       setViolations(response.data);
-      
  
     } catch (e) {
       console.error('Error fetching violation details:', e);

@@ -108,7 +108,7 @@ const MENU_ITEMS: MenuItemTypes[] = [
 			// },
 			{
 				key: 'get-shipments',
-				label: 'View Shipments',
+				label: 'Logistics Dashboard',
 				url: '/customer/shipments/get-shipments',
 				parentKey: 'shipments',
 			},
