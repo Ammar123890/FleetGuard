@@ -60,6 +60,7 @@ const OngoingDeliveries = React.lazy(() => import('../pages/DriverScoreboard/Ong
 const SafetyCompliance = React.lazy(() => import('../pages/DriverScoreboard/SafetyCompliance'))
 const AccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/AccidentPrediction'))
 const DeliveriesForAccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/DeliveriesForAccidentPrediction'))
+const CostEstimation = React.lazy(() => import('../pages/cost/CostEstimation'))
 
 
 // // base ui
@@ -326,6 +327,11 @@ const customPagesRoutes = {
 			path: '/customer/accidentPrediction/:id',
 			name: 'Accident Prediction',
 			element: <AccidentPrediction/>
+		},
+		{
+			path: '/customer/cost-estimation',
+			name: 'Cost Estimation',
+			element: <CostEstimation/>
 		},
 		// {
 		// 	path: '/customer/scoreboard/speed/:id',

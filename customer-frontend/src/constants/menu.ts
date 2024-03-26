@@ -145,6 +145,20 @@ const MENU_ITEMS: MenuItemTypes[] = [
 		],
 	},
 	{
+		key: 'get-shipments',
+		label: 'Fleet View',
+		isTitle: false,
+		icon: ' ri-map-2-fill',
+		url: '/customer/shipments/get-shipments',
+	},
+	{
+		key: 'get-costs',
+		label: 'Cost Estimation',
+		isTitle: false,
+		icon: ' ri-coins-line',
+		url: '/customer/cost-estimation',
+	},
+	{
 		key: 'scoreboard',
 		label: 'Driver Scoreboard',
 		isTitle: false,

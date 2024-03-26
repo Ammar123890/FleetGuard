@@ -649,7 +649,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ originCoordinates, destinationC
   
   useEffect(() => {
     const calculateRoute = async (start: [number, number], end: [number, number]): Promise<Route[]> => {
-      const url = `https://router.project-osrm.org/route/v1/driving-traffic/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&alternatives=true`;
+      const url = `https://router.project-osrm.org/route/v1/driving--hgv/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&alternatives=true`;
       const response = await axios.get(url);
 
       if (response.data.code === 'Ok') {
@@ -704,7 +704,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ originCoordinates, destinationC
         <div style={{ marginBottom: '20px' }}>
           <MapContainer
             center={originCoordinates}
-            zoom={12}
+            zoom={9}
             style={{ height: '400px', width: '100%' }}
           >
             <TileLayer
