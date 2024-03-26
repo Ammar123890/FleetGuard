@@ -24,6 +24,7 @@ const customerSchema = new mongoose.Schema({
         city: String,
     },
 
+
 }
     ,
     {

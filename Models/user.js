@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    costEstimation: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CostEstimation",
+      default: [],
+  }],
 });
 
 module.exports = mongoose.model("User", userSchema);

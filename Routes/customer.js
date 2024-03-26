@@ -58,6 +58,13 @@ const{
 } = require('../Controllers/Customer/shipment');
 const { get } = require('mongoose');
 
+//controllers for cost estimation
+const {
+    getCostEstimation,
+    updateCostEstimation
+} = require('../Controllers/Customer/costEstimation');
+
+
 
 
 //update score
@@ -102,5 +109,9 @@ router.get('/shipment/violation/get/:id/:type', getViolationDetails);
 
 //paths for statistics
 router.get('/statistics/get', getStatistics);
+
+//paths for cost estimation
+router.get('/cost-estimation', getCostEstimation);
+router.put('/cost-estimation/:type', updateCostEstimation);
 
 module.exports = router;
