@@ -1,7 +1,7 @@
 // useVerifyOTP.js
 import { useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { authApi, useAuthContext } from '@/common';
+import { authApi } from '@/common';
 import { User } from '@/types';
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ const useVerifyOTP = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
-  const { saveSession } = useAuthContext()
+  // const { saveSession } = useAuthContext()
   const onSubmit = async (data: VerifyOTPData) => {
  
 
@@ -29,7 +29,7 @@ const useVerifyOTP = () => {
       const token = response.data.token;
       console.log(response)
 		  localStorage.setItem('token', token!);
-		  saveSession({ type: response.data.type });
+		  // saveSession({ type: response.data.type });
 		console.log('tokennn', token)
 		navigate('/auth/add-details')
 	  }
