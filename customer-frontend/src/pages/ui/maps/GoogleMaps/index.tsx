@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import { useState } from 'react'
+import { Card, Row } from 'react-bootstrap'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-import { Polyline } from 'google-maps-react'
-import { InfoWindow } from 'google-maps-react'
+
 
 // component
 import { PageBreadcrumb } from '@/components'
@@ -10,11 +9,7 @@ import { PageBreadcrumb } from '@/components'
 interface MapContainerProps {
 	google: any
 }
-const polyline = [
-	{ lat: 37.789411, lng: -122.422116 },
-	{ lat: 37.785757, lng: -122.421333 },
-	{ lat: 37.789352, lng: -122.415346 },
-]
+
 
 const BasicGoogleMap = ({ google }: MapContainerProps) => {
 	const [selectedLocation, setSelectedLocation] = useState<any>(null);

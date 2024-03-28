@@ -208,6 +208,7 @@ const ProfilePages = () => {
   
 	const handleEditProfile = () => {
 		setEditMode(true);
+    console.log(editMode)
 		setShowModal(true); // Show the modal when entering edit mode
 	  };
   

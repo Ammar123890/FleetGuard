@@ -1,6 +1,6 @@
 import { useState , useEffect} from 'react';
 import { Button, Form, Alert, Container, Row, Col, Card } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useVerifyOTP from './VerifyOTP';
 import { authApi } from '@/common';
 
@@ -8,7 +8,7 @@ const VerifyOTP = () => {
   const [error, setError] = useState<any>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [email, setEmail] = useState(location.state?.email || '');
   const { loading, onSubmit } = useVerifyOTP();
@@ -52,6 +52,7 @@ const VerifyOTP = () => {
     try {
       // Call the resend OTP API
       console.log('email', email);
+      console.log(setEmail)
       const res = await authApi.resendOTP({ email });
       console.log('OTP resent successfully');
       

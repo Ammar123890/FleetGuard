@@ -40,7 +40,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ drivers, onDelete }) => {
         .deleteDriver(selectedDriver._id.toString(), {
           Authorization: `Bearer ${token}`,
         })
-        .then((res) => {
+        .then((res: any) => {
           if (res.status) {
             // Successfully deleted
             onDelete(selectedDriver._id);
@@ -52,7 +52,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ drivers, onDelete }) => {
             toast.error('Failed to delete driver. Please try again.');
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.error('Error deleting driver:', error);
           toast.error('An error occurred while deleting the driver.');
         })

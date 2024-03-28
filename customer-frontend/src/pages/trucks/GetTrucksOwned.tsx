@@ -39,7 +39,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
         .deleteTruck(selectedTruck._id.toString(), {
           Authorization: `Bearer ${token}`,
         })
-        .then((res) => {
+        .then((res: any) => {
           if (res.status) {
             // Successfully deleted
             onDelete(selectedTruck._id);
@@ -50,7 +50,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
             toast.error('Failed to delete truck. Please try again.');
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.error('Error deleting truck:', error);
           toast.error('An error occurred while deleting the truck.');
         })

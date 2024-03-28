@@ -1,5 +1,5 @@
 import { ApexOptions } from 'apexcharts';
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { Table, Button, Modal, Card, Alert } from 'react-bootstrap';
 import ReactApexChart from 'react-apexcharts';
 import { CustomCardPortlet } from '@/components';
@@ -143,6 +143,7 @@ const SafetyCompliance = () => {
       console.log('dataaaa', response)
       console.log('id', id)
       console.log(safetyFactor)
+      
       setViolations(response.data);
  
     } catch (e) {
@@ -194,6 +195,7 @@ const SafetyCompliance = () => {
         setDriverScore(response.data.totalScore);
         setViolationCounts(response.data.violationsCount);
         setViolationDetails(response.data);
+        console.log(violationDetails)
         setDriverName(response.data.driverName);
         setDriverPhone(response.data.driverPhone)
       } catch (error: any) {

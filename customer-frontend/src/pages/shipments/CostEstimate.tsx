@@ -1,4 +1,4 @@
-import { SetStateAction, useState, useEffect } from 'react';
+import {  useState, useEffect } from 'react';
 import { Card, Col, Row, Button, ProgressBar, Table } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -59,8 +59,10 @@ const CostEstimate = () => {
                 }
             } catch (error) {
                 console.error('API Error:', error);
+                console.log(errorMessage)
                 setErrorMessage('Failed to fetch data. Please try again.');
             } finally {
+                console.log(loading)
                 setLoading(false);
             }
         };
@@ -97,6 +99,7 @@ const CostEstimate = () => {
                 </Card.Header>
                 <Card.Body>
                     <Row>
+                        
                         {/* Display the calculated distance */}
                         {distance && (
                             <Col>

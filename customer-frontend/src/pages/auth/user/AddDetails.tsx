@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Form, Container, Row, Col, Card, Alert } from 'react-bootstrap';
+import { useState,  ChangeEvent, FormEvent } from 'react';
+import { Button, Form, Container,  Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '@/common';
 import { FormInput } from '@/components';
@@ -21,12 +21,12 @@ const AddDetails = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
