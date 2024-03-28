@@ -134,5 +134,3 @@ module.exports.deleteDashcam = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 }
-
-

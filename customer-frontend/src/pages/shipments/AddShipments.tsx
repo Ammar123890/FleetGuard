@@ -2,7 +2,7 @@
 // import { useState } from 'react'
 import {  Card, Col, ProgressBar, Row } from 'react-bootstrap'
 import { Wizard, Steps, Step } from 'react-albus'
-// import React from 'react';
+import { PageBreadcrumb } from '@/components'
 import Step1 from './ShipmentInput';
 import Step2 from './SelectTruck';
 import Step3 from './SelectDriver';
@@ -12,7 +12,7 @@ import Step5 from './ShipmentForm'
 // import GetAvailableShipments from './GetAvailableShipments'
 
 // component
-import { PageBreadcrumb } from '@/components'
+
 // import GetAvailableShipments from './ShipmentInput'
 
 

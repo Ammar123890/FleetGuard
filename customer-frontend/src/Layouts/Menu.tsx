@@ -5,7 +5,7 @@ import { Collapse } from 'react-bootstrap'
 // helpers
 import { findAllParent, findMenuItem } from '@/common'
 
-// constants
+// constants 
 import { MenuItemTypes } from '../constants/menu'
 
 interface SubMenus {

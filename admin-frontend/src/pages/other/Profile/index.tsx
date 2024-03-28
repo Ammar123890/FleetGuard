@@ -2,7 +2,7 @@ import { Button, Card, Col, Image, Nav, Row, Tab } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { profileActivity } from './data'
 import React from 'react'
-
+ 
 // images
 import bgProfile from '@/assets/images/bg-profile.jpg'
 import avatar1 from '@/assets/images/users/avatar-1.jpg'

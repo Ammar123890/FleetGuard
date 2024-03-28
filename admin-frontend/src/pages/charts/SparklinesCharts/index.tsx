@@ -6,7 +6,7 @@ import {
 	SparklinesReferenceLine,
 	SparklinesSpots,
 } from 'react-sparklines'
-
+ 
 // components
 import { PageBreadcrumb } from '@/components'
 

@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const shipmentSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'customer',
+        ref: 'Customer',
         required: true
     },
     truck: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'truck',
+        ref: 'Truck',
         required: true
     },
     driver: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'driver',
+        ref: 'Driver',
         required: true
     },
     shipmentType: {

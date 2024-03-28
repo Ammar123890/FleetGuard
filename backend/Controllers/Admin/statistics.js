@@ -1,5 +1,9 @@
 const salesModel = require("../../Models/Admin/sales");
 const customerModel = require("../../Models/Customer/customer");
+const shipmentModel = require("../../Models/Customer/shipment");
+const truckModel = require("../../Models/Customer/truck");
+const driverModel = require("../../Models/Customer/driver");
+
 
 
 
@@ -167,7 +171,113 @@ module.exports.getStatistics = async (req, res) => {
 };
 
 
+/**
+ * @description To get the users (customers)
+ * @route GET /api/admin/statistics/getUsers
+ * @access Admin
+ */
+
+module.exports.getUsers = async (req, res) => {
+    try {
+        const users = await customerModel.find({});
+        res.status(200).json({
+            data: users
+        });
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Error fetching users." });
+    }
+}
 
 
+/**
+ * @description To get the shipments (orders) 
+ * @route GET /api/admin/statistics/getShipments
+ * @query {status}  'pending', 'in transit', 'delivered'
+ * @access Admin
+ */
+
+module.exports.getShipments = async (req, res) => {
+    const { status } = req.query;
+    if (!status) {
+        return res.status(400).json({
+            success: false,
+            message: "Status is required"
+        });
+    }
+
+    try {
+        let shipments = await shipmentModel.find({ shipmentStatus: status })
+            .select(' shipmentDescription shipmentStatus shipmentPickDate shipmentDeliveryDate shipmentCost')
+            .populate({
+                path: 'owner',
+                select: 'name company phone -_id' 
+            })
+            .populate({
+                path: 'driver',
+                select: 'name phone -_id',
+            })
+            .populate('truck', 'truckNumber -_id')
+            .exec();
+
+        shipments = shipments.map(shipment => {
+            return shipment;
+        });
+
+        res.json({
+            success: true,
+            count: shipments.length,
+            data: shipments
+        });
+    } catch (error) {
+        console.error("Error fetching shipment data:", error);
+        res.status(500).json({
+            error: error.message,
+            success: false,
+            message: "Error fetching shipment data"
+        });
+    }
+};
+
+/**
+ * @description To get the drivers
+ * @route GET /api/admin/statistics/getDrivers
+ * @access Admin
+ */
+
+module.exports.getDrivers = async (req, res) => {
+    try {
+        const drivers = await driverModel.find({})
+            .select('name phone experience licenseNumber licenseExpiry -_id')
+            .exec();
+
+        res.status(200).json({
+            data: drivers
+        });
+    } catch (error) {
+        console.error("Error fetching drivers:", error);
+        res.status(500).json({ message: "Error fetching drivers." });
+    }
+}
 
 
+/**
+ * @description To get the customers (users)
+ * @route GET /api/admin/statistics/getCustomers
+ * @access Admin
+ */
+
+module.exports.getCustomers = async (req, res) => {
+    try {
+        const customers = await customerModel.find({})
+            .select('name email phone companyName -_id')
+            .exec();
+
+        res.status(200).json({
+            data: customers
+        });
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        res.status(500).json({ message: "Error fetching customers." });
+    }
+}

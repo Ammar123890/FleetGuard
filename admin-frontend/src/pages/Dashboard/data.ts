@@ -8,7 +8,7 @@ import profilePic2 from '@/assets/images/users/avatar-5.jpg'
 // 	icon: string
 // 	variant: string
 // }
-
+ 
 interface ProjectData {
 	id: number
 	projectName: string

@@ -17,7 +17,10 @@ const {
 const {
 
     getSalesData,
-    getStatistics
+    getStatistics,
+    getShipments,
+    getDrivers,
+    getCustomers
 
 } =require( '../Controllers/Admin/statistics');
 
@@ -31,6 +34,9 @@ router.get('/dashcam/get/:id', getDashcam );
 router.get('/sales/get', getSalesData)
 router.get('/statistics/get', getStatistics)
 router.delete('/dashcam/delete/:id', deleteDashcam)
+router.get('/shipments/get', getShipments)
+router.get('/drivers/get', getDrivers)
+router.get('/customers/get', getCustomers)
 
 
 

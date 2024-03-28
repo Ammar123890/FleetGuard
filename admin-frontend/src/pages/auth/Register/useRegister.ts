@@ -10,6 +10,7 @@ export default function useRegister() {
 
 	const { isAuthenticated } = useAuthContext()
 
+	
 	const register = async ({
 		name,
 		email,

@@ -4,7 +4,7 @@ export type TableRecord = {
 	lastName: string
 	username: string
 }
-
+ 
 export type Employee = {
 	id: number
 	age: number

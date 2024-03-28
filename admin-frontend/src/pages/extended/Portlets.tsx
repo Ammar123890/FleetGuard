@@ -11,7 +11,7 @@ interface PortletProps {
 	cardTitle?: string
 	titleClass?: string
 	className?: string
-}
+} 
 
 const CustomCardPortlet = (props: PortletProps) => {
 	const children = props['children'] || null

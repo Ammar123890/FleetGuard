@@ -74,7 +74,7 @@ const weeklyChartOpts: ApexOptions = {
 				return '$ ' + val + ' thousands'
 			},
 		},
-	},
+	}, 
 }
 
 const WeeklySelesChart = () => {

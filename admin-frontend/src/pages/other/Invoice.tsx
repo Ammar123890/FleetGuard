@@ -2,7 +2,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap'
 
 // images
 import logoDark from '@/assets/images/logo-dark.png'
-
+  
 // components
 import { PageBreadcrumb } from '@/components'
 

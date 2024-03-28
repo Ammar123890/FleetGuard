@@ -11,7 +11,7 @@ import SimpleBar from 'simplebar-react'
 /* Sidebar content */
 const SideBarContent = () => {
 	return (
-		<>
+		<> 
 			<AppMenu menuItems={getMenuItems()} />
 			<div className="clearfix" />
 		</>

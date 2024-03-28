@@ -3,7 +3,7 @@ import { Container, Image, Row } from 'react-bootstrap'
 //images
 import maintainance from '@/assets/images/svg/under_maintenance.png'
 import { useEffect } from 'react'
-
+ 
 const Maintenance = () => {
 	useEffect(() => {
 		if (document.body) {

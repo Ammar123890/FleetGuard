@@ -5,7 +5,7 @@ import Img1 from '@/assets/images/small/small-1.jpg'
 
 // component
 import { PageBreadcrumb } from '@/components'
-
+ 
 const BasicPlaceholders = () => {
 	return (
 		<Card>

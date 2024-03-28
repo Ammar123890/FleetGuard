@@ -5,13 +5,13 @@ import GoogleMapsForm from './GoogleMapsForm';
 
 const AddLocation = () => {
   const location = useLocation();
-  const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, selectedTruckId, selectedDriverId } = location.state || {};
+  const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, selectedTruckId, selectedDriverId, selectedTruckType } = location.state || {};
   const navigate = useNavigate();
   const [coordinatesDest, setCoordinatesDest] = useState<{ lat: number, lng: number } | null>(null);
   const [coordinatesOrigin, setCoordinatesOrigin] = useState<{ lat: number, lng: number } | null>(null);
 
   const handleNextPage = () => {
-    navigate('/customer/shipments/shipment-form', {
+    navigate('/customer/shipments/estimate-cost', {
       state: {
         shipmentWeight,
         shipmentArea,
@@ -20,7 +20,8 @@ const AddLocation = () => {
         selectedTruckId,
         selectedDriverId,
         coordinatesDest,
-        coordinatesOrigin
+        coordinatesOrigin,
+        selectedTruckType,
       },
     });
   };
@@ -82,7 +83,7 @@ const AddLocation = () => {
           <Card.Footer style={{marginBottom: '30px' }}>
           <li className="next list-inline-item float-end">
           <Button variant="primary" onClick={handleNextPage}>
-            Complete Shipment Details<i className="ri-arrow-right-line ms-1" />
+            Estimate cost<i className="ri-arrow-right-line ms-1" />
           </Button>
           </li>
           </Card.Footer>

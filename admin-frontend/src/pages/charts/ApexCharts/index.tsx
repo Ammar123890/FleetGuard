@@ -1,7 +1,7 @@
 import { Card, Col, Row } from 'react-bootstrap'
 import ReactApexChart from 'react-apexcharts'
 
-import {
+import { 
 	apexColumnChartOpts,
 	columnWithDataLableOpts,
 	multipleYAxisChartOpts,

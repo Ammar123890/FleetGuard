@@ -5,7 +5,7 @@ import { PageBreadcrumb } from '@/components'
 
 const EmbedVideo = () => {
 	return (
-		<>
+		<> 
 			<PageBreadcrumb title="EmbedVideo" subName="Base UI" />
 			<Row>
 				<Col xl={6}>

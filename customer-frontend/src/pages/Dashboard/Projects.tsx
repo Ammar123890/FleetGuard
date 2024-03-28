@@ -49,12 +49,14 @@ const Projects = () => {
         if (!res.status) {
           throw new Error('Failed to fetch data');
         }
-        console.log(res)
-        const inTransitShipmentsData = res.data.filter(
-          (shipment: { shipmentStatus: string; }) => shipment.shipmentStatus === 'in transit'
-        );
-
-        setInTransitShipments(inTransitShipmentsData);
+        if(res.data){
+          const inTransitShipmentsData = res.data.filter(
+            (shipment: { shipmentStatus: string; }) => shipment.shipmentStatus === 'in transit'
+          );
+  
+          setInTransitShipments(inTransitShipmentsData);
+        }
+       
       } catch (error) {
         console.error('Error fetching in-transit shipments:', error);
       }

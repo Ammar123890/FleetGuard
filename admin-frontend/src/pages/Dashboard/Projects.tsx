@@ -30,7 +30,7 @@ const Projects = () => {
 								<td>{project.dueDate}</td>
 								<td>
 									<span
-										className={`badge bg-${project.variant}-subtle text-${project.variant}`}
+		  								className={`badge bg-${project.variant}-subtle text-${project.variant}`}
 									>
 										{project.status}
 									</span>

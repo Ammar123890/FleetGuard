@@ -4,7 +4,7 @@ function generateData(baseval: number, count: number, yrange: any): number[] {
 	let i = 0
 	const series: any = []
 	while (i < count) {
-		const x = Math.floor(Math.random() * (750 - 1 + 1)) + 1
+	 	const x = Math.floor(Math.random() * (750 - 1 + 1)) + 1
 		const y =
 			Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
 		const z = Math.floor(Math.random() * (75 - 15 + 1)) + 15

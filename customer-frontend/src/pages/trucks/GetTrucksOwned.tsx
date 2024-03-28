@@ -14,6 +14,7 @@ interface Truck {
   registration: string;
   weightCapacity: number;
   areaCapacity: number;
+  type: string;
 }
 
 interface StripedRowsProps {
@@ -96,6 +97,7 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
               <th>Registration</th>
               <th>Weight Capacity</th>
               <th>Area Capacity</th>
+              <th>Truck Type</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -109,6 +111,8 @@ const StripedRows: React.FC<StripedRowsProps> = ({ trucks, onDelete }) => {
                 <td>{truck.registration}</td>
                 <td>{truck.weightCapacity}</td>
                 <td>{truck.areaCapacity}</td>
+                <td>{truck.type}</td>
+
                 <td>
                   <Link to={`/customer/truck/edit/${truck._id}`} className="text-reset fs-16 px-1">
                     <i className="ri-pencil-line" />

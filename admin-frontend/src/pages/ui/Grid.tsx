@@ -2,7 +2,7 @@ import { Card, Col, Row, Table } from 'react-bootstrap'
 import { PageBreadcrumb } from '@/components'
 
 // component
-
+ 
 const Grid = () => {
 	return (
 		<>

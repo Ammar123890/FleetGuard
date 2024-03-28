@@ -1,6 +1,6 @@
 import { Card, Col, Image, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
+ 
 // component
 import { PageBreadcrumb } from '@/components'
 

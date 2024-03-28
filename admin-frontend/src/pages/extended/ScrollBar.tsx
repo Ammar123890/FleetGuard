@@ -9,7 +9,7 @@ const ScrollBar = () => {
 		<>
 			<PageBreadcrumb title="Scrollbar" subName="Extended UI" />
 			<Row>
-				<Col xl={6}>
+				 <Col xl={6}>
 					<Card>
 						<Card.Header>
 							<h4 className="header-title">Default Scroll</h4>

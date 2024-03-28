@@ -7,7 +7,7 @@ export const options = [
 	{ value: 'OR', label: 'Oregon' },
 	{ value: 'WA', label: 'Washington' },
 	{ value: 'AZ', label: 'Arizona' },
-	{ value: 'CO', label: 'Colorado' },
+	{ value: 'CO', label: 'Colorado' }, 
 	{ value: 'ID', label: 'Idaho' },
 	{ value: 'MT', label: 'Montana' },
 	{ value: 'NE', label: 'Nebraska' },

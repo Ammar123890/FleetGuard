@@ -6,7 +6,7 @@ import {
 	Carousel as CarouselBootstrap,
 	Image,
 } from 'react-bootstrap'
-
+ 
 // component
 import { PageBreadcrumb } from '@/components'
 

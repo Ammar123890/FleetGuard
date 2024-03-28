@@ -5,7 +5,7 @@ const worldMapOpts = {
 	hoverColor: false,
 	backgroundColor: 'transparent',
 	markers: [
-		{
+		{ 
 			coords: [41.9, 12.45],
 			name: 'Vatican City',
 		},

@@ -4,7 +4,7 @@ export interface MdiIconType {
 	version: string
 	deprecated?: boolean
 }
-
+ 
 export const bootstrapIconsList = [
 	'123',
 	'alarm-fill',

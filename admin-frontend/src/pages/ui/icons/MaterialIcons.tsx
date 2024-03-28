@@ -2,7 +2,7 @@ import { Row, Col, Card } from 'react-bootstrap'
 
 // components
 import { PageBreadcrumb } from '@/components'
-
+ 
 // data
 import { materialIocons } from './data'
 import { MdiIconType } from './data'

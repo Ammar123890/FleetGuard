@@ -8,7 +8,7 @@ const XEditable = () => {
 	const save = (value: string) => {}
 	const cancel = () => {}
 
-	return (
+	return ( 
 		<>
 			<PageBreadcrumb title="Editable" subName="Forms" />
 			<Row>

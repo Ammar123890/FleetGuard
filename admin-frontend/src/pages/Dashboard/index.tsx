@@ -37,7 +37,7 @@ const Dashboard = () => {
 				<Col lg={8}>
 					<SalesChart />
 				</Col>
-				
+			 	
 			</Row>
 			<Row>
 				<Col lg={8}>

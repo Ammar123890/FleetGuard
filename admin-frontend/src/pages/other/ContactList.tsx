@@ -5,7 +5,7 @@ import {
 	Image,
 	OverlayTrigger,
 	Pagination,
-	Row,
+	Row, 
 	Tooltip,
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'

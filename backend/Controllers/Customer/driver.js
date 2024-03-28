@@ -100,7 +100,9 @@ module.exports.getAvailableDrivers = async (req, res) => {
     try {
         // Find drivers that are not booked during the given time frame
         const availableDrivers = await driverModel.find({
+            owner: { $in: req.user.user },
             bookings: {
+                
                 $not: {
                     $elemMatch: {
                         pickupDate: { $lt: parsedShipmentDeliveryDate },
@@ -174,6 +176,3 @@ module.exports.deleteDriver = async (req, res) => {
         return res.status(500).json({ errors: error });
     }
 }
-
-
-

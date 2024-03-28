@@ -4,7 +4,7 @@ import { Col, Container, Image, Row } from 'react-bootstrap'
 import { PageBreadcrumb } from '@/components'
 import { useEffect } from 'react'
 
-//images
+//images 
 import authImg from '@/assets/images/auth-img.jpg'
 import logo from '@/assets/images/logo.png'
 import logoDark from '@/assets/images/logo-dark.png'

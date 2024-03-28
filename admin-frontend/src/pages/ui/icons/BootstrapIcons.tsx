@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap'
 
 // data
 import { bootstrapIconsList } from './data'
-
+ 
 // component
 import { PageBreadcrumb } from '@/components'
 

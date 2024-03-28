@@ -1,3 +1,4 @@
+
 const truckModel = require('../../Models/Customer/truck');
 const dashcamModel = require('../../Models/Customer/dashcam');
 const shipmentModel = require('../../Models/Customer/shipment');
@@ -13,7 +14,7 @@ const { ValidateTruck } = require('../../Schemas/truck');
 module.exports.addTruck = async (req, res) => {
     const { error } = ValidateTruck(req.body);
     if (error) {
-        return res.status(400).json({ errors: error });
+        return res.status(400).json({ errors: error.message });
     }
 
     //check if truck already exists with same registration number
@@ -226,16 +227,3 @@ module.exports.assignDashcam = async (req, res) => {
         return res.status(500).json({ msg: "Server error", errors: error.message });
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

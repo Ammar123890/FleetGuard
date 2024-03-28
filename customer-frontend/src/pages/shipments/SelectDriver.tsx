@@ -14,7 +14,7 @@ interface Driver {
 const SelectDriver = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, selectedTruckId } = location.state || {};
+  const { shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, selectedTruckId, selectedTruckType } = location.state || {};
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
@@ -65,6 +65,7 @@ const SelectDriver = () => {
         shipmentDeliveryDate,
         selectedTruckId,
         selectedDriverId: selectedDriver?._id,
+        selectedTruckType,
       },
     });
   };

@@ -1,6 +1,6 @@
 import { Card, Col, Row } from 'react-bootstrap'
 
-// data
+// data 
 import {
 	worldMapOpts,
 	usaMapOpts,

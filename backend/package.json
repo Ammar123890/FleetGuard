@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
     "backend": "^0.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -26,6 +28,10 @@
     "mongoose": "^8.0.1",
     "nodemon": "^3.0.1",
     "resend": "^2.0.0",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "webpack": "^5.90.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
   }
 }

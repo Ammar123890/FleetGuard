@@ -8,7 +8,7 @@ import { CustomCardPortlet } from '@/components'
 const UsChart = () => {
 	const usChartOpts: ApexOptions = {
 		series: [44, 55, 13, 43],
-
+ 
 		chart: {
 			width: 80,
 			type: 'pie',

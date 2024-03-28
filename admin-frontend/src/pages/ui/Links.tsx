@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 // component
 import { PageBreadcrumb } from '@/components'
-
+ 
 // constants
 import { extendedColorVariants } from '@/constants/colorVariants'
 

@@ -9,8 +9,8 @@ function customerApi() {
 		},
 		//Trucks
 
-		addTruck: (truckNumber: string, make: string, year: string, registration: string, weightCapacity: number, areaCapacity: number, headers: Record<string, string>) => {
-            const values = { truckNumber, make, year, registration, weightCapacity, areaCapacity};  
+		addTruck: (truckNumber: string, make: string, year: string, registration: string, weightCapacity: number, areaCapacity: number, type: string, headers: Record<string, string>) => {
+            const values = { truckNumber, make, year, registration, weightCapacity, areaCapacity, type};  
             return HttpClient.post('/customer/truck/add', values, { headers});
         },
         getTrucks: ( headers: Record<string, string>) => {
@@ -19,8 +19,8 @@ function customerApi() {
 		getTruckById: (value: string, header: Record<string, string>) => {
 			return HttpClient.get(`/customer/truck/get/${value}`,  {headers: header });
 		  },
-		editTruck: (id: string, truckNumber: string, make: string, year: string, registration: string, weightCapacity: number, areaCapacity: number, headers: Record<string, string>) => {
-			const values = {truckNumber, make, year, registration, weightCapacity, areaCapacity};
+		editTruck: (id: string, truckNumber: string, make: string, year: string, registration: string, weightCapacity: number, areaCapacity: number, type: string, headers: Record<string, string>) => {
+			const values = {truckNumber, make, year, registration, weightCapacity, areaCapacity, type};
 			return HttpClient.put(`/customer/truck/edit/${id}`, values, { headers})
         },
 		deleteTruck: (value: string, headers: Record<string, string>) => {
@@ -44,6 +44,13 @@ function customerApi() {
         },
 		getAvailableDrivers: (shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
 			const url = `/customer/driver/available?shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
+			
+			console.log(url, headers);
+			
+			return HttpClient.get(url, { headers });
+		},
+		getAvailableTrucks: (shipmentWeight: string,shipmentArea: string,shipmentPickDate: string, shipmentDeliveryDate: string, headers: Record<string, string>) => {
+			const url = `/customer/truck/available?shipmentWeight=${shipmentWeight}&shipmentArea=${shipmentArea}&shipmentPickDate=${shipmentPickDate}&shipmentDeliveryDate=${shipmentDeliveryDate}`;
 			
 			console.log(url, headers);
 			
@@ -116,6 +123,18 @@ function customerApi() {
 		},
 		getViolationCount: (headers: Record<string, string>) => {
 			return HttpClient.get('/customer/driver/count', { headers});
+		},
+		getCostEstimation: (headers: Record<string, string>, value: string) => {
+			
+			return HttpClient.get(`/customer/cost-estimation?truckType=${value}`, { headers});
+		},
+		estimateCost: ( value: string, distance: any, headers: Record<string, string>) => {
+			
+			return HttpClient.get(`/customer/cost-estimation/estimate?truckType=${value}&distance=${distance}`, { headers});
+		},
+		updateCostEstimation: (headers: Record<string, string>, value: any, truckType: string) => {
+			
+			return HttpClient.put(`/customer/cost-estimation/${truckType}`, value, { headers});
 		}
 	}
 }

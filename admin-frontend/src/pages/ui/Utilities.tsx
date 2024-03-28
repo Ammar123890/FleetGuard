@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Col, Row } from 'react-bootstrap'
-
+ 
 // image
 import Img1 from '@/assets/images/small/small-1.jpg'
 import Img2 from '@/assets/images/small/small-2.jpg'

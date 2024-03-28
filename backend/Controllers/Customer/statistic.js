@@ -1,6 +1,10 @@
+
 const truckModel = require('../../Models/Customer/truck');
 const dashcamModel = require('../../Models/Customer/dashcam');
 const shipmentModel = require('../../Models/Customer/shipment');
+const axios = require('axios');
+const scoreModel = require('../../Models/Customer/score');
+const driverModel = require('../../Models/Customer/driver');
 
 /**
  * @description To get the statistics of the customer
@@ -27,11 +31,105 @@ module.exports.getStatistics = async (req, res) => {
             totalRevenue: totalRevenue.length > 0 ? totalRevenue[0].total : 0
         };
 
-        res.status(200).json({data: response});
+        res.status(200).json({ data: response });
     } catch (error) {
         console.error("Error fetching statistics:", error);
         res.status(500).json({ message: "Error fetching statistics." });
     }
 
-   
+
+}
+
+/**
+ * @description To get the accident prediction
+ * @route GET /api/customer/statistics/accident-prediction/:shipment_id
+ * @Link http://89.116.32.10:3000/predict
+ * @access Customer
+ * @feature1 = Driver_Age_Band       
+ * @feature2 = Time_of_day           
+ * @feature3 = Weather_Conditions    
+ * @feature4 = Speed                 
+ * @feature5 = Driving_Experience    
+ * @feature6 = Driver_Score          
+ */
+
+module.exports.getAccidentPrediction = async (req, res) => {
+    // this function will return the accident prediction of the shipment
+    try {
+        const shipment = await shipmentModel.findById(req.params.shipment_id);
+        if (!shipment) {
+            return res.status(400).json({ message: "Shipment not found." });
+        }
+
+        // get the score of the shipment
+        const score = await scoreModel.findOne({ shipment: req.params.shipment_id });
+        if (!score) {
+            return res.status(400).json({ message: "Score not found." });
+        }
+
+        // get the time of day
+        const timeOfDay = getTimeOfDay();
+        // driver  experience
+        const driver=  await driverModel.findById(shipment.driver);
+        if (!driver) {
+            return res.status(400).json({ message: "Driver not found." });
+        }
+        const driverExperience = driver.experience;
+
+
+        // call the prediction API
+
+        const response = await axios.get('http//89.116.32.10:3000/predict', {
+            body: {
+                feature1: 7,
+                feature2: timeOfDay,
+                feature3: 2,
+                feature4: 100,
+                feature5: driverExperience,
+                feature6: score.score
+            }
+        })
+
+        res.status(200).json({ data: response.data });
+    } catch (error) {
+        console.error("Error fetching accident prediction:", error);
+        res.status(500).json({ message: "Error fetching accident prediction." });
+    }
+}
+
+function getTimeOfDay() {
+    // Define the mapping
+    const timeOfDayMap = {
+        0: 'Evening', // 16:00 to 23:59
+        1: 'Morning', // 00:00 to 07:59
+        2: 'Night'    // 08:00 to 15:59
+    };
+
+    // Get the current hour
+    const currentHour = new Date().getHours();
+
+    // Determine the time of day based on the current hour
+    let timeOfDay;
+    if (currentHour >= 0 && currentHour < 8) {
+        timeOfDay = timeOfDayMap[1]; // Morning
+    } else if (currentHour >= 8 && currentHour < 16) {
+        timeOfDay = timeOfDayMap[2]; // Night
+    } else {
+        timeOfDay = timeOfDayMap[0]; // Evening
+    }
+
+    return timeOfDay;
+}
+
+async function getWeather(lat, lon) {
+    const apiKey = process.env.OPEN_WEATHER_API_KEY;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+    try {
+        const response = await axios.get(url);
+        const data = response.data;
+        return data.weather[0].main;
+    } catch (error) {
+        return error;
+    }
 }

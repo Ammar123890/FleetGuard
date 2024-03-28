@@ -50,6 +50,8 @@ const ViewShipment = React.lazy(() => import('../pages/shipments/ViewShipment'))
 const LiveTracking = React.lazy(() => import('../pages/shipments/LiveTracking'))
 const Weather = React.lazy(() => import('../pages/shipments/Weather'))
 const RoadConditions = React.lazy(() => import('../pages/shipments/RoadConditions'))
+const CostEstimate = React.lazy(() => import('../pages/shipments/CostEstimate'))
+
 
 const Purchase = React.lazy(() => import('../pages/dashcam/Purchase'))
 const GetDashcam = React.lazy(() => import('../pages/dashcam/GetDashcam'))
@@ -61,6 +63,9 @@ const SafetyCompliance = React.lazy(() => import('../pages/DriverScoreboard/Safe
 const AccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/AccidentPrediction'))
 const DeliveriesForAccidentPrediction = React.lazy(() => import('../pages/DriverScoreboard/DeliveriesForAccidentPrediction'))
 const CostEstimation = React.lazy(() => import('../pages/cost/CostEstimation'))
+const CostOverview = React.lazy(() => import('../pages/cost/CostOverview'))
+const VOC = React.lazy(() => import('../pages/cost/VOC'))
+
 
 
 // // base ui
@@ -269,6 +274,11 @@ const customPagesRoutes = {
 			element: <SelectDriver/>
 		},
 		{
+			path: '/customer/shipments/estimate-cost',
+			name: 'Estimate Cost',
+			element: <CostEstimate/>
+		},
+		{
 			path: '/customer/shipments/live-tracking',
 			name: 'Live Tracking',
 			element: <LiveTracking/>
@@ -332,6 +342,16 @@ const customPagesRoutes = {
 			path: '/customer/cost-estimation',
 			name: 'Cost Estimation',
 			element: <CostEstimation/>
+		},
+		{
+			path: '/customer/cost-overview',
+			name: 'Cost Overview',
+			element: <CostOverview/>
+		},
+		{
+			path: '/customer/cost-voc',
+			name: 'Cost voc',
+			element: <VOC/>
 		},
 		// {
 		// 	path: '/customer/scoreboard/speed/:id',

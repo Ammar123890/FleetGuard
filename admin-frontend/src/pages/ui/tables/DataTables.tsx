@@ -4,7 +4,7 @@ import { Card, Col, Row } from 'react-bootstrap'
 import { employeeRecords, expandableRecords } from './data'
 import { Column } from 'react-table'
 import { Employee } from './types'
-
+ 
 // components
 import { PageSize, Table } from '@/components'
 import { PageBreadcrumb } from '@/components'

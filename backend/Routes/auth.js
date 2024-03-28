@@ -30,4 +30,3 @@ router.get('/customer/getdetails', customerMiddleware, getCustomerDetails);
 
 
 module.exports = router;
-

@@ -18,7 +18,8 @@ function HttpClient() {
 		)
 
 	const _httpClient = axios.create({
-		baseURL: "http://localhost:5000/api",
+		baseURL: "https://fleetguard.azurewebsites.net/api",
+		// baseURL: "http://localhost:5000/api",
 		timeout: 6000,
 		withCredentials: true,
 		headers: {

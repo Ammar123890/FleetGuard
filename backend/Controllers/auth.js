@@ -8,6 +8,13 @@ const { SignupSchema, LoginSchema, CustomerSchema } = require('../Schemas/auth')
 const generateToken = require('../Utils/generateToken');
 const generateOTP = require('../Utils/generateOTP');
 const sendEmail = require('../Utils/generateMail');
+const truckCostEstimationModel = require('../Models/Customer/costEstimation');
+
+const {
+    getDefaultCostEstimation2to3Axle,
+    getDefaultCostEstimation4to5Axle,
+    getDefaultCostEstimation6Axle }
+    = require('../Utils/generateCostData');
 
 const dayjs = require('dayjs');
 const bcrypt = require('bcryptjs');
@@ -68,11 +75,35 @@ module.exports.register = async (req, res) => {
 
             // Send the OTP to the email
             await sendEmail.sendVerificationEmail(email, otp);
+
         }
 
         // Create and save the new user
         const newUser = new userModel(userObject);
         const savedUser = await newUser.save();
+
+        // Only create cost estimations if the user is a customer
+        if (req.body.userType === 'customer') {
+            // Create default cost estimations for the customer
+            const estimations = [
+                getDefaultCostEstimation2to3Axle(),
+                getDefaultCostEstimation4to5Axle(),
+                getDefaultCostEstimation6Axle()
+            ];
+
+            // Save the cost estimation documents
+            const estimationDocs = await Promise.all(estimations.map(data => new truckCostEstimationModel(data).save()));
+
+            // Push the cost estimation document ids to the customer's costEstimation array
+            await userModel.findByIdAndUpdate(savedUser._id, {
+                $push: { costEstimation: { $each: estimationDocs.map(doc => doc._id) } }
+            });
+        }
+
+
+
+
+
         res.status(200).json({
             msg: "User registered",
             id: savedUser._id,
@@ -125,7 +156,7 @@ module.exports.verifyOTP = async (req, res) => {
         await userModel.updateOne({ _id: user._id }, { verificationCode: null, otpLastSentTime: null, isVerified: true });
 
         // Generate Token
-        
+
         const token = generateToken(user._id);
         res.status(200).json({
             msg: "Account verified",
@@ -245,7 +276,7 @@ module.exports.login = async (req, res) => {
         //     httpOnly: true,
         //  //   secure: true,
         //     sameSite: "none",
-            
+
         // })
         //     .status(200)
         //     .json({
@@ -393,4 +424,3 @@ module.exports.editCustomerDetails = async (req, res) => {
         });
     }
 }
-

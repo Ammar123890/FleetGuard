@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap'
 // component
 import { PageBreadcrumb } from '@/components'
 import Spinner from '@/components/Spinner'
-
+ 
 // constants
 import { colorVariants, extendedColorVariants } from '@/constants/colorVariants'
 

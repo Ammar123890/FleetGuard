@@ -6,7 +6,7 @@ const boundariesConfig: ChartConfiguration = {
 	data: {
 		labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
 		datasets: [
-			{
+	 		{
 				label: 'Fully Rounded',
 				data: [12.5, -19.4, 14.3, -15.0, 10.8, -10.5],
 				borderColor: ['#3bc0c3', '#47ad77'],

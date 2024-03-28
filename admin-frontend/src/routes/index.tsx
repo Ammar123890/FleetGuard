@@ -3,6 +3,10 @@ import { Route, RouteProps } from 'react-router-dom'
 
 // components
 import PrivateRoute from './PrivateRoute'
+import ShipmentsRecord from '@/pages/Record.tsx/ShipmentsRecord'
+import DriversRecord from '@/pages/Record.tsx/DriversRecord'
+import CustomersRecord from '@/pages/Record.tsx/CustomersRecord'
+import StockRecord from '@/pages/Record.tsx/StockRecord'
 
 // lazy load all the views
 
@@ -165,6 +169,26 @@ const customPagesRoutes = {
 			path: '/admin/dashcam/get-sales',
 			name: 'Get Sales',
 			element: <GetSales />
+		},
+		{
+			path: '/admin/record/shipments',
+			name: 'Get Shipments',
+			element: <ShipmentsRecord />
+		},
+		{
+			path: '/admin/record/drivers',
+			name: 'Get Drivers',
+			element: <DriversRecord />
+		},
+		{
+			path: '/admin/record/customers',
+			name: 'Get Customers',
+			element: <CustomersRecord />
+		},
+		{
+			path: '/admin/record/stock',
+			name: 'Get Stock',
+			element: <StockRecord/>
 		},
 		{
 			path: '/pages/profile',

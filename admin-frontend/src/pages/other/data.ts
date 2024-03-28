@@ -10,7 +10,7 @@ import avatar10 from '@/assets/images/users/avatar-10.jpg'
 interface ContactList {
 	name: string
 	avatar: string
-}
+} 
 
 export const contactList: ContactList[] = [
 	{

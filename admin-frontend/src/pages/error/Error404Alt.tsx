@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 // components
 import { PageBreadcrumb } from '@/components'
-
+ 
 const Error404Alt = () => {
 	return (
 		<>

@@ -29,7 +29,7 @@ const AddDevice = () => {
 		  });
 		  if (res.status) {
 			reset();
-			setSuccessMessage('Device added successfully!');
+			 setSuccessMessage('Device added successfully!');
 		} else {
 		
 			setSuccessMessage(null); 

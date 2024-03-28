@@ -30,7 +30,7 @@ const UpdateDevice = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log(token)
+         console.log(token)
         console.log('s', id)
         // const i = '656300755b7623e85cc47f22'
         const res = await profileApi.getDeviceById(id!, {

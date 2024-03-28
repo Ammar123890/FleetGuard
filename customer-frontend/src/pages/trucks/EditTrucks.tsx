@@ -13,6 +13,7 @@ interface Truck {
   registration: string;
   weightCapacity: number;
   areaCapacity: number;
+  type: string;
 }
 
 const EditTrucks = () => {
@@ -53,13 +54,13 @@ const EditTrucks = () => {
   }, [id, reset]);
 
   const onSubmit = async (data: FieldValues) => {
-    const { truckNumber, make, year, registration, weightCapacity, areaCapacity } = data as Truck;
+    const { truckNumber, make, year, registration, weightCapacity, areaCapacity, type } = data as Truck;
     console.log('Form Data:', { truckNumber, make, year, registration });
     setLoading(true);
 
     try {
       const token = localStorage.getItem('token');
-      const res = await customerApi.editTruck(id!,  truckNumber, make, year, registration, weightCapacity, areaCapacity, {
+      const res = await customerApi.editTruck(id!,  truckNumber, make, year, registration, weightCapacity, areaCapacity, type, {
         Authorization: `Bearer ${token}`,
       });
 
@@ -166,6 +167,18 @@ const EditTrucks = () => {
                 errors={errors}
                 control={control}
                 defaultValue={truck?.areaCapacity}
+                readOnly
+              />
+              <FormInput
+                label="Truck Type"
+                type="text"
+                name="type"
+                containerClass="mb-3"
+                register={register}
+                key="type"
+                errors={errors}
+                control={control}
+                defaultValue={truck?.type}
                 readOnly
               />
               <Button

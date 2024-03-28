@@ -13,6 +13,7 @@ interface Truck {
   registration: string;
   weightCapacity: number;
   areaCapacity: number;
+  type: string;
 }
 
 const AddTrucks = () => {
@@ -23,7 +24,7 @@ const AddTrucks = () => {
   const { handleSubmit, register, reset, control, formState: { errors } } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
-    const { truckNumber, make, year, registration, weightCapacity, areaCapacity } = data as Truck;
+    const { truckNumber, make, year, registration, weightCapacity, areaCapacity, type } = data as Truck;
     setLoading(true);
     try {
 		const token = localStorage.getItem('token');
@@ -43,7 +44,7 @@ const AddTrucks = () => {
 
     
       // Call the customer API to add a new truck
-      const res = await customerApi.addTruck(truckNumber, make, year, registration, weightCapacity, areaCapacity, {
+      const res = await customerApi.addTruck(truckNumber, make, year, registration, weightCapacity, areaCapacity, type, {
         Authorization: `Bearer ${token}`,
       });
 
@@ -154,6 +155,18 @@ const AddTrucks = () => {
                 key="areaCapacity"
                 errors={errors}
                 control={control}
+              />
+
+              <FormInput
+                label="Truck Type"
+                type="text"
+                name="type"
+                containerClass="mb-3"
+                register={register}
+                key="type"
+                errors={errors}
+                control={control}
+                placeholder='["4-5 Axle", "6 Axle", "2-3 Axle"]'
               />
 
               <Button

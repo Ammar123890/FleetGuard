@@ -36,7 +36,19 @@ function ProfileService() {
 		},
 		deleteDevice: (value: any,  headers: Record<string, string> ) => {
 			return HttpClient.delete(`admin/dashcam/delete/${value}`,  {headers});
-		}
+		},
+		getShipments: (status:any, headers: Record<string, string>) => {
+			return HttpClient.get(`admin/shipments/get?status=${status}`,  {headers});
+		},
+		getDrivers: ( headers: Record<string, string>) => {
+            return HttpClient.get('/admin/drivers/get', { headers})
+        },
+		getCustomers: ( headers: Record<string, string>) => {
+            return HttpClient.get('/admin/customers/get', { headers})
+        },
+		getStock: ( headers: Record<string, string>) => {
+            return HttpClient.get('/admin/dashcam/get', { headers})
+        },
 	}
 }
 

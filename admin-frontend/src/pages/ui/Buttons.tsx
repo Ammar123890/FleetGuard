@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Card, Col, Dropdown, Row } from 'react-bootstrap'
 
 // component
 import { PageBreadcrumb } from '@/components'
-
+ 
 // constants
 import { extendedColorVariants } from '@/constants/colorVariants'
 

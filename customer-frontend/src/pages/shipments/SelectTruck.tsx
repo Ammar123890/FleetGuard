@@ -12,6 +12,7 @@ interface Truck {
   weightCapacity: number;
   areaCapacity: number;
   availability: boolean;
+  type: string;
 }
 
 const SelectTruck = () => {
@@ -29,9 +30,16 @@ const SelectTruck = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
 
-        const truckRes = await customerApi.getAvailableShipments(shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, {
-          Authorization: `Bearer ${token}`,
-        });
+        const truckRes = await customerApi.getAvailableTrucks(
+          shipmentWeight,
+          shipmentArea,
+          shipmentPickDate,
+          shipmentDeliveryDate,
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        );
+          console.log(truckRes)
         if (truckRes) {
           setAvailableTrucks(truckRes.data);
           setErrorMessage(null);
@@ -39,6 +47,19 @@ const SelectTruck = () => {
           setErrorMessage('Failed to fetch available trucks. Please try again.');
           setAvailableTrucks([]);
         }
+
+
+        // const truckRes = await customerApi.getAvailableShipments(shipmentWeight, shipmentArea, shipmentPickDate, shipmentDeliveryDate, {
+        //   Authorization: `Bearer ${token}`,
+        // });
+        // console.log('truckRes', truckRes)
+        // if (truckRes) {
+        //   setAvailableTrucks(truckRes.data);
+        //   setErrorMessage(null);
+        // } else {
+        //   setErrorMessage('Failed to fetch available trucks. Please try again.');
+        //   setAvailableTrucks([]);
+        // }
       } catch (error) {
         console.error('API Error:', error);
         setErrorMessage('Failed to fetch data. Please try again.');
@@ -62,6 +83,7 @@ const SelectTruck = () => {
         shipmentPickDate,
         shipmentDeliveryDate,
         selectedTruckId: selectedTruck?._id,
+        selectedTruckType: selectedTruck?.type,
       },
     });
   };

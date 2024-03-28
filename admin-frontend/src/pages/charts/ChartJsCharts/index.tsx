@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap'
 import { useEffect } from 'react'
 import Chart, { type ChartItem } from 'chart.js/auto'
 
-// data
+// data 
 import {
 	boundariesConfig,
 	datasetConfig,

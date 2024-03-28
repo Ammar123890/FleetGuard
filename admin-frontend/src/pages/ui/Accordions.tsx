@@ -2,7 +2,7 @@ import { Accordion, Card, Col, Row } from 'react-bootstrap'
 
 // Components
 import { PageBreadcrumb } from '@/components'
-
+ 
 const Accordions = () => {
 	return (
 		<>

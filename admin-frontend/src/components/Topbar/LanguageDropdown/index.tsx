@@ -8,7 +8,7 @@
 // import russiaFlag from './flags/russia.jpg'
 // import { Dropdown } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
-
+ 
 // // get the languages and flags
 // const Languages = [
 // 	{

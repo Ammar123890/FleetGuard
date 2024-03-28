@@ -3,7 +3,7 @@ import img1 from '@/assets/images/small/small-1.jpg'
 import img2 from '@/assets/images/small/small-2.jpg'
 import img3 from '@/assets/images/small/small-3.jpg'
 import img4 from '@/assets/images/small/small-4.jpg'
-
+ 
 interface ProfileActivity {
 	time: string
 	name: string
