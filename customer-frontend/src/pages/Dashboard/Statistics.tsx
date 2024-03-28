@@ -17,7 +17,7 @@ const Statistics = () => {
       try {
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        const response = await fetch('http://localhost:5000/api/customer/statistics/get', { headers });
+        const response = await fetch('https://fleetguard.azurewebsites.net/api/customer/statistics/get', { headers });
         const data = await response.json();
 
         // Update the statistics array with API data

@@ -3,6 +3,7 @@ import { Card, Col, Row, Button, ProgressBar, Table } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { customerApi } from '@/common';
+import ReactApexChart from 'react-apexcharts';
 
 const CostEstimate = () => {
     const location = useLocation();
@@ -24,11 +25,19 @@ const CostEstimate = () => {
     const [costEstimation, setCostEstimation] = useState<any | null>(null); // Define the costEstimation state
     const [errorMessage, setErrorMessage] = useState<string | null>(null); // Define the errorMessage state
 
+    const [chartData, setChartData] = useState<any>({
+        series: [],
+        labels: [],
+    });
+
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchDistanceAndCostEstimation = async () => {
             try {
                 setLoading(true);
+                console.log(loading)
+                
                 const token = localStorage.getItem('token');
         
                 const url = `https://router.project-osrm.org/route/v1/driving--hgv/${coordinatesOrigin.lng},${coordinatesOrigin.lat};${coordinatesDest.lng},${coordinatesDest.lat}?overview=full&alternatives=true`;
@@ -49,10 +58,10 @@ const CostEstimate = () => {
         
                     if (response.data) {
                         setCostEstimation(response.data);
+                        prepareChartData(response.data); // Prepare chart data when cost estimation is set
                         setErrorMessage(null);
                     } else {
                         setErrorMessage('Failed to fetch cost estimation data. Please try again.');
-                        // setCostEstimation(null);
                     }
                 } else {
                     throw new Error('Failed to calculate distance');
@@ -62,7 +71,6 @@ const CostEstimate = () => {
                 console.log(errorMessage)
                 setErrorMessage('Failed to fetch data. Please try again.');
             } finally {
-                console.log(loading)
                 setLoading(false);
             }
         };
@@ -72,6 +80,30 @@ const CostEstimate = () => {
         }
     }, [coordinatesOrigin, coordinatesDest, selectedTruckType]);
     
+    const prepareChartData = (data: any) => {
+        const pieChartData = [
+            data.labourCost,
+            data.fuelCost,
+            data.routineMaintenanceCost,
+            data.repairCost,
+            data.tireCost,
+            data.miscCost,
+        ];
+
+        const pieChartLabels = [
+            'Labour Cost',
+            'Fuel Cost',
+            'Routine Maintenance Cost',
+            'Repair Cost',
+            'Tire Cost',
+            'Miscellaneous Cost',
+        ];
+
+        setChartData({
+            series: pieChartData,
+            labels: pieChartLabels,
+        });
+    };
 
     const handleNextPage = () => {
         navigate('/customer/shipments/shipment-form', {
@@ -107,6 +139,44 @@ const CostEstimate = () => {
                             </Col>
                         )}
 </Row>
+</Card.Body>
+<Card.Body>
+                    <Row>
+                        {/* Display the pie chart */}
+                        <Col>
+                            <h5>Cost Distribution</h5>
+                            {chartData.series.length > 0 && (
+                                <ReactApexChart
+                                    options={{
+                                        labels: chartData.labels,
+                                    }}
+                                    series={chartData.series}
+                                    type="pie"
+                                    height={350}
+                                />
+                            )}
+                        </Col>
+                    </Row>
+                    
+                    <Row>
+                        {/* Display the bar chart
+                        <Col>
+                            <h5>Cost Comparison</h5>
+                            {chartData.series.length > 0 && (
+                                <ReactApexChart
+                                    options={{
+                                        xaxis: {
+                                            categories: chartData.labels,
+                                        },
+                                    }}
+                                    series={barChartData}
+                                    type="bar"
+                                    height={350}
+                                />
+                            )}
+                        </Col> */}
+                    </Row>
+                    
 <Row>
                         {/* Display the cost estimation summary */}
                         {costEstimation && (
