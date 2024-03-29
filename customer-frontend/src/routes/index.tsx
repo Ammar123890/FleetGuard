@@ -336,7 +336,9 @@ const customPagesRoutes = {
 		{
 			path: '/customer/accidentPrediction/:id',
 			name: 'Accident Prediction',
-			element: <AccidentPrediction/>
+			element: <AccidentPrediction data={{
+				prediction: []
+			}} driverAgeBand={0} timeOfDay={0} weather={0} speed={0} driverExperience={0} scoreData={0}/>
 		},
 		{
 			path: '/customer/cost-estimation',

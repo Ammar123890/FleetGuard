@@ -31,7 +31,7 @@ const LiveTracking: React.FC = () => {
   useEffect(() => {
     if (location && mapRef.current) {
       mapRef.current.setView([location.latitude, location.longitude], 13);
-      L.marker([location.latitude, location.longitude]).addTo(mapRef.current);
+      L.marker([33.6572376374813, 73.01494687228913]).addTo(mapRef.current);
 
       // Fetch location details
       reverseGeocode(location.latitude, location.longitude);
@@ -44,8 +44,10 @@ const LiveTracking: React.FC = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
+            latitude: 33.6572376374813,
+            // longitude: position.coords.longitude
+            // latitude: 'position.coords.latitude',
+            longitude: 73.01494687228913
           });
           console.log('position ', position.coords.latitude)
         },
@@ -60,7 +62,9 @@ const LiveTracking: React.FC = () => {
 
   const reverseGeocode = async (lat: number, lng: number) => {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+      // const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=33.6572376374813&lon=73.01494687228913&format=json`);
+
       const data = await response.json();
       if (data && data.display_name) {
         setLocationDetails(data.display_name);

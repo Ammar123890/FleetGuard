@@ -135,7 +135,12 @@ function customerApi() {
 		updateCostEstimation: (headers: Record<string, string>, value: any, truckType: string) => {
 			
 			return HttpClient.put(`/customer/cost-estimation/${truckType}`, value, { headers});
-		}
+		},
+		getAccidentPrediction: (headers: Record<string, string>, shipment_id: any) => {
+			
+			return HttpClient.get(`/customer/statistics/accident-prediction/${shipment_id}`,  { headers});
+		},
+
 	}
 }
 

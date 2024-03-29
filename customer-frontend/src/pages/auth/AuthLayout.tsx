@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react'
 
 //images
-import authImg from '@/assets/images/auth-img.jpg'
+import authImg from '@/assets/images/auth-img.jpg';
 import logo from '@/assets/images/logo.png'
 import logoDark from '@/assets/images/logo-dark.png'
 

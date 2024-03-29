@@ -1,52 +1,45 @@
-import { useState } from 'react'
-import { Card, Collapse } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Card, Collapse } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 interface PortletProps {
-	className?: string
-	children?: any
-	cardTitle?: string
-	titleClass?: string
+	className?: string;
+	children?: any;
+	cardTitle?: string;
+	titleClass?: string;
+	isOpen?: boolean;
 }
 
 const CustomCardPortlet = (props: PortletProps) => {
-	const children = props['children'] || null
-	const cardTitle = props['cardTitle'] || 'Card title'
+	const children = props['children'] || null;
+	const cardTitle = props['cardTitle'] || 'Card title';
 
-	const [collapse, setCollapse] = useState<boolean>(false) // Set to false for closed by default
-	const [loading, setLoading] = useState<boolean>(false)
-	const [hidden, setHidden] = useState<boolean>(false)
+	const [collapse, setCollapse] = useState<boolean>(props.isOpen || true);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [hidden, setHidden] = useState<boolean>(false);
 
-	/**
-	 * Toggle the body
-	 */
 	const toggleContent = () => {
-		setCollapse(!collapse)
-	}
+		setCollapse(!collapse);
+	};
 
-	/**
-	 * Reload the content
-	 */
 	const reloadContent = () => {
-		setLoading(true)
+		setLoading(true);
 		setTimeout(
 			() => {
-				setLoading(false)
+				setLoading(false);
 			},
 			500 + 300 * (Math.random() * 5)
-		)
-	}
+		);
+	};
 
-	/**
-	 * remove the portlet
-	 */
 	const remove = () => {
-		setHidden(true)
-	}
+		setHidden(true);
+	};
+
 	return (
 		<>
 			{!hidden ? (
-				<Card className={props.className}>
+				<Card className={`${props.className} w-100`}> {/* Added w-100 for full width */}
 					{loading && (
 						<div className="card-disabled">
 							<div className="card-portlets-loader"></div>
@@ -80,7 +73,7 @@ const CustomCardPortlet = (props: PortletProps) => {
 				</Card>
 			) : null}
 		</>
-	)
-}
+	);
+};
 
-export default CustomCardPortlet
+export default CustomCardPortlet;

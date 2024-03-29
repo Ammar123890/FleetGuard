@@ -54,7 +54,7 @@ const Dashboard = () => {
 					<ChatList messages={chatMessages} />
 				</Col> */}
 
-				<Col xl={8}>
+				<Col xl={14}>
 					<Projects />
 				</Col>
 			</Row>

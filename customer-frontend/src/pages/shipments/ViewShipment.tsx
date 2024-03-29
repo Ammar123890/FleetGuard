@@ -377,8 +377,8 @@ const ViewShipment = () => {
                           boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         }}
                         title="View Weather Conditions"
-                        onMouseOver={(e) => (e.target as HTMLElement).style.backgroundColor = '#d9d9d9'} // Change color on hover
-                        onMouseOut={(e) => (e.target as HTMLElement).style.backgroundColor = '#e6e6e6'} // Revert to original color on mouse out
+                        onMouseOver={(e: any) => (e.target as HTMLElement).style.backgroundColor = '#d9d9d9'} // Change color on hover
+                        onMouseOut={(e: any) => (e.target as HTMLElement).style.backgroundColor = '#e6e6e6'} // Revert to original color on mouse out
                       >
                         <RiSunCloudyFill size={24} /> View Weather Conditions
                       </Button>
@@ -397,8 +397,8 @@ const ViewShipment = () => {
                           boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         }}
                         title="View Weather Conditions"
-                        onMouseOver={(e) => (e.target as HTMLElement).style.backgroundColor = '#d9d9d9'} // Change color on hover
-                        onMouseOut={(e) => (e.target as HTMLElement).style.backgroundColor = '#e6e6e6'} // Revert to original color on mouse out
+                        onMouseOver={(e: any) => (e.target as HTMLElement).style.backgroundColor = '#d9d9d9'} // Change color on hover
+                        onMouseOut={(e: any) => (e.target as HTMLElement).style.backgroundColor = '#e6e6e6'} // Revert to original color on mouse out
                       > <RiRoadMapFill size={24} />View Road Conditions</Button>
             </Link>
                    
