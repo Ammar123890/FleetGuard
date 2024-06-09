@@ -18,7 +18,7 @@ const SalesChart = () => {
     try {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
-      const response = await fetch(`https://fleetguard.azurewebsites.net/api/admin/sales/get?year=${selectedFilter.year}&month=${selectedFilter.month}`, { headers });
+      const response = await fetch(`https://fleet-guard.azurewebsites.net/api/admin/sales/get?year=${selectedFilter.year}&month=${selectedFilter.month}`, { headers });
       const data = await response.json();
       console.log(data)
       setFilteredData(data.data);

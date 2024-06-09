@@ -3,6 +3,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { customerApi } from '@/common';
 import ReactApexChart from 'react-apexcharts';
+import { ApexOptions } from 'apexcharts';
 
 interface PredictionData {
   data: {
@@ -53,7 +54,7 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
   const [predictionData, setPredictionData] = useState<PredictionData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [violationsCount, setViolationsCount] = useState<Record<string, number> | null>(null); // New state for violations count
+  const [violationsCount, setViolationsCount] = useState<Record<string, number> | null>(null);
 
   useEffect(() => {
     const fetchPredictionData = async () => {
@@ -64,6 +65,7 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
         }, id);
 
         if (!response) {
+          console.log(error);
           throw new Error('Failed to fetch data');
         }
 
@@ -73,13 +75,10 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
           timeOfDay: timeOfDayMapping[response.data.timeOfDay as keyof typeof timeOfDayMapping],
           weather: weatherConditionsMapping[response.data.weather as keyof typeof weatherConditionsMapping],
         };
-        
 
-        setPredictionData(updatedData)
-        console.log(error);
+        setPredictionData(updatedData);
       } catch (error) {
-        
-        setError('Failed');
+        setError('Failed to fetch data');
       } finally {
         setLoading(false);
       }
@@ -158,9 +157,11 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
     series: [((prediction + 1) / 3) * 100],
   };
 
-  const pieChartOptions = {
+  
+  const pieChartOptions: ApexOptions = {
     labels: Object.keys(violationsCount || {}),
-    colors: ['#FF5733', '#33FF57', '#3357FF', '#57FF33', '#5733FF', '#FF3357', '#FFFF33', '#33FFFF', '#FF5733', '#FF33FF'],
+    colors: ['#EBF5FB', '#D6EAF8', '#AED6F1', '#85C1E9', '#5DADE2', 
+    '#3498DB', '#2E86C1', '#2874A6', '#21618C', '#1B4F72'],
     dataLabels: {
       enabled: true,
       style: {
@@ -168,8 +169,20 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
       },
     },
     legend: {
-      show: true,
-      position: 'bottom' as 'bottom',
+      show: false, // Hide the default legend
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: true,
+        donut: {
+          labels: {
+            show: true,
+          },
+        },
+      },
+    },
+    tooltip: {
+      theme: 'light',
     },
   };
 
@@ -195,12 +208,12 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
               The probability of an accident is {accidentProbability.toLowerCase()}.
             </p>
           </div>
-  
+
           <Row className="mb-4">
             <Col md={12}>
-              <hr></hr>
+              <hr />
               <h3 className="mb-4 text-center mt-4">Accident Prediction Details</h3>
-              <hr></hr>
+              <hr />
               <div className="detail-section">
                 <Row className="mb-3">
                   <Col md={4}>
@@ -233,28 +246,42 @@ const AccidentPrediction: React.FC<PredictionData> = ({ data }) => {
               </div>
             </Col>
           </Row>
-  
-          <Row className="mb-4">
-            <Col md={14}>
-              <hr></hr>
-              <h3 className=" text-center mt-4">Violations Count</h3>
-              <hr></hr>
-              <div className="d-flex justify-content-center align-items-center" style={{ height: '600px' }}>
+
+          <Row className="align-items-center">
+          <hr />
+              <h3 className="text-center">Violations Count</h3>
+              <hr />
+            <Col md={8}>
+              <div className="d-flex justify-content-center" style={{ height: '300px', width: '100%' }}>
                 <ReactApexChart
                   options={pieChartOptions}
                   series={pieChartData}
                   type="pie"
-                  height={600}
-                 
+                  height={300}
+                  className="apex-charts"
                 />
               </div>
             </Col>
+            <Col md={4}>
+              
+              <div className="legend-box p-3" style={{ border: '1px solid #ccc', borderRadius: '5px' }}>
+                {/* <h5 className="text-center">Legend</h5> */}
+                <ul style={{ listStyleType: 'none', padding: 0 }}>
+    {pieChartOptions.labels && pieChartOptions.labels.map((label, index) => (
+        <li key={index} style={{ color: pieChartOptions.colors?.[index] ?? 'black', marginBottom: '0.5em', lineHeight: '1.5' }}>
+            <span style={{ display: 'inline-block', width: '1em', height: '1em', backgroundColor: pieChartOptions.colors?.[index] ?? 'black', borderRadius: '50%', marginRight: '0.5em' }}></span>
+            <span style={{color: 'gray', fontSize: '1.2em'}}>{label}: {pieChartData[index]}</span>
+        </li>
+    ))}
+</ul>
+
+              </div>
+            </Col>
           </Row>
-  
         </Card.Body>
       </Card>
     </div>
   );
 };
 
-export default AccidentPrediction;
+export default AccidentPrediction

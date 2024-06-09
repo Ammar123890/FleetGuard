@@ -253,43 +253,78 @@ const CostOverview = () => {
         <>
         {/* Pie Chart */}
         <Form.Select className='mb-2 mt-2' value={truckType} onChange={handleTruckTypeChange}>
-                            <option value="2-3 Axle">2-3 Axle</option>
-                            <option value="4-5 Axle">4-5 Axle</option>
-                            <option value="6 Axle">6 Axle</option>
-                        </Form.Select>
-        <Row className="mb-4">
-            
-            <Col>
-            
-                <Card>
-                    
-                    <Card.Body>
-                        <h4 className="header-title">Percentage Contribution of VOC Components</h4>
-                        
-                        {pieChartData.length > 0 && (
-                            <ReactApexChart
-                                options={{
-                                    labels: [
-                                        'Labour Cost',
-                                        'Fuel Cost',
-                                        'Routine Maintenance Cost',
-                                        'Tire Cost Per Km',
-                                        'Repair Cost Per Km',
-                                        'Misc Cost Per Km',
-                                        'VOC Per Km',
-                                    ],
-                                    colors: ['#5DADE2', '#F4D03F', '#3357FF', '#AEB6BF', '#EC7063', '#008080', '#E74C3C'],
-                                }}
-                                series={pieChartData}
-                                type="pie"
-                                height={350}
-                                className="apex-charts"
-                            />
-                        )}
-                    </Card.Body>
-                </Card>
-            </Col>
-        </Row>
+    <option value="2-3 Axle">2-3 Axle</option>
+    <option value="4-5 Axle">4-5 Axle</option>
+    <option value="6 Axle">6 Axle</option>
+</Form.Select>
+<Row className="mb-4">
+    <Col>
+        <Card>
+            <Card.Body>
+                <h4 className="header-title">Percentage Contribution of VOC Components</h4>
+                {pieChartData.length > 0 && (
+                    <ReactApexChart
+                        options={{
+                            labels: [
+                                'Labour Cost',
+                                'Fuel Cost',
+                                'Routine Maintenance Cost',
+                                'Tire Cost Per Km',
+                                'Repair Cost Per Km',
+                                'Misc Cost Per Km',
+                                'VOC Per Km',
+                            ],
+                            colors: [ '#85C1E9', '#5DADE2', 
+                            '#3498DB', '#2E86C1', '#2874A6', '#21618C', '#1B4F72'],
+                            chart: {
+                                background: '#f9f9f9',
+                            },
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    colors: ['#333'],
+                                    useSeriesColors: false,
+                                    // formatter: (label: string, opts: any) => `${label}: ${opts.w.globals.series[opts.seriesIndex]}%`,
+                                },
+                            },
+                            
+                            dataLabels: {
+                                style: {
+                                    fontSize: '14px',
+                                    colors: ['#fff'],
+                                },
+                                dropShadow: {
+                                    enabled: false,
+                                },
+                                formatter: function(val: number) {
+                                    return `${(val as number).toFixed(1)}%`;
+                                },
+                                
+                            },
+                            tooltip: {
+                                theme: 'light',
+                            },
+                            plotOptions: {
+                                pie: {
+                                    dataLabels: {
+                                        offset: -10,
+                                        minAngleToShowLabel: 10,
+                                    },
+                                    expandOnClick: true,
+                                },
+                            },
+                        }}
+                        series={pieChartData}
+                        type="pie"
+                        height={350}
+                        className="apex-charts"
+                    />
+                )}
+            </Card.Body>
+        </Card>
+    </Col>
+</Row>
+
 
         {/* Bar Chart */}
         <Row>
